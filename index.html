@@ -1530,4 +1530,59 @@ window.sendNudge=async function(){
 };
 })();
 </script>
+<script>
+(function(){
+const R={en:{},he:{}},st={t:[],c:'',l:(typeof S!=='undefined'&&S.lang==='he')?'he':'en',msgs:{},ok:{}};
+const LN=l=>l==='he'?'עברית 🇮🇱':'English 🇬🇧';
+function rm(l){const r=R[l];if(!r.d){const m=l==='he'?HE:EN;for(const k in m)r[m[k]]=k;for(const k in NUM)r[NUM[k]]=k;r.d=1}return r}
+const dec=(m,l)=>m.split(' ').filter(Boolean).map(x=>x==='/'?' ':(rm(l)[x]||'?')).join('');
+const vis=m=>String(m).replace(/\./g,'·').replace(/-/g,'−');
+const pl=m=>{try{play(m.split(' ').filter(Boolean).map(x=>x==='/'?' ':x),lcb)}catch(e){}};
+const flush=()=>{if(st.c){st.t.push(st.c);st.c=''}};
+function draw(){
+  const el=document.getElementById('mchat');if(!el||!FZ||!FZ.uid||!window.FBU)return;
+  const me=FBU,pe=FZ.uid,he=S.lang==='he';
+  const L=Object.entries(st.msgs).map(([id,d])=>Object.assign({id},d)).filter(d=>(d.from===me&&d.to===pe)||(d.from===pe&&d.to===me)).sort((a,b)=>b.ts-a.ts).slice(0,30);
+  const prev=dec(st.t.join(' '),st.l)+(st.c?(rm(st.l)[st.c]||'?'):'');
+  const b=(k,x,c)=>`<button class="btn ${c||'g'}" data-k="${k}" style="padding:12px 4px">${x}</button>`;
+  el.innerHTML=`<h3>💬 ${X('Morse chat with','צ׳אט מורס עם')} ${esc(FZ.nm)}</h3>
+  <p class="mut" style="font-size:13px;margin:4px 0">${X('Sending in:','שולח ב:')}</p>
+  <div class="two">${b('l:en','English 🇬🇧',st.l==='en'?'':'g')}${b('l:he','עברית 🇮🇱',st.l==='he'?'':'g')}</div>
+  <div class="pat" style="margin:10px 0;min-height:36px;font-size:26px;text-align:center;letter-spacing:4px">${vis(st.t.join('  ')+(st.c?'  '+st.c:''))||'<span class="mut" style="font-size:14px">'+X('Tap dots and dashes','הקישו נקודות וקווים')+'</span>'}</div>
+  <p class="mut c" dir="auto" style="min-height:20px;margin:0 0 8px">${esc(prev)}</p>
+  <div class="two">${b('d','·  '+X('dot','נקודה'),'')}${b('h','−  '+X('dash','קו'),'')}</div>
+  <div class="two">${b('g',X('Next letter','אות הבאה'))}${b('w',X('Space','רווח'))}${b('b','⌫')}</div>
+  <div class="two">${b('p','▶ '+X('Play','נגן'))}${b('s','📨 '+X('Send','שלח'))}</div>
+  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id];return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(FZ.nm)} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm">${esc(vis(d.m))}</div>${sh?`<div class="tx" dir="auto">${esc(dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח'))}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
+}
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('#mchat [data-k]');if(!b)return;const k=b.dataset.k;
+  if(k==='d'){st.c+='.';pl(st.c)}else if(k==='h'){st.c+='-';pl(st.c)}
+  else if(k==='g')flush();
+  else if(k==='w'){flush();if(st.t.length&&st.t[st.t.length-1]!=='/')st.t.push('/')}
+  else if(k==='b'){if(st.c)st.c=st.c.slice(0,-1);else st.t.pop()}
+  else if(k==='p'){flush();pl(st.t.join(' '))}
+  else if(k[0]==='l'&&k[1]===':')st.l=k.slice(2);
+  else if(k[0]==='c'&&k[1]===':')st.ok[k.slice(2)]=1;
+  else if(k[0]==='m'&&k[1]===':'){const d=st.msgs[k.slice(2)];if(d)pl(d.m)}
+  else if(k==='s'){
+    flush();while(st.t.length&&st.t[st.t.length-1]==='/')st.t.pop();
+    if(!st.t.length||!window.FBU||!FZ.uid)return;
+    const m=st.t.join(' ').slice(0,400);
+    try{await firebase.firestore().collection('mc').add({from:FBU,to:FZ.uid,m,l:st.l,ts:Date.now()});st.t=[];toast('📨 '+X('Sent','נשלח'))}
+    catch(err){toast('⚠️ '+X('Could not send','השליחה נכשלה'))}
+  }
+  draw();
+});
+const v0=vFx;vFx=function(){v0();if(FZ&&FZ.uid){const w=A.querySelector('.wrap');if(w){w.insertAdjacentHTML('beforeend','<div class="card" id="mchat" style="margin-top:12px"></div>');draw()}}};
+const iv=setInterval(()=>{
+  if(!window.FBU||!window.firebase)return;clearInterval(iv);
+  const db=firebase.firestore(),first={to:1,from:1};
+  ['to','from'].forEach(f=>db.collection('mc').where(f,'==',FBU).onSnapshot(s=>{
+    s.docChanges().forEach(c=>{if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;
+      if(f==='to'&&!first.to){toast('💬 '+(FZ&&FZ.uid===d.from?FZ.nm:X('Friend','חבר'))+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
+    first[f]=0;draw()},()=>{}));
+},500);
+})();
+</script>
 </body></html>
