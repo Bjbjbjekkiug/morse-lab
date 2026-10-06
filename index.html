@@ -289,7 +289,7 @@ async function list(){
   const el=$('#msgs');if(tab!=='chat'||!el)return;
   const ps=USER?await USER.profiles([...new Set(MSG.map(m=>m.u).filter(Boolean))]):{};
   el.innerHTML=MSG.length?MSG.map(m=>{const p=ps[m.u]||{},me=m.u&&m.u===ME,t=norm(m.t||''),sh=me||REV[m.id];
-    return `<div class="msg${me?' me':''}"><div class="who"><i style="background:${esc(p.color||'var(--ac)')}"></i>${me?'You':esc(p.name||'Friend')}<span class="mut">${esc(new Date(m.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm">${esc(mtxt(t))}</div>${sh?`<div class="tx" dir="auto">${esc(dsp(m))}</div>`:''}<div class="two"><button class="btn g" data-a="cp" data-i="${esc(m.id)}">▶ Play</button>${sh?'':`<button class="btn g" data-a="cr" data-i="${esc(m.id)}">Decode</button>`}</div></div>`}).join(''):'<p class="mut c">No messages yet. Send the first one.</p>';
+    return `<div class="msg${me?' me':''}"><div class="who"><i style="background:${esc(p.color||'var(--ac)')}"></i>${me?'You':esc(p.name||'Friend')}<span class="mut">${esc(new Date(m.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm">${esc(mtxt(t))}</div>${sh?`<div class="tx" dir="auto">${esc(dsp(m))}</div>`:''}<div class="two"><button class="btn g" data-a="cp" data-i="${esc(m.id)}">▶ Play</button>${sh?'':`<button class="btn g" data-a="cr" data-i="${esc(m.id)}">${X('Decode','פענוח')} 🪙${DEC_COST}</button>`}</div></div>`}).join(''):'<p class="mut c">No messages yet. Send the first one.</p>';
 }
 async function send(){
   const i=$('#ct'),t=i&&norm(i.value),raw=i?i.value.trim().slice(0,120):'';if(!t||!DB||!ME)return;
@@ -303,7 +303,7 @@ const fin=t=>String(t).replace(/[כמנפצ](?=\s|$)/g,c=>({'כ':'ך','מ':'ם',
 const FM={'כ':'ך','מ':'ם','נ':'ן','פ':'ף','צ':'ץ'},dsp=m=>m.d&&norm(m.d)===norm(m.t||'')?String(m.d):fin(norm(m.t||''));
 const rev=()=>{const r={};for(const[k,v]of Object.entries(MAP()))r[v]=k;for(const[k,v]of Object.entries(NUM))r[v]=k;return r};
 const mflush=()=>{if(MB.c){MB.t.push(MB.c);MB.c=''}};
-const mtext=()=>{const r=rev();return MB.t.map((x,i)=>{let c=x===' '?' ':(r[x]||'?');if(x!==' '&&MB.t[i+1]===' ')c=FM[c]||c;return c}).join('').replace(/\s+/g,' ').trim()};
+const mtext=()=>{const r=rev();return MB.t.map((x,i)=>{let c=x===' '?' ':(r[x]||'?');if(x!==' '&&(MB.t[i+1]===' '||(i===MB.t.length-1&&!MB.c)))c=FM[c]||c;return c}).join('').replace(/\s+/g,' ').trim()};
 const cseg=()=>`<div class="seg" style="margin-bottom:12px"><button class="${CM==='ai'?'on':''}" data-a="cm" data-i="ai">${X('Chat','צ׳אט')}</button><button class="${CM==='fx'?'on':''}" data-a="cm" data-i="fx">${X('Friend','חבר')}</button></div>`;
 let FZ=LS.get('ml_fx',null),FZG=null,FZN='',FZC='';
 function fxAv(a){const m=/src="(data:image\/(?:png|jpeg|gif|webp);base64,[A-Za-z0-9+\/=]+)"/.exec(a||'');return m?`<img alt="" src="${m[1]}" style="width:1.5em;height:1.5em;border-radius:50%;background:#fff;image-rendering:pixelated;vertical-align:middle">`:esc(a||'')}
@@ -312,25 +312,31 @@ function vFx(){const td=dk(new Date()),can=P.nd!==td,f=FZ,box='width:100%;box-si
   A.innerHTML=`<div class="wrap">${cseg()}<div class="card"><h3>${X('My name','השם שלי')}</h3><div class="cmp"><input id="fxn" dir="auto" maxlength="12" value="${esc(P.nm||'')}" placeholder="${X('Choose a name','בחר שם')}"${can?'':' disabled'}><button class="btn" data-a="fxn"${can?'':' disabled'}>${X('Save','שמור')}</button></div><p class="mut" style="font-size:13px">${can?X('You can change your name once a day.','אפשר לשנות שם פעם ביום.'):X('Name locked until tomorrow.','השם נעול עד מחר.')}</p><div class="two"><button class="btn g" data-a="fxc">${X('Copy my share code','העתק קוד לשיתוף')}</button></div><p class="mut" style="font-size:13px">${X('Share code only shows your profile. It cannot restore or open your account.','קוד השיתוף מציג רק את הפרופיל. אי אפשר איתו לשחזר או לפתוח את החשבון.')}</p>${FZC?`<textarea id="fxs" readonly rows="3" style="${box}">${FZC}</textarea><p class="mut" style="font-size:13px">${X('Auto-copy is blocked here. Long-press the code and tap Copy.','ההעתקה האוטומטית חסומה. לחץ לחיצה ארוכה על הקוד ובחר העתק.')}</p>`:''}</div>
 <div class="card" style="margin-top:12px"><h3>${X("Friend's code",'הקוד של חבר')}</h3><textarea id="fxi" rows="3" style="${box}" placeholder="${X('Paste his code here','הדבק כאן את הקוד שלו')}"></textarea><div class="two"><button class="btn" data-a="fxg">${X('Show profile','הצג פרופיל')}</button></div>
 ${f?`<div style="margin-top:12px"><h2 style="margin:0">${fxAv(f.av)} ${esc(f.nm)}</h2><p class="mut" style="margin:6px 0">${X('Level','רמה')} ${LV(f.xp)} · ${f.xp} XP · 🔥 ${f.sk}</p><p style="margin:6px 0">👻 <b>${X('Ghost score','ניקוד רוח')}: ${f.gh.length}</b> · ${X('Best race','שיא מרוץ')}: ${f.rb}</p><p class="mut" style="margin:6px 0">${X('Accuracy','דיוק')}: ${f.n?Math.round(100*f.ok/f.n):0}%</p><div class="two"><button class="btn" data-a="fxr"${f.gh.length?'':' disabled'}>🏁 ${X('Race his ghost','התחרה ברוח שלו')}</button><button class="btn" data-a="fxnd"${f.uid?'':' disabled'}>👋 ${X('Nudge','דחיפה')}</button></div>${f.uid?'':`<p class="mut" style="font-size:13px">${X('Ask him to copy a new share code to enable Nudge.','בקש ממנו להעתיק קוד חדש כדי לאפשר דחיפה.')}</p>`}</div>`:''}</div></div>`}
+const mchp=()=>{const r=rev(),vs=t=>String(t).replace(/\./g,'·').replace(/-/g,'−');let h=MB.t.map((x,i)=>x===' '?`<span class="chp sp">␣<small>${X('space','רווח')}</small></span>`:`<span class="chp">${vs(x)}<small>${esc((MB.t[i+1]===' '||(i===MB.t.length-1&&!MB.c))?(FM[r[x]]||r[x]||'?'):(r[x]||'?'))}</small></span>`).join('');if(MB.c)h+=`<span class="chp lv">${vs(MB.c)}<small>…</small></span>`;return h};
+const mcSum=()=>{const u=window.mcUnread?mcUnread():[],n=u.reduce((a,x)=>a+x.n,0),he=S.lang==='he';return{n,txt:n?(he?(n===1?'הודעה חדשה אחת':n+' הודעות חדשות')+': '+u.map(x=>(x.n===1?'אחת':x.n)+' מ-'+x.nm).join(', '):n+' new message'+(n>1?'s':'')+': '+u.map(x=>x.n+' from '+x.nm).join(', ')):''}};
+const mcBanner=()=>{const mc=mcSum();return mc.n?`<div class="note">📬 ${esc(mc.txt)} <button class="btn" data-a="cm" data-i="fx" style="padding:6px 12px;margin-inline-start:8px">${X('Open','פתח')}</button></div>`:`<p class="mut c" style="font-size:13px;margin:0 0 12px">${X('No new messages','אין הודעות חדשות')}</p>`};
 function vAI(){
   const he=S.lang==='he',txt=mtext(),pend=MB.c;
-  const msgs=AIH.map((m,i)=>[m,i]).reverse().map(([m,i])=>{const me=m.r==='me',sh=me||REVA[i];return `<div class="msg${me?' me':''}"><div class="who"><i style="background:${me?'var(--ac2)':'var(--ac)'}"></i>${me?'You':(SM?'Claude':'Morse Bot')}</div><div class="mm">${esc(mtxt(m.t))}</div>${sh?`<div class="tx" dir="auto">${esc(m.d||fin(m.t))}</div>`:''}<div class="two"><button class="btn g" data-a="ap" data-i="${i}">▶ Play</button>${sh?'':`<button class="btn g" data-a="ar" data-i="${i}">Decode</button>`}</div></div>`}).join('');
-  A.innerHTML=`<div class="wrap">${cseg()}${AIE?`<div class="note">${esc(AIE)}</div>`:''}<div class="card"><div class="seg" style="margin-bottom:12px"><button class="${he?'':'on'}" data-a="cl" data-i="en">English</button><button class="${he?'on':''}" data-a="cl" data-i="he">עברית</button></div>
-<div class="out" dir="auto" style="min-height:40px">${txt?esc(txt):'<span class="mut" style="font-size:16px">Tap dots and dashes</span>'}</div><div class="pat">${pend?mh(pend,'big'):''}</div>
-<div class="pads"><button class="pad" data-a="md" aria-label="Dot"><i style="width:16px"></i></button><button class="pad" data-a="ml" aria-label="Dash"><i style="width:56px"></i></button></div>
-<div class="two"><button class="btn g" data-a="mg">Next letter</button><button class="btn g" data-a="mw">Space</button><button class="btn g" data-a="mb" aria-label="Undo">⌫</button></div>
-<div class="two"><button class="btn" data-a="ms"${AIB?' disabled':''}>${AIB?'Claude is replying…':'Send'}</button></div></div>
-<div class="card" style="margin-top:12px">${msgs||'<p class="mut c" style="margin:0">Send your first message in Morse.</p>'}</div></div>`;
+  const msgs=AIH.map((m,i)=>[m,i]).reverse().map(([m,i])=>{const me=m.r==='me',sh=me||REVA[i];return `<div class="msg${me?' me':''}"><div class="who"><i style="background:${me?'var(--ac2)':'var(--ac)'}"></i>${me?X('You','אתה'):(SM?'Claude':X('Morse Bot','בוט מורס'))}</div><div class="mm">${esc(mtxt(m.t))}</div>${sh?`<div class="tx" dir="auto">${esc(m.d||fin(m.t))}</div>`:''}<div class="two"><button class="btn g" data-a="ap" data-i="${i}">▶ ${X('Play','נגן')}</button>${sh?'':`<button class="btn g" data-a="ar" data-i="${i}">${X('Decode','פענוח')} 🪙${DEC_COST}</button>`}</div></div>`}).join('');
+  A.innerHTML=`<div class="wrap">${cseg()}${mcBanner()}${AIE?`<div class="note">${esc(AIE)}</div>`:''}<div class="card"><div class="seg" style="margin-bottom:12px"><button class="${he?'':'on'}" data-a="cl" data-i="en">English</button><button class="${he?'on':''}" data-a="cl" data-i="he">עברית</button></div>
+<p class="mut" style="font-size:13px;margin:-4px 4px 10px">${X('Language (changes the whole page):','שפה (משנה את כל הדף):')}</p>
+<div class="chw" dir="ltr" style="min-height:64px;margin:4px 0 8px">${(MB.t.length||MB.c)?mchp():'<span class="mut" style="font-size:16px">'+X('Tap dots and dashes','הקש נקודות וקווים')+'</span>'}</div>
+<div class="out" dir="auto" style="min-height:34px;margin:6px 0">${esc(txt)}</div><div class="pat">${pend?mh(pend,'big'):''}</div>
+<div class="pads"><button class="pad" data-a="md" aria-label="${X('Dot','נקודה')}"><i style="width:16px"></i></button><button class="pad" data-a="ml" aria-label="${X('Dash','קו')}"><i style="width:56px"></i></button></div>
+<div class="two"><button class="btn g" data-a="mg">${X('Next letter','אות הבאה')}</button><button class="btn g" data-a="mw">${X('Space','רווח')}</button><button class="btn g" data-a="mb" aria-label="${X('Undo','ביטול')}">⌫</button></div>
+<div class="two"><button class="btn" data-a="ms"${AIB?' disabled':''}>${AIB?X('Claude is replying…','Claude עונה…'):X('Send','שלח')}</button></div></div>
+<div class="card" style="margin-top:12px">${msgs||'<p class="mut c" style="margin:0">'+X('Send your first message in Morse.','שלח את ההודעה הראשונה שלך במורס.')+'</p>'}</div></div>`;
 }
 async function aiSend(){
   if(AIB)return;mflush();const t=norm(mtext().replace(/\?/g,''));if(!t)return vChat();
-  if(CCODES[S.lang==='he'?'he':'en']&&Object.keys(CCODES[S.lang==='he'?'he':'en']).some(k=>norm(k)===t)){const dd=mtext().replace(/\?/g,'').replace(/\s+/g,' ').trim().slice(0,120);AIH.push({r:'me',t,d:dd});MB={t:[],c:''};AIE='';if(codeTry(t))return}
+  if((S.lang==='he'?(/הודע/.test(t)&&/חדש|יש|קיבל/.test(t)):(/\b(ANY|NEW|GOT|HAVE)\b.*MESSAGE|MESSAGES? FOR ME/.test(t)))){const mc=mcSum(),a=mc.n?X('YOU HAVE NEW MESSAGES','יש לך הודעות חדשות'):X('NO NEW MESSAGES','אין הודעות חדשות');AIH.push({r:'me',t,d:mtext().replace(/\?/g,'').replace(/\s+/g,' ').trim().slice(0,120),code:1});MB={t:[],c:''};AIE='';AIH.push({r:'ai',t:norm(a),d:mc.n?mc.txt:X('No new messages.','אין הודעות חדשות.'),code:1});vChat();play(encAny(norm(a)),lcb);return}
+  if(CCODES[S.lang==='he'?'he':'en']&&Object.keys(CCODES[S.lang==='he'?'he':'en']).some(k=>norm(k)===t)){const dd=mtext().replace(/\?/g,'').replace(/\s+/g,' ').trim().slice(0,120);AIH.push({r:'me',t,d:dd,code:1});MB={t:[],c:''};AIE='';if(codeTry(t))return}
   
-  const he=S.lang==='he',h=AIH.slice(-8).map(m=>(m.r==='me'?'User: ':'You: ')+m.t).join('\n');
+  const he=S.lang==='he',h=AIH.filter(m=>!m.code).slice(-8).map(m=>(m.r==='me'?'User: ':'You: ')+m.t).join('\n');
   AIH.push({r:'me',t,d:mtext().replace(/\?/g,'').replace(/\s+/g,' ').trim().slice(0,120)});MB={t:[],c:''};AIB=1;AIE='';vChat();let a='';
-  try{if(!SM){await new Promise(r=>setTimeout(r,600));a=botReply(t)}else{const r=await SM(`You are a friendly chat partner. The user writes to you in Morse code, already decoded into the text below, so it may contain small decoding mistakes: guess what they meant. Reply in ${he?'Hebrew':'English'}, at most 12 words and under 90 characters, using only ${he?'Hebrew letters':'plain English letters'} and single spaces (no digits, punctuation, emoji or diacritics). Output only the reply.\n\nConversation so far:\n${h}\nUser: ${t}\nYou:`,{cache:false});a=norm(r.text)}}
-  catch(e){AIE=e&&e.code==='not_granted'?'Permission to ask Claude was declined.':e&&e.code==='rate_limited'?'Too many requests. Wait a moment and try again.':'Claude could not reply. Try again.'}
-  AIB=0;if(a)AIH.push({r:'ai',t:a});else if(!AIE)AIE='Claude could not reply. Try again.';
+  try{if(!SM){await new Promise(r=>setTimeout(r,600));a=botReply(t)}else{const r=await SM(`You are a real, friendly AI chat partner who answers like a normal helpful AI: respond directly to what the user actually said or asked, stay on topic, and be warm and natural. The user writes to you in Morse code, already decoded into the text below, so it may contain small decoding mistakes: guess what they meant. Never mention codes, secrets or rewards. Reply in ${he?'Hebrew':'English'}, at most 15 words and under 100 characters, using only ${he?'Hebrew letters':'plain English letters'} and single spaces (no digits, punctuation, emoji or diacritics). Output only the reply.\n\nConversation so far:\n${h}\nUser: ${t}\nYou:`,{cache:false});a=norm(r.text)}}
+  catch(e){AIE=e&&e.code==='not_granted'?X('Permission to ask Claude was declined.','ההרשאה לשאול את Claude נדחתה.'):e&&e.code==='rate_limited'?X('Too many requests. Wait a moment and try again.','יותר מדי בקשות. המתן רגע ונסה שוב.'):X('Claude could not reply. Try again.','Claude לא הצליח לענות. נסה שוב.')}
+  AIB=0;if(a)AIH.push({r:'ai',t:a});else if(!AIE)AIE=X('Claude could not reply. Try again.','Claude לא הצליח לענות. נסה שוב.');
   vChat();if(a)play(encAny(a),lcb);
 }
 /* Hebrew UI */
@@ -495,7 +501,7 @@ function evh(){const b=[];if(wk())b.push('🎉 '+X('Weekend Boost: +50% XP','ב�
 function qh(){const q=dqs();return `<div class="card" style="margin-bottom:12px"><b>📋 ${X('Daily Quests','משימות יומיות')}</b>${QS.map(k=>`<div class="row2" style="margin-top:8px"><span dir="auto">${q.x[k[0]]?'✅':'⬜'} ${X(k[2],k[3])}</span><span class="mut">${Math.min(q[k[0]]||0,k[1])}/${k[1]} · +${k[4]}</span></div>`).join('')}</div>`}
 function vPass(){const l=LV(P.xp),rw=n=>{const o=[],t=TH.find(x=>x[1]===n&&n>1);if(n%2===0&&AV[n/2])o.push(AV[n/2]);if(n%5===0)o.push('⚡ '+X('Booster','בוסטר'));if(window.PIT&&PIT[n-1])o.push(PIT[n-1]);return o.join(' · ')||'+XP ✨'};
   A.innerHTML=`<div class="wrap"><button class="btn g" data-a="back">← ${X('Back','חזרה')}</button><h3>🏆 ${X('Season 1 Pass','פאס עונה 1')} · ${X('Level','רמה')} ${l}</h3><div class="card">${[...Array(30)].map((_,i)=>{const n=i+1,u=l>=n;return `<div class="row" style="opacity:${u?1:.5}"><b style="width:34px">${n}</b><span style="flex:1" dir="auto">${rw(n)}</span><span>${u?'✅':'🔒'}</span></div>`}).join('')}</div></div>`}
-const BOT={en:[[/HELLO|HI |HEY/,'HELLO FRIEND'],[/SOS|HELP/,'STAY CALM HELP IS COMING'],[/NAME/,'I AM MORSE BOT'],[/HOW ARE YOU/,'I AM FINE'],[/THANK/,'YOU ARE WELCOME'],[/LOVE/,'LOVE RECEIVED']],he:[[/שלומ|היי|הי/,'שלום חבר'],[/עזרה|הצילו/,'תירגע עזרה בדרך'],[/שמ/,'אני בוט מורס'],[/תודה/,'בכיף'],[/אהב/,'אהבה התקבלה']]},BD={en:['NICE ONE','KEEP GOING','GOOD SIGNAL','I READ YOU LOUD AND CLEAR','TRY ANOTHER WORD'],he:['יפה מאוד','תמשיך כך','אות טוב','קלטתי אותך חזק וברור','נסה מילה אחרת']};
+const BOT={en:[[/HOW ARE YOU|WHATS UP/,'I AM GOOD HOW ARE YOU'],[/WHO ARE YOU|WHAT ARE YOU/,'I AM A MORSE CHAT BOT'],[/MORSE/,'MORSE IS DOTS AND DASHES'],[/BYE|GOODBYE/,'SEE YOU SOON'],[/HELLO|HI |HEY/,'HELLO FRIEND'],[/SOS|HELP/,'STAY CALM HELP IS COMING'],[/NAME/,'I AM MORSE BOT'],[/HOW ARE YOU/,'I AM FINE'],[/THANK/,'YOU ARE WELCOME'],[/LOVE/,'LOVE RECEIVED']],he:[[/מה נשמע|מה שלומ/,'אני בסדר ואתה'],[/מי אתה|מה אתה/,'אני בוט מורס'],[/מורס/,'מורס זה נקודות וקווים'],[/ביי|להתראות/,'להתראות'],[/שלומ|היי|הי/,'שלום חבר'],[/עזרה|הצילו/,'תירגע עזרה בדרך'],[/שמ/,'אני בוט מורס'],[/תודה/,'בכיף'],[/אהב/,'אהבה התקבלה']]},BD={en:['NICE ONE','KEEP GOING','GOOD SIGNAL','I READ YOU LOUD AND CLEAR','TRY ANOTHER WORD'],he:['יפה מאוד','תמשיך כך','אות טוב','קלטתי אותך חזק וברור','נסה מילה אחרת']};
 function botReply(t){const l=S.lang==='he'?'he':'en',h=BOT[l].find(x=>x[0].test(t+' '));return norm(h?h[1]:rnd(BD[l]))}
 (async()=>{try{const u=await claude.use('user'),d=await claude.use('db');if(!u||!d)return;const id=await u.id(),ref=d.collection('data/users/'+id).doc('progress'),sn=await ref.get(),r=sn.exists?sn.data():null;
   adopt(r);P.stx=ST;save();CL=ref;if(tab==='set')vSet()}catch(e){}})();
@@ -746,14 +752,14 @@ document.addEventListener('click',e=>{
     case'cl':lgSw(b.dataset.i);sel=null;Q.c=null;Z.a=null;save();lg();stop();return vChat();
     case'md':MB.c+='.';play(['.'],lcb);return vChat();
     case'ml':MB.c+='-';play(['-'],lcb);return vChat();
-    case'mg':mflush();return vChat();
-    case'mw':mflush();if(MB.t.length&&MB.t[MB.t.length-1]!==' ')MB.t.push(' ');return vChat();
+    case'mg':mflush();try{navigator.vibrate(25)}catch(e){}return vChat();
+    case'mw':mflush();try{navigator.vibrate([20,40,20])}catch(e){}if(MB.t.length&&MB.t[MB.t.length-1]!==' ')MB.t.push(' ');return vChat();
     case'mb':MB.c?MB.c=MB.c.slice(0,-1):MB.t.pop();return vChat();
     case'ms':return aiSend();
     case'ap':{const m=AIH[+b.dataset.i];return m&&play(encAny(m.t),lcb)}
-    case'ar':REVA[b.dataset.i]=1;return vChat();
+    case'ar':if(!REVA[b.dataset.i]&&!payDec())return;REVA[b.dataset.i]=1;return vChat();
     case'cp':{const m=MSG.find(x=>x.id===b.dataset.i);return m&&play(encAny(norm(m.t||'')),lcb)}
-    case'cr':REV[b.dataset.i]=1;return list();
+    case'cr':if(!REV[b.dataset.i]&&!payDec())return;REV[b.dataset.i]=1;return list();
     case'rs':if(b.dataset.arm){const bb=(ST[S.lang]||{}).best||0;delete ST[S.lang];stat().best=bb;save();return vSet()}b.dataset.arm=1;b.textContent='Tap again to confirm'}
 });
 document.addEventListener('input',e=>{const t=e.target;
@@ -1309,12 +1315,12 @@ function codeTry(t){
   const r=CCODES[l][hit],id=r[0]+'_'+r[1],lsd=LS.get('ml_codes',{}),rc=P.rc=P.rc||{};rc.u=rc.u||{};lsd.u=lsd.u||{};
   const old=['en','he'].some(g=>{const q=CCODES[g];return Object.keys(q).some(k=>q[k][1]===r[1]&&((rc[g]&&rc[g][k])||(lsd[g]&&lsd[g][k])))});
   const dup=rc.u[id]||lsd.u[id]||old;let a,d;
-  if(dup){a=he?'הקוד כבר נוצל':'CODE ALREADY USED';d=he?'הקוד כבר נוצל (חד-פעמי, בשתי השפות)':'Code already used (one time only, in either language).'}
+  if(dup){a=he?'כבר מצאת את הקוד הזה':'YOU ALREADY FOUND THIS CODE';d=he?'כבר מצאת את הקוד הזה (חד-פעמי, בשתי השפות)':'You already found this code (one time only, in either language).'}
   else{rc.u[id]=1;lsd.u[id]=1;LS.set('ml_codes',lsd);
     P.sk=P.sk||{};P.sk[id]=1;
     sp();coin(150,he?'קוד סודי':'Secret code');toast('✨ '+X('Exclusive reward unlocked!','פרס בלעדי נפתח!'));
-    a=he?'קיבלת את זה':'YOU GOT IT';d=he?'קיבלת את זה!':'You got it!'}
-  AIH.push({r:'ai',t:norm(a),d});AIB=0;vChat();play(encAny(norm(a)),lcb);return true}
+    a=he?'כל הכבוד מצאת את הקוד':'WELL DONE YOU FOUND THE CODE';d=he?'כל הכבוד! מצאת את הקוד! 🎉':'Well done! You found the code! 🎉'}
+  AIH.push({r:'ai',t:norm(a),d,code:1});AIB=0;vChat();play(encAny(norm(a)),lcb);return true}
 
 /* ===== v12: exclusive reward pools (codes / achievements / season pass / bosses), duplicate refunds, full Equip lists ===== */
 (()=>{
@@ -1530,58 +1536,71 @@ window.sendNudge=async function(){
 };
 })();
 </script>
+<style>.chp{display:inline-flex;flex-direction:column;align-items:center;min-width:34px;margin:3px;padding:4px 8px;border:1.5px solid rgba(128,128,128,.6);border-radius:10px;font-size:22px;line-height:1.2}.chp small{font-size:12px;min-height:14px;opacity:.8}.chp.sp{min-width:58px;border-style:dashed;font-size:18px}.chp.lv{border-style:dashed;animation:chb 1s infinite}@keyframes chb{50%{opacity:.45}}.chw{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start}.chw .chp:last-child:not(.lv){animation:chpop .3s}.chp.sp{background:color-mix(in srgb,var(--ac2) 16%,transparent);border-color:var(--ac2)}.chp.lv{border-color:var(--ac)}@keyframes chpop{0%{transform:scale(.6);opacity:.3}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}</style>
 <script>
+window.DEC_COST=30;
+window.payDec=function(){if((P.co||0)<DEC_COST){toast('🪙 '+X('Need '+DEC_COST+' coins to decode','צריך '+DEC_COST+' מטבעות כדי לפענח'));return false}P.co-=DEC_COST;sp();hdr();toast('🪙 −'+DEC_COST);return true};
 (function(){
 const R={en:{},he:{}},st={t:[],c:'',l:(typeof S!=='undefined'&&S.lang==='he')?'he':'en',msgs:{},ok:{}};
 const LN=l=>l==='he'?'עברית 🇮🇱':'English 🇬🇧';
 function rm(l){const r=R[l];if(!r.d){const m=l==='he'?HE:EN;for(const k in m)r[m[k]]=k;for(const k in NUM)r[NUM[k]]=k;r.d=1}return r}
-const dec=(m,l)=>m.split(' ').filter(Boolean).map(x=>x==='/'?' ':(rm(l)[x]||'?')).join('');
+const dec=(m,l)=>{const t=m.split(' ').filter(Boolean).map(x=>x==='/'?' ':(rm(l)[x]||'?')).join('');return l==='he'?fin(t):t};
 const vis=m=>String(m).replace(/\./g,'·').replace(/-/g,'−');
 const pl=m=>{try{play(m.split(' ').filter(Boolean).map(x=>x==='/'?' ':x),lcb)}catch(e){}};
 const flush=()=>{if(st.c){st.t.push(st.c);st.c=''}};
+const chip=(x,sh,l,lv)=>x==='/'?`<span class="chp sp">␣<small>${X('space','רווח')}</small></span>`:`<span class="chp${lv?' lv':''}">${vis(x)}<small>${lv?'…':sh?esc(rm(l)[x]||'?'):'&nbsp;'}</small></span>`;
+const chips=(m,sh,l)=>String(m).split(' ').filter(Boolean).map(x=>chip(x,sh,l)).join('');
+const nmOf=u=>{if(FZ&&FZ.uid===u)return FZ.nm;let b=null;for(const d of Object.values(st.msgs))if(d.from===u&&d.nm&&(!b||d.ts>b.ts))b=d;return b?b.nm:X('Friend','חבר')+' #'+String(u).slice(0,4)};
+const peers=()=>{const me=window.FBU,m=new Map(),add=(u,t)=>{if(u&&u!==me)m.set(u,Math.max(m.get(u)||0,t))};if(FZ&&FZ.uid)add(FZ.uid,Date.now()+1);for(const d of Object.values(st.msgs)){if(d.from===me)add(d.to,d.ts);else if(d.to===me)add(d.from,d.ts)}return [...m.entries()].sort((a,b)=>b[1]-a[1]).map(x=>x[0])};
+window.mcUnread=()=>{const me=window.FBU;if(!me)return[];const sn=LS.get('ml_seen',{}),m={};for(const d of Object.values(st.msgs))if(d.to===me&&d.ts>(sn[d.from]||0)){(m[d.from]=m[d.from]||{u:d.from,n:0}).n++}return Object.values(m).map(x=>({u:x.u,n:x.n,nm:nmOf(x.u)}))};
+const peer=()=>{const ps=peers(),fu=FZ&&FZ.uid||null;if(fu!==st.fz){st.fz=fu;if(fu)st.peer=fu}return st.peer&&ps.includes(st.peer)?st.peer:(ps[0]||null)};
 function draw(){
-  const el=document.getElementById('mchat');if(!el||!FZ||!FZ.uid||!window.FBU)return;
-  const me=FBU,pe=FZ.uid,he=S.lang==='he';
+  const el=document.getElementById('mchat');if(!el||!window.FBU)return;
+  const me=FBU,pe=peer();st.l=S.lang==='he'?'he':'en';
+  if(!pe){el.innerHTML=`<h3 class="h0">💬 ${X('Morse chat','צ׳אט מורס')}</h3><p class="mut c">${X("No messages yet. When a friend sends you one it shows up here, and you can reply without his code.",'אין הודעות עדיין. כשחבר ישלח לך הודעה היא תופיע כאן, ואפשר לענות לו גם בלי הקוד שלו.')}</p>`;return}
+  const ps=peers();
+  {const sn=LS.get('ml_seen',{});let mx=sn[pe]||0;for(const d of Object.values(st.msgs))if(d.from===pe&&d.to===me&&d.ts>mx)mx=d.ts;if(mx!==(sn[pe]||0)){sn[pe]=mx;LS.set('ml_seen',sn)}}
   const L=Object.entries(st.msgs).map(([id,d])=>Object.assign({id},d)).filter(d=>(d.from===me&&d.to===pe)||(d.from===pe&&d.to===me)).sort((a,b)=>b.ts-a.ts).slice(0,30);
-  const prev=dec(st.t.join(' '),st.l)+(st.c?(rm(st.l)[st.c]||'?'):'');
+  const prev=dec(st.t.join(' ')+(st.c?' '+st.c:''),st.l);
   const b=(k,x,c)=>`<button class="btn ${c||'g'}" data-k="${k}" style="padding:12px 4px">${x}</button>`;
-  el.innerHTML=`<h3>💬 ${X('Morse chat with','צ׳אט מורס עם')} ${esc(FZ.nm)}</h3>
-  <p class="mut" style="font-size:13px;margin:4px 0">${X('Sending in:','שולח ב:')}</p>
+  el.innerHTML=`<h3 class="h0">💬 ${X('Morse chat with','צ׳אט מורס עם')} ${esc(nmOf(pe))}</h3>${ps.length>1?`<div class="seg" style="margin:0 0 10px">${ps.map(u=>`<button class="${u===pe?'on':''}" data-k="u:${esc(u)}">${esc(nmOf(u))}</button>`).join('')}</div>`:''}
+  <p class="mut" style="font-size:13px;margin:4px 0">${X('Language (changes the whole page):','שפה (משנה את כל הדף):')}</p>
   <div class="two">${b('l:en','English 🇬🇧',st.l==='en'?'':'g')}${b('l:he','עברית 🇮🇱',st.l==='he'?'':'g')}</div>
-  <div class="pat" style="margin:10px 0;min-height:36px;font-size:26px;text-align:center;letter-spacing:4px">${vis(st.t.join('  ')+(st.c?'  '+st.c:''))||'<span class="mut" style="font-size:14px">'+X('Tap dots and dashes','הקישו נקודות וקווים')+'</span>'}</div>
+  <div class="chw" dir="ltr" style="margin:10px 0;min-height:60px">${(st.t.length||st.c)?chips(st.t.join(' '),1,st.l)+(st.c?chip(st.c,1,st.l,1):''):'<span class="mut" style="font-size:14px">'+X('Tap dots and dashes','הקישו נקודות וקווים')+'</span>'}</div>
   <p class="mut c" dir="auto" style="min-height:20px;margin:0 0 8px">${esc(prev)}</p>
   <div class="two">${b('d','·  '+X('dot','נקודה'),'')}${b('h','−  '+X('dash','קו'),'')}</div>
   <div class="two">${b('g',X('Next letter','אות הבאה'))}${b('w',X('Space','רווח'))}${b('b','⌫')}</div>
   <div class="two">${b('p','▶ '+X('Play','נגן'))}${b('s','📨 '+X('Send','שלח'))}</div>
-  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id];return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(FZ.nm)} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm">${esc(vis(d.m))}</div>${sh?`<div class="tx" dir="auto">${esc(dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח'))}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
+  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id];return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(nmOf(pe))} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm" dir="ltr">${chips(d.m,sh,d.l)}</div>${sh?`<div class="tx" dir="auto">${esc(dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח')+' 🪙'+DEC_COST)}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
 }
 document.addEventListener('click',async e=>{
   const b=e.target.closest('#mchat [data-k]');if(!b)return;const k=b.dataset.k;
   if(k==='d'){st.c+='.';pl(st.c)}else if(k==='h'){st.c+='-';pl(st.c)}
-  else if(k==='g')flush();
-  else if(k==='w'){flush();if(st.t.length&&st.t[st.t.length-1]!=='/')st.t.push('/')}
+  else if(k==='g'){flush();try{navigator.vibrate(25)}catch(e){}}
+  else if(k==='w'){flush();try{navigator.vibrate([20,40,20])}catch(e){}if(st.t.length&&st.t[st.t.length-1]!=='/')st.t.push('/')}
   else if(k==='b'){if(st.c)st.c=st.c.slice(0,-1);else st.t.pop()}
   else if(k==='p'){flush();pl(st.t.join(' '))}
-  else if(k[0]==='l'&&k[1]===':')st.l=k.slice(2);
-  else if(k[0]==='c'&&k[1]===':')st.ok[k.slice(2)]=1;
+  else if(k[0]==='l'&&k[1]===':'){lgSw(k.slice(2));sel=null;Q.c=null;Z.a=null;save();lg();stop();return vChat()}
+  else if(k[0]==='u'&&k[1]===':'){st.peer=k.slice(2);st.t=[];st.c=''}
+  else if(k[0]==='c'&&k[1]===':'){const id=k.slice(2);if(st.ok[id]||payDec())st.ok[id]=1}
   else if(k[0]==='m'&&k[1]===':'){const d=st.msgs[k.slice(2)];if(d)pl(d.m)}
   else if(k==='s'){
     flush();while(st.t.length&&st.t[st.t.length-1]==='/')st.t.pop();
-    if(!st.t.length||!window.FBU||!FZ.uid)return;
+    const pe=peer();if(!st.t.length||!window.FBU||!pe)return;
     const m=st.t.join(' ').slice(0,400);
-    try{await firebase.firestore().collection('mc').add({from:FBU,to:FZ.uid,m,l:st.l,ts:Date.now()});st.t=[];toast('📨 '+X('Sent','נשלח'))}
+    try{await firebase.firestore().collection('mc').add({from:FBU,to:pe,m,l:st.l,nm:String(P.nm||'').slice(0,12),ts:Date.now()});st.t=[];toast('📨 '+X('Sent','נשלח'))}
     catch(err){toast('⚠️ '+X('Could not send','השליחה נכשלה'))}
   }
   draw();
 });
-const v0=vFx;vFx=function(){v0();if(FZ&&FZ.uid){const w=A.querySelector('.wrap');if(w){w.insertAdjacentHTML('beforeend','<div class="card" id="mchat" style="margin-top:12px"></div>');draw()}}};
+const v0=vFx;vFx=function(){v0();{const w=A.querySelector('.wrap');if(w){w.insertAdjacentHTML('beforeend','<div class="card" id="mchat" style="margin-top:12px"></div>');draw()}}};
 const iv=setInterval(()=>{
   if(!window.FBU||!window.firebase)return;clearInterval(iv);
   const db=firebase.firestore(),first={to:1,from:1};
   ['to','from'].forEach(f=>db.collection('mc').where(f,'==',FBU).onSnapshot(s=>{
     s.docChanges().forEach(c=>{if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;
-      if(f==='to'&&!first.to){toast('💬 '+(FZ&&FZ.uid===d.from?FZ.nm:X('Friend','חבר'))+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
-    first[f]=0;draw()},()=>{}));
+      if(f==='to'&&!first.to){toast('💬 '+nmOf(d.from)+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
+    first[f]=0;draw();try{if(tab==='chat'&&CM==='ai'&&!AIB)vChat()}catch(e){}},()=>{}));
 },500);
 })();
 </script>
