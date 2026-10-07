@@ -114,7 +114,7 @@ html[data-fx] .card{background:color-mix(in srgb,var(--card) 80%,transparent)}
 .av.f.gr:before{background:conic-gradient(#ffd24a,#ff5f5f,#ffb347,#fff176,#7bed9f,#4dd8ff,#b388ff,#ffd24a)}
 html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
 
-.cz{margin-top:16px}
+.cz{margin-top:16px;content-visibility:auto;contain-intrinsic-size:auto 1180px}
 .czh{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:16px;background:var(--z);color:#fff;box-shadow:0 4px 0 var(--zd)}
 .czh>div{flex:1;min-width:0}.czh small{display:block;font-weight:800;letter-spacing:.08em;opacity:.85;font-size:12px}.czh b{font-size:18px}
 .czs{font-weight:800;font-size:13px;background:rgba(0,0,0,.18);border-radius:10px;padding:4px 8px}
@@ -122,7 +122,7 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
 .cpath{padding:18px 0 6px;overflow:hidden}
 .cnr{display:flex;flex-direction:column;align-items:center;margin:10px 0 18px}
 .cnw{position:relative;display:flex;justify-content:center}
-.cn{width:74px;height:68px;border-radius:50%;border:0;font-size:28px;font-weight:800;color:#fff;background:var(--z);box-shadow:0 7px 0 var(--zd);transition:transform .08s,box-shadow .08s}
+.cn{width:74px;height:68px;border-radius:50%;border:0;font-size:28px;font-weight:800;color:#fff;background:var(--z);box-shadow:0 7px 0 var(--zd)}
 .cn.bs{width:86px;height:78px;font-size:34px}
 .cn:active{transform:translateY(5px);box-shadow:0 2px 0 var(--zd)}
 .cn.lk{background:color-mix(in srgb,var(--mut) 30%,var(--card));box-shadow:0 7px 0 color-mix(in srgb,var(--mut) 50%,var(--card));color:var(--mut);font-size:24px}
@@ -1485,7 +1485,7 @@ document.addEventListener('click',e=>{
 (()=>{const b=document.createElement('button');b.id='toTop';b.hidden=true;document.body.appendChild(b);
 const up=()=>{const c=document.querySelector('.czh')&&document.getElementById('cpcur');if(!c){b.hidden=true;return}
 const r=c.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight;
-if(r.bottom<0){b.textContent='↑';b.hidden=false}else if(r.top>vh-90){b.textContent='↓';b.hidden=false}else b.hidden=true};
+const sh=t=>{if(b.textContent!==t)b.textContent=t;if(b.hidden)b.hidden=false};if(r.bottom<0)sh('↑');else if(r.top>vh-90)sh('↓');else if(!b.hidden)b.hidden=true};
 addEventListener('scroll',up,{passive:true});addEventListener('resize',up);
 b.addEventListener('click',()=>{const c=document.getElementById('cpcur');c&&c.scrollIntoView({block:'center',behavior:'smooth'})});
 new MutationObserver(up).observe(document.body,{childList:true,subtree:true});up()})();
@@ -1603,6 +1603,124 @@ const iv=setInterval(()=>{
       if(f==='to'&&!first.to){toast('💬 '+nmOf(d.from)+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
     first[f]=0;draw();try{if(tab==='chat'&&CM==='ai'&&!AIB)vChat()}catch(e){}},()=>{}));
 },500);
+})();
+</script>
+<script>
+/* ===== Zone skip: pass a hard exam (you TYPE the Morse) to jump ahead in the campaign ===== */
+(()=>{
+let SK=null,ST_=null;
+const curLv=()=>{let c=1;while(c<500&&P.cs[c]>=1)c++;return c};
+const lev=(a,b)=>{const d=[...Array(b.length+1).keys()];for(let i=1;i<=a.length;i++){let p=d[0];d[0]=i;for(let j=1;j<=b.length;j++){const t=d[j];d[j]=Math.min(d[j]+1,d[j-1]+1,p+(a[i-1]===b[j-1]?0:1));p=t}}return d[b.length]};
+/* difficulty grows with the zone: more questions, less time, fewer lives, longer words */
+const cfg=z=>({N:Math.min(40,12+Math.floor(z*.8)),T:Math.max(3.5,9-z*.35),lives:z<4?3:z<13?2:1,wr:z<3?0:Math.min(.5,.15+z*.02),wl:Math.min(5,2+Math.floor(z/8)),hr:.35});
+function weights(pl){return pl.map(c=>{const k=code(c);return{c,w:k.length*k.length+pl.filter(o=>o!==c&&lev(k,code(o))<=1).length*2}})}
+function pick(ws){let t=ws.reduce((s,x)=>s+x.w,0),r=Math.random()*t;for(const x of ws){if((r-=x.w)<=0)return x.c}return ws[0].c}
+function mkItems(pl,g){
+  const ws=weights(pl),hard=[...ws].sort((a,b)=>b.w-a.w).slice(0,Math.min(3,pl.length)).map(x=>x.c);
+  const out=hard.map(a=>({t:'L',a,c:code(a),h:Math.random()<g.hr?1:0}));
+  while(out.length<g.N){
+    let it;
+    if(Math.random()<g.wr){const a=[];for(let i=0;i<g.wl;i++){let c,n=0;do{c=pick(ws)}while(a[a.length-1]===c&&n++<20);a.push(c)}it={t:'W',a,c:a.map(code).join('/')}}
+    else{const a=pick(ws);it={t:'L',a,c:code(a)}}
+    it.h=Math.random()<g.hr?1:0;out.push(it)}
+  return shuf(out).slice(0,g.N)}
+const padH=(id,word)=>`<div id="${id}" class="c" style="direction:ltr;min-height:64px;margin:14px 0">${tyHtml('')}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn" data-sk="k" data-v="." style="font-size:34px">•</button><button class="btn" data-sk="k" data-v="-" style="font-size:34px">▬</button></div><div style="display:grid;grid-template-columns:${word?'1fr 1fr 1fr':'1fr 1fr'};gap:10px;margin-top:10px">${word?'<button class="btn g" data-sk="k" data-v="/" style="font-size:24px">/</button>':''}<button class="btn g" data-sk="k" data-v="b" style="font-size:24px">⌫</button><button class="btn" data-sk="k" data-v="ok" style="font-size:24px">✓</button></div>`;
+const tyHtml=ty=>ty?ty.split('/').map(g=>g?mh(g,'big'):'<span class="mut">…</span>').join(' <span class="mut">/</span> '):'<span class="mut">—</span>';
+function skIntro(z){
+  const L=z*10+1,g=cfg(z);
+  A.innerHTML=`<div class="wrap"><button class="btn g" data-a="xcp">← ${X('Map','מפה')}</button><div style="height:12px"></div><div class="card c"><div class="ch" style="font-size:44px">⏩</div><b>${X('Skip to Zone '+(z+1),'דילוג לאזור '+(z+1))}</b><p class="mut" dir="auto">${X('Prove it. You are shown a character and must TYPE its Morse code yourself, no multiple choice. The hardest letters of the zone come up most.','תוכיח את זה. מוצגת לך אות ואתה צריך להקליד את קוד המורס שלה בעצמך, בלי תשובות לבחירה. האותיות הקשות ביותר באזור מופיעות הכי הרבה.')}</p><p dir="auto">${X(g.N+' questions · '+g.T.toFixed(1)+'s per letter · '+g.lives+(g.lives>1?' lives':' life'),'שאלות: '+g.N+' · '+g.T.toFixed(1)+' שניות לאות · חיים: '+g.lives)}</p><p dir="auto">${X('Some questions are played as sound: listen and type the Morse you hear (a bit more time).','בחלק מהשאלות מושמע צליל: הקשב והקלד את המורס ששמעת (עם קצת יותר זמן).')}</p>${g.wr?`<p dir="auto">${X('Includes words of '+g.wl+' letters (use / between letters).','כולל מילים של '+g.wl+' אותיות (השתמש ב־/ בין האותיות).')}</p>`:''}<p class="mut" dir="auto">${X('Levels 1–'+(L-1)+' will be marked cleared (⭐⭐). Fail and nothing changes.','שלבים 1–'+(L-1)+' יסומנו כהושלמו (⭐⭐). אם נכשלים, שום דבר לא משתנה.')}</p><button class="btn" data-sk="go" data-i="${z}">${X('Start the exam','התחל את המבחן')}</button></div></div>`}
+function skStart(z){
+  stop();const L=z*10+1,pl=cOrd().slice(0,cK(L)),g=cfg(z);
+  SK={z,L,pl,g,list:mkItems(pl,g),i:0,ok:0,lives:g.lives,ty:'',res:null};skQ()}
+function skQ(){
+  const c=SK,it=c.list[c.i],g=c.g;clearTimeout(ST_);
+  const secs=g.T*(it.t==='W'?it.a.length*.9:1)*(it.h?1.4:1)+(it.h&&it.t==='W'?it.a.length*1.2:0);c.secs=secs;
+  const prompt=it.h?`<div class="c" style="margin:6px 0"><button class="orb" data-sk="p">▶</button></div><p class="mut c">${X(it.t==='W'?'Listen and type the word (use / between letters)':'Listen and type what you hear','הקשב והקלד את מה ששמעת'+(it.t==='W'?' (השתמש ב־/ בין האותיות)':''))}</p>`:it.t==='W'?`<div class="c" style="font-size:40px;letter-spacing:.15em" dir="auto">${it.a.map(esc).join(' ')}</div><p class="mut c">${X('Type the Morse for the whole word','הקלד את המורס של כל המילה')}</p>`:`<div class="c" style="font-size:72px;font-weight:800" dir="auto">${esc(it.a)}</div><p class="mut c">${X('Type its Morse code','הקלד את קוד המורס שלה')}</p>`;
+  const done=c.res!==null;
+  const fb=done?`<p class="c" style="font-weight:800">${c.res?'✅':'❌'} ${c.res?X('Correct','נכון'):X('Answer:','התשובה:')}</p><div class="c" style="direction:ltr">${it.c.split('/').map(k=>mh(k,'big')).join(' <span class="mut">/</span> ')}</div>`:'';
+  const tb=done?'':`<div class="bar" style="margin-bottom:10px"><i style="width:100%;animation:cpb ${secs}s linear forwards"></i></div>`;
+  const pad=done?'':padH('skty',it.t==='W');
+  A.innerHTML=`<div class="wrap"><button class="btn g" data-a="xcp">← ${X('Map','מפה')}</button><div style="height:12px"></div><div class="row2"><b>⏩ ${X('Zone '+(c.z+1)+' exam','מבחן אזור '+(c.z+1))}</b><span>${'❤️'.repeat(Math.max(0,c.lives))+'🖤'.repeat(g.lives-Math.max(0,c.lives))} · ${c.i+1}/${g.N}</span></div><div class="bar" style="margin:8px 0"><i style="width:${100*c.i/g.N}%"></i></div><div class="card">${tb}${prompt}${fb}${pad}</div></div>`;
+  if(!done){ST_=setTimeout(()=>skSubmit(true),secs*1000);if(it.h){const i0=c.i;setTimeout(()=>{if(SK===c&&c.res===null&&c.i===i0)try{play(it.t==='W'?it.a.map(code):[it.c],lcb)}catch(e){}},300)}}}
+function skKey(v){
+  const c=SK;if(!c||c.res!==null||!document.getElementById('skty'))return;
+  const it=c.list[c.i];
+  if(v==='ok')return skSubmit(false);
+  if(v==='b')c.ty=c.ty.slice(0,-1);
+  else if(v==='/'){if(it.t==='W'&&c.ty&&!c.ty.endsWith('/'))c.ty+='/'}
+  else if(c.ty.length<40){c.ty+=v;try{play([v],lcb)}catch(e){}}
+  const e=document.getElementById('skty');if(e)e.innerHTML=tyHtml(c.ty)}
+function skSubmit(timeout){
+  const c=SK;if(!c||c.res!==null||!document.getElementById('skty'))return;
+  clearTimeout(ST_);const it=c.list[c.i],ok=!timeout&&c.ty.replace(/\/+$/,'')===it.c;
+  c.res=ok;
+  (it.t==='W'?it.a:[it.a]).forEach(ch=>{try{srU(ch,ok)}catch(e){}});
+  if(ok)c.ok++;else c.lives--;
+  skQ();
+  setTimeout(()=>{if(SK!==c)return;c.i++;c.res=null;c.ty='';if(c.lives<=0||c.i>=c.g.N)return skEnd();skQ()},ok?450:1700)}
+function skEnd(){
+  const c=SK,N=c.g.N,win=c.lives>0&&c.i>=N;SK=null;clearTimeout(ST_);
+  if(win){
+    for(let n=1;n<c.L;n++)if((P.cs[n]||0)<2)P.cs[n]=2;
+    P.cl=Math.max(P.cl||0,c.L-1);
+    c.pl.forEach(ch=>{for(let k=0;k<4;k++)try{srU(ch,true)}catch(e){}});
+    try{sp()}catch(e){}try{victory(false,true)}catch(e){}
+    toast('⏩ '+X('Skipped to level '+c.L+'!','דילגת לשלב '+c.L+'!'))}
+  A.innerHTML=`<div class="wrap"><div class="card c"><h2>${win?'🚀':'💥'}</h2><p><b>${win?X('Exam passed! Zone '+(c.z+1)+' is open. You are worthy.','עברת את המבחן! אזור '+(c.z+1)+' פתוח. אתה ראוי.'):X('Exam failed. Nothing changed. Try again!','נכשלת במבחן. שום דבר לא השתנה. נסה שוב!')}</b></p><p class="mut">${c.ok}/${N}</p><div class="two">${win?`<button class="btn" data-a="cpn" data-i="${c.L}">${X('Start level '+c.L,'התחל שלב '+c.L)}</button>`:`<button class="btn" data-sk="go" data-i="${c.z}">${X('Retry','שוב')}</button>`}<button class="btn g" data-a="xcp">${X('Map','מפה')}</button></div></div></div>`}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-sk]');if(!b)return;e.stopPropagation();e.preventDefault();
+  const k=b.dataset.sk;
+  try{
+  if((k==='in'||k==='go')&&(+b.dataset.i)*10+1<=curLv()){toast('⏩ '+X('You are already past that zone','כבר עברת את האזור הזה'));vCamp();return}
+  if(k==='in')skIntro(+b.dataset.i);else if(k==='go')skStart(+b.dataset.i);
+  else if(k==='k'){if(document.getElementById('skty'))skKey(b.dataset.v);else cpKey(b.dataset.v)}
+  else if(k==='p'){const it=SK?SK.list[SK.i]:CP&&CP.list[CP.i];if(it)play(it.t==='W'?it.a.map(code):it.p||[it.c],lcb)}
+  if(k==='in'||k==='go')window.scrollTo(0,0);
+  }catch(err){try{toast('⏩ Error: '+err.message)}catch(e){alert('Skip error: '+err.message)}}
+},true);
+/* ---- typed questions in the campaign's hard (boss) levels ---- */
+const _ci=cItems;
+cItems=function(n,gate){
+  const L=_ci(n,gate);if(gate||n%5!==0)return L;
+  const pl=cOrd().slice(0,cK(n)),rate=n%10===0?.5:.35;
+  return L.map(it=>{
+    if(Math.random()>=rate)return it;
+    const ch=it.t==='r'?it.w:(it.t==='h'||it.t==='s')?it.a:rnd(pl);
+    if(typeof ch!=='string'||ch.length!==1)return it;
+    return{t:Math.random()<.5?'Y':'Z',a:ch,o:[ch],c:code(ch),p:[code(ch)]}})};
+const _cpQ=cpQ;
+cpQ=function(){
+  const c=CP,it=c&&c.list&&c.list[c.i];_cpQ();
+  if(!it||(it.t!=='Y'&&it.t!=='Z'))return;
+  const card=A.querySelector('.card');if(!card)return;
+  const done=c.pk!==null,ok=done&&c.pk>=0;
+  if(c.tyI!==c.i){c.tyI=c.i;c.ty=''}
+  const secs=c.ts?Math.max(6,c.ts*1.2)*(it.t==='Z'?1.3:1):0;
+  const prompt=it.t==='Z'?`<div class="c" style="margin:6px 0"><button class="orb" data-sk="p">▶</button></div><p class="mut c">${X('Listen and type what you hear','הקשב והקלד את מה ששמעת')}</p>`:`<div class="c" style="font-size:72px;font-weight:800" dir="auto">${esc(it.a)}</div><p class="mut c">${X('Type its Morse code','הקלד את קוד המורס שלה')}</p>`;
+  const fb=done?`<p class="c" style="font-weight:800">${ok?'✅ '+X('Correct','נכון'):'❌ '+X('Answer:','התשובה:')}</p><div class="c" style="direction:ltr">${mh(it.c,'big')}</div>`:'';
+  const tb=!done&&secs?`<div class="bar" style="margin-bottom:10px"><i style="width:100%;animation:cpb ${secs}s linear forwards"></i></div>`:'';
+  card.innerHTML=tb+prompt+fb+(done?'':padH('cpty',false));
+  clearTimeout(CT);
+  if(!done&&secs)CT=setTimeout(()=>cpPick(-1),secs*1000);
+  if(!done&&it.t==='Z'&&c.zp!==c.i){c.zp=c.i;setTimeout(()=>{if(CP===c&&c.pk===null&&c.list[c.i]===it)try{play(it.p,lcb)}catch(e){}},300)}};
+function cpKey(v){
+  const c=CP;if(!c||c.pk!==null||!document.getElementById('cpty'))return;
+  const it=c.list[c.i];
+  if(v==='ok')return cpPick(c.ty===it.c?0:-1);
+  if(v==='b')c.ty=c.ty.slice(0,-1);
+  else if(v!=='/'&&c.ty.length<12){c.ty+=v;try{play([v],lcb)}catch(e){}}
+  const e=document.getElementById('cpty');if(e)e.innerHTML=tyHtml(c.ty)}
+const _vcamp=vCamp;
+vCamp=function(){
+  SK=null;clearTimeout(ST_);_vcamp();
+  const cur=curLv();
+  document.querySelectorAll('.cz').forEach(s=>{
+    const h=s.querySelector('.czh'),i=h&&h.querySelector('.czi');if(!h||!i)return;
+    const z=+i.dataset.i;if(!(z>=1)||z*10+1<=cur)return;
+    const b=document.createElement('button');b.className='btn g';b.dataset.sk='in';b.dataset.i=z;
+    b.style.cssText='padding:4px 10px;font-size:13px;min-height:0';b.textContent='⏩ '+X('Skip','דלג');
+    h.insertBefore(b,i||null)});
+};
 })();
 </script>
 </body></html>
