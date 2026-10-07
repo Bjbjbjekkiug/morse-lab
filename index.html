@@ -1,5 +1,15 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#060a14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Morse Lab">
+<meta name="format-detection" content="telephone=no">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23060a14'/%3E%3Ccircle cx='120' cy='256' r='38' fill='%2322d3ee'/%3E%3Crect x='190' y='218' width='110' height='76' rx='38' fill='%23e879f9'/%3E%3Ccircle cx='392' cy='256' r='38' fill='%2322d3ee'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='110' fill='%23060a14'/%3E%3Ccircle cx='120' cy='256' r='38' fill='%2322d3ee'/%3E%3Crect x='190' y='218' width='110' height='76' rx='38' fill='%23e879f9'/%3E%3Ccircle cx='392' cy='256' r='38' fill='%2322d3ee'/%3E%3C/svg%3E">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22Morse%20Lab%22%2C%20%22short_name%22%3A%20%22Morse%20Lab%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22any%22%2C%20%22background_color%22%3A%20%22%23060a14%22%2C%20%22theme_color%22%3A%20%22%23060a14%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/svg%2Bxml%2C%253Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20512%20512%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27110%27%20fill%3D%27%2523060a14%27/%253E%253Ccircle%20cx%3D%27120%27%20cy%3D%27256%27%20r%3D%2738%27%20fill%3D%27%252322d3ee%27/%253E%253Crect%20x%3D%27190%27%20y%3D%27218%27%20width%3D%27110%27%20height%3D%2776%27%20rx%3D%2738%27%20fill%3D%27%2523e879f9%27/%253E%253Ccircle%20cx%3D%27392%27%20cy%3D%27256%27%20r%3D%2738%27%20fill%3D%27%252322d3ee%27/%253E%253C/svg%253E%22%2C%20%22sizes%22%3A%20%22any%22%2C%20%22type%22%3A%20%22image/svg%2Bxml%22%2C%20%22purpose%22%3A%20%22any%22%7D%5D%7D">
 <title>Morse Lab</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap">
 <style>
@@ -149,6 +159,33 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
 .cmas{position:absolute;top:50%;transform:translateY(-55%);font-size:44px;line-height:1;pointer-events:none;filter:drop-shadow(0 4px 0 rgba(0,0,0,.18))}
 .cmas.r{left:calc(100% + 14px)}.cmas.l{right:calc(100% + 14px)}
 .cnr .cnl{display:none}
+</style><style id="xplat">
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;color-scheme:light dark;overscroll-behavior-y:none}
+:root[data-theme="light"]{color-scheme:light}
+body{min-height:100vh;min-height:100dvh;-webkit-font-smoothing:antialiased}
+button,input{-webkit-appearance:none;appearance:none}
+input[type=range],input[type=checkbox]{-webkit-appearance:auto;appearance:auto}
+#tx,#ct{font-size:16px}
+@media(hover:hover){.btn:hover{filter:brightness(1.1)}.k:hover,.o:hover,.pad:hover,.chip:hover,nav button:hover{border-color:var(--ac)}nav button:hover{color:var(--ac)}}
+@media(min-width:760px){
+ header,.wrap{max-width:720px}
+ .grid{grid-template-columns:repeat(6,1fr)}
+ .ch{font-size:104px}
+ nav button{max-width:200px;font-size:13px}
+ body{padding-bottom:110px}
+}
+@media(min-width:1100px){header,.wrap{max-width:820px}}
+@media(max-height:480px) and (orientation:landscape){body{padding-bottom:84px}.ch{font-size:56px}.orb{width:96px;height:96px}}
+@media(max-width:360px){.grid{gap:6px}.k b{font-size:20px}.ch{font-size:68px}.chips{grid-template-columns:repeat(5,1fr)}}
+@supports not (background:color-mix(in srgb,red 50%,blue)){
+ nav{background:var(--card)}
+ .note{background:var(--bg)}
+ .k.kn{background:var(--card)}
+ .orb{box-shadow:0 0 0 8px var(--line)}
+ .orb.lit{box-shadow:0 0 40px var(--ac2)}
+ .cn.lk{background:var(--line);box-shadow:0 7px 0 var(--mut);color:var(--mut)}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style></head><body><canvas id="fx"></canvas>
 <header><span style="display:flex;align-items:center;gap:10px"><button id="bell" aria-label="Notifications">🔔<b id="bn"></b></button><span class="logo"><span class="m"><i class="d"></i><i class="l"></i><i class="d"></i></span>Morse<b>Lab</b></span></span><span class="hd"><span id="lg"></span><span id="co" data-t="shop"></span><span id="lv" data-t="rew"></span><span id="lamp"></span></span></header>
 <main id="app"></main><div id="toast"></div><div id="fl"></div>
@@ -271,10 +308,9 @@ function vSet(){
   const sg=(att,cur,arr)=>`<div class="seg">${arr.map(([k,l])=>`<button class="${cur===k?'on':''}" data-${att}="${k}">${l}</button>`).join('')}</div>`;
   A.innerHTML=`<div class="wrap"><div class="card"><h3 class="h0">Language</h3>${sg('l',S.lang,[['en','English'],['he','עברית']])}${recH()}
 <h3>Sound</h3>${sl('wpm','Speed',5,30,1,'WPM')}
-<h3>${X('Backup & move progress','גיבוי והעברת התקדמות')}</h3><p class="mut" dir="auto">${X('Copy code copies your progress, settings and letters. Paste it in the box and tap Restore to bring them back after an update or on another device.','העתק קוד מעתיק את ההתקדמות, ההגדרות והאותיות. הדבק אותו בתיבה ולחץ שחזר כדי להחזיר אותם אחרי עדכון או במכשיר אחר.')}${CL?' ☁️':''}</p><textarea id="bkout" readonly rows="3" style="width:100%;font-size:12px;border-radius:12px;border:1px solid var(--line);padding:8px;background:var(--card);color:var(--ink)">${bk()}</textarea><div class="two"><button class="btn g" data-a="bkcp">${X('Copy code','העתק קוד')}</button><a class="btn g" style="text-align:center;text-decoration:none" href="mailto:?subject=${encodeURIComponent('Morse Lab backup')}&body=${encodeURIComponent(bk())}">${X('Email it to me','שלח לי במייל')}</a></div><textarea id="bkin" rows="2" placeholder="${X('Paste a code here','הדבק קוד כאן')}" style="width:100%;font-size:12px;border-radius:12px;border:1px solid var(--line);padding:8px;background:var(--card);color:var(--ink)"></textarea><div class="two"><button class="btn" data-a="bkrs">${X('Restore','שחזר')}</button></div>
+<h3>${X('Backup & move progress','גיבוי והעברת התקדמות')}</h3><p class="mut" dir="auto">${X('Copy code copies your progress, settings and letters. Paste it in the box and tap Restore to bring them back after an update or on another device.','העתק קוד מעתיק את ההתקדמות, ההגדרות והאותיות. הדבק אותו בתיבה ולחץ שחזר כדי להחזיר אותם אחרי עדכון או במכשיר אחר.')}${CL?' ☁️':''}</p><textarea id="bkout" readonly rows="3" style="width:100%;font-size:12px;border-radius:12px;border:1px solid var(--line);padding:8px;background:var(--card);color:var(--ink)">${bk()}</textarea><div class="two"><button class="btn g" data-a="bkcp">${X('Copy code','העתק קוד')}</button></div><textarea id="bkin" rows="2" placeholder="${X('Paste a code here','הדבק קוד כאן')}" style="width:100%;font-size:12px;border-radius:12px;border:1px solid var(--line);padding:8px;background:var(--card);color:var(--ink)"></textarea><div class="two"><button class="btn" data-a="bkrs">${X('Restore','שחזר')}</button></div>
 <h3>${X('Silent signals','אותות שקטים')}</h3><div class="row"><span>${X('Flash the screen with each beep','הבהוב מסך עם כל צפצוף')}</span><input type="checkbox" data-k="flash"${S.flash?' checked':''}></div><div class="row"><span>${X('Mute sound','השתק צליל')}</span><input type="checkbox" data-k="mute"${S.mute?' checked':''}></div>
-<h3>Theme</h3>${sg('th',S.theme,[['auto','Auto'],['dark','Dark'],['light','Light']])}
-<div class="two"><button class="btn g" data-a="test">▶ Test sound</button></div><div class="two"><button class="btn g" data-a="rsl" data-i="en">Reset English progress</button><button class="btn g" data-a="rsl" data-i="he">Reset Hebrew progress</button></div></div></div>`;
+<div class="two"><button class="btn g" data-a="rsl" data-i="en">Reset English progress</button><button class="btn g" data-a="rsl" data-i="he">Reset Hebrew progress</button></div></div></div>`;
 }
 /* Chat */
 let DB=null,USER=null,ME=null,CAN=null,MSG=[];const REV={};
@@ -661,7 +697,7 @@ function vPuz(){
 }
 const V={train:vTrain,prac:vPrac,chat:vChat,set:vSet,play:vPlay,rew:vRew};
 function go(t){cpRest();tab=t;stop();if(t!=='train'&&LN){clearTimeout(LN.t);LN=null}if(t==='train'&&TM==='prac')TM='learn';clearTimeout(Q.t);clearInterval(QI);Qz=null;MS=null;clearTimeout(CT);clearInterval(CI);CP=null;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t===(t==='prac'?'train':t)));t==='prac'?nq():V[t]();scrollTo(0,0)}
-const th=()=>{const d=document.documentElement;S.theme==='auto'?d.removeAttribute('data-theme'):d.dataset.theme=S.theme;fx()},lg=()=>{$('#lg').textContent=S.lang==='he'?'עברית':'EN';applyLang()};
+const th=()=>{const d=document.documentElement;const T=window.PVF||S.theme;T==='auto'?d.removeAttribute('data-theme'):d.dataset.theme=T;fx()},lg=()=>{$('#lg').textContent=S.lang==='he'?'עברית':'EN';applyLang()};
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-t],[data-c],[data-o],[data-p],[data-a],[data-l],[data-m],[data-th]');if(!b)return;const d=b.dataset;
   if(d.t)return go(d.t);
@@ -789,12 +825,13 @@ SH.fr.push(...[["mint2","🍀","Fresh Mint","מנטה רעננה",200,"#6ee7b7",
 SH.ti.push(...[["t21","📻","Dial Twister","מסובב הכפתורים",250],["t22","🐢","Slow & Steady","לאט ובטוח",400],["t23","🐇","Speed Demon","שד המהירות",800],["t24","🧭","Lost Navigator","נווט אבוד",1000],["t25","🪖","Radio Sergeant","סמל קשר",1400],["t26","🎧","Headphone Hermit","נזיר האוזניות",1800],["t27","🔥","Streak Keeper","שומר הרצף",2300],["t28","🧙","Dot Wizard","קוסם הנקודות",2900],["t29","🏆","Champion","אלוף",3700],["t30","🦅","Sky Operator","מפעיל השמיים",4600],["t31","💀","Zero Mistakes","אפס טעויות",5800],["t32","🌠","Legend of Legends","אגדת האגדות",7200],["t33","🧬","Morse in my DNA","מורס בדנ״א",9000],["t34","🪽","Ascended","עלה למעלה",12000],["t35","🕰️","Eternal Telegrapher","הטלגרפן הנצחי",15000]]);
 const XI=new Set();['sn','fx','fr','ti'].forEach(k=>SH[k].slice(_n[k]).forEach(x=>XI.add(k+'_'+x[0])));
 /* ===== Secret rainbow set: mark exactly HE chet-yod-nun-mem and EN R-A-I-N-B-O-W-S as known ===== */
-const HI=new Set(['ti_vip','fx_rainbows','sn_chill','fr_goldrb']),RBAV='\u{1f984}';
+const HI=new Set(['ti_vip','fx_rainbows','fx_xrainbows','sn_chill','fr_goldrb']),RBAV='\u{1f984}';
 SH.ti.push(['vip','\u{1f451}','V.I.P','V.I.P',250]);
 SH.fx.push(['rainbows','\u{1f308}','Rainbows','\u05e7\u05e9\u05ea\u05d5\u05ea',250]);
+SH.fx.push(['xrainbows','\u{1f308}','Extra rainbows','\u05e7\u05e9\u05ea\u05d5\u05ea \u05e0\u05d5\u05e1\u05e4\u05d5\u05ea',400]);
 SH.sn.push(['chill','\u{1f9ca}','Chill','\u05e6\u05f3\u05d9\u05dc',250]);
 SH.fr.push(['goldrb','\u{1f308}','Golden Rainbow','\u05e7\u05e9\u05ea \u05d6\u05d4\u05d5\u05d1\u05d4',250,'#ffd24a','#ff8f1f']);
-SX.chill=['triangle',700];FXX.rainbows={c:'#ff5fa2',d:1};
+SX.chill=['triangle',700];FXX.rainbows={c:'#ff5fa2',d:1};FXX.xrainbows={c:'#ff5fa2',d:1};
 if((P.ow||[]).includes(RBAV)&&!AVL.includes(RBAV))AVL.push(RBAV);
 function rbChk(){
   const k=S.k||{},same=(a,w)=>{const A=new Set((a||[]).map(c=>FIN[c]||c)),W=new Set(w);return A.size===W.size&&[...W].every(c=>A.has(c))};
@@ -812,7 +849,7 @@ const EGG='<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAA
 function avSync(){EGG_OLD.forEach(o=>{if(P.ow&&P.ow.includes(o)){P.ow=P.ow.filter(x=>x!==o);if(!P.ow.includes(EGG))P.ow.push(EGG)}if(P.av===o){P.av=EGG;sp()}});[RBAV,EGG].forEach(a=>{if((P.ow||[]).includes(a)&&!AVL.includes(a))AVL.push(a)})}avSync();
 function usbDo(){P.ow=P.ow||[];if(!P.ow.includes(EGG))P.ow.push(EGG);avSync();P.av=EGG;sp();hdr();toast('🥚 '+X('Code redeemed! Pixel Egg avatar unlocked and equipped','הקוד מומש! אווטאר ביצת פיקסלים נפתח ומצויד'))}
 /* ===== Background sets ===== */
-const FXS=[['tech','\u{1f4bb}','Tech & Neon','\u05d8\u05db\u05e0\u05d5 \u05d5\u05e0\u05d9\u05d0\u05d5\u05df',['matrix', 'cyber', 'synth', 'holo', 'plasma', 'omega']],['fire','\u{1f525}','Fire & Gold','\u05d0\u05e9 \u05d5\u05d6\u05d4\u05d1',['lava', 'camp', 'mars', 'inferno', 'blood', 'gdust']],['water','\u{1f30a}','Water & Ice','\u05de\u05d9\u05dd \u05d5\u05e7\u05e8\u05d7',['ocean', 'ice', 'rain', 'coral', 'abyss', 'storm', 'crystal']],['nature','\u{1f33f}','Nature','\u05d8\u05d1\u05e2',['mint', 'sakura', 'jungle', 'autumn', 'lav', 'firefly', 'sand']],['space','\u{1f30c}','Sky & Space','\u05e9\u05de\u05d9\u05d9\u05dd \u05d5\u05d7\u05dc\u05dc',['dusk', 'dawn', 'comet', 'nlight', 'void', 'star', 'eclipse', 'nebula']],['rainbow','\u{1f308}','Rainbow','\u05e7\u05e9\u05ea',['rainbows']]];
+const FXS=[['tech','\u{1f4bb}','Tech & Neon','\u05d8\u05db\u05e0\u05d5 \u05d5\u05e0\u05d9\u05d0\u05d5\u05df',['matrix', 'cyber', 'synth', 'holo', 'plasma', 'omega']],['fire','\u{1f525}','Fire & Gold','\u05d0\u05e9 \u05d5\u05d6\u05d4\u05d1',['lava', 'camp', 'mars', 'inferno', 'blood', 'gdust']],['water','\u{1f30a}','Water & Ice','\u05de\u05d9\u05dd \u05d5\u05e7\u05e8\u05d7',['ocean', 'ice', 'rain', 'coral', 'abyss', 'storm', 'crystal']],['nature','\u{1f33f}','Nature','\u05d8\u05d1\u05e2',['mint', 'sakura', 'jungle', 'autumn', 'lav', 'firefly', 'sand']],['space','\u{1f30c}','Sky & Space','\u05e9\u05de\u05d9\u05d9\u05dd \u05d5\u05d7\u05dc\u05dc',['dusk', 'dawn', 'comet', 'nlight', 'void', 'star', 'eclipse', 'nebula']],['rainbow','\u{1f308}','Rainbow','\u05e7\u05e9\u05ea',['rainbows','xrainbows']]];
 const fxCost=l=>Math.ceil(l.reduce((a,x)=>a+x[4],0)*.85),
 fxSetItems=id=>{const v=shVis('fx'),t=FXS.find(x=>x[0]===id);return t?v.filter(x=>t[4].includes(x[0])):v.filter(x=>!FXS.some(u=>u[4].includes(x[0])))},
 fxGrp=(items,fn,hd)=>{const used=new Set(),out=[];FXS.forEach(t=>{const l=items.filter(x=>t[4].includes(x[0]));l.forEach(x=>used.add(x[0]));if(l.length)out.push(hd(t,l)+l.map(fn).join(''))});const r=items.filter(x=>!used.has(x[0]));if(r.length)out.push(hd(['more','\\u2728','More','\\u05e2\\u05d5\\u05d3',[]],r)+r.map(fn).join(''));return out.join('')},
@@ -828,7 +865,7 @@ ddHtml=()=>{const n=ddDay(new Date()),[k,x]=ddPick(n),own=P.sk[k+'_'+x[0]],pr=dd
 tn={sn:X('Sound','צליל'),fx:X('Background','רקע'),fr:X('Frame','מסגרת'),ti:X('Title','תואר')},
 ic=(a,b)=>a==='fr'?avh(b[0],P.av,1):`<span style="font-size:30px">${b[1]}</span>`,
 now=new Date(),ms=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1)-now,hh=Math.floor(ms/36e5),mm=Math.floor(ms%36e5/6e4);
-return `<div class="card" style="margin-bottom:12px;border-color:var(--ac)"><div class="row2"><b>🎁 ${X('Daily Deal','מבצע יומי')} · -40%</b><span class="mut" style="font-size:12px">⏳ ${hh}${X('h','ש׳')} ${mm}${X('m','ד׳')}</span></div><div class="shr" style="padding:10px 0 4px;margin:0"><div class="shi">${ic(k,x)}</div><div class="shn"><b>${esc(X(x[2],x[3]))}</b><small>${tn[k]}</small></div>${k==='sn'?`<button class="btn g" data-a="$pv" data-i="${x[0]}">\u25b6</button>`:''}${own?`<span class="mut">\u2713 ${X('Owned','בבעלותך')}</span>`:`<button class="btn" data-a="$dd" style="${P.co>=pr?'':'opacity:.55'}">🪙 ${pr} <s style="opacity:.6;font-weight:400">${x[4]}</s></button>`}</div><div class="mut" style="font-size:13px;border-top:1px solid var(--line);padding-top:8px;margin-top:6px">🔄 ${X('New items and a new deal tomorrow','פריטים ומבצע חדשים מחר')}</div></div>`};
+return `<div class="card" style="margin-bottom:12px;border-color:var(--ac)"><div class="row2"><b>🎁 ${X('Daily Deal','מבצע יומי')} · -40%</b><span class="mut" style="font-size:12px">⏳ ${hh}${X('h','ש׳')} ${mm}${X('m','ד׳')}</span></div><div class="shr" style="padding:10px 0 4px;margin:0"><div class="shi">${ic(k,x)}</div><div class="shn"><b>${esc(X(x[2],x[3]))}</b><small>${tn[k]}</small></div>${k==='sn'?`<button class="btn g" data-a="$pv" data-i="${x[0]}">\u25b6</button>`:''}${k==='fx'&&!own?`<button class="btn g" data-a="$pf" data-i="${x[0]}" aria-label="${X('Preview','תצוגה מקדימה')}">👁</button>`:''}${own?`<span class="mut">\u2713 ${X('Owned','בבעלותך')}</span>`:`<button class="btn" data-a="$dd" style="${P.co>=pr?'':'opacity:.55'}">🪙 ${pr} <s style="opacity:.6;font-weight:400">${x[4]}</s></button>`}</div><div class="mut" style="font-size:13px;border-top:1px solid var(--line);padding-top:8px;margin-top:6px">🔄 ${X('New items and a new deal tomorrow','פריטים ומבצע חדשים מחר')}</div></div>`};
 
 /* ===== Daily shop: only a few items of each type, re-rolled every day (same counts); one of them is on sale ===== */
 const SHN={sn:2,fx:4,fr:3,ti:3};
@@ -1022,7 +1059,7 @@ const GV={c:()=>P.c,str:()=>P.streak,dn:()=>P.dn,ms:()=>P.ms,cd:()=>P.cd,rb:()=>
 🏵️|חצי מאה|לאסוף 50 הישגים|bg|50`.split('\n').forEach((l,i)=>{const[e,n,d,k,v]=l.split('|');BG.push(['x'+(i+1),e,n,n,()=>(GV[k]?GV[k]():AXg(k))>=+v,d,d])});
 document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('[data-a],[data-t]');if(!a)return;if(a.dataset.t)tk('t_'+a.dataset.t);if(a.dataset.a)tk('a_'+a.dataset.a)},true);
 (()=>{const d=new Date(),h=d.getHours(),k=dk(d);if(P.ax.dl!==k){P.ax.dl=k;tk('days')}tk('sess');if(h<5)tk('nt');else if(h<9)tk('mo')})();
-function fx(){const c=$('#fx'),id=P.sk['fx_'+S.theme]?S.theme:'',x=c.getContext('2d');cancelAnimationFrame(FX);document.documentElement.toggleAttribute('data-fx',!!id);x.clearRect(0,0,c.width,c.height);if(!id||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+function fx(){const c=$('#fx'),id=window.PVF||(P.sk['fx_'+S.theme]?S.theme:''),x=c.getContext('2d');cancelAnimationFrame(FX);document.documentElement.toggleAttribute('data-fx',!!id);x.clearRect(0,0,c.width,c.height);if(!id||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
 const W=c.width=innerWidth,H=c.height=innerHeight,M=id==='matrix',p=[...Array(M?Math.ceil(W/16):60)].map(()=>M?{y:Math.random()*H/16|0}:{x:Math.random()*W,y:Math.random()*H,r:1+Math.random()*3,v:.3+Math.random()*1.2,a:Math.random()*6.3}),ch='01ｱｲｳｴｵｶｷｸｹｺﾊﾐﾑ<>/=+*',cs={matrix:'#22ff66',lava:'#ff7a00',ocean:'#7dd3fc',ice:'#8fcfff'}[id]||(FXX[id]||{}).c;let f=0;
 const fr=()=>{FX=requestAnimationFrame(fr);f++;
 if(M){if(f%3)return;x.fillStyle='rgba(2,11,4,.14)';x.fillRect(0,0,W,H);x.font='15px monospace';p.forEach((d,i)=>{x.fillStyle=Math.random()<.04?'#eafff0':cs;x.fillText(ch[Math.random()*ch.length|0],i*16,d.y*16);if(d.y*16>H&&Math.random()>.975)d.y=0;d.y++});return}
@@ -1033,11 +1070,24 @@ function avh(f=P.fr,a=P.av,force){const F=f&&SH.fr.find(x=>x[0]===f&&(force||P.s
 function tih(){const T=SH.ti.find(x=>x[0]===P.ti&&P.sk['ti_'+x[0]]);return T?`<div class="ttl">${T[1]} ${esc(X(T[2],T[3]))}</div>`:''}
 function vShop(){const T=[['sn','🔊',X('Sounds','צלילים')],['fx','🎨',X('Backgrounds','רקעים')],['fr','✨',X('Prestige','יוקרה')]];
 const eq=(k,id)=>k==='sn'?(P.sn||'')===id:k==='fx'?S.theme===id:k==='fr'?P.fr===id:P.ti===id;
-const row=(k,it)=>{const id=it[0],ok=!it[4]||P.sk[k+'_'+id],on=ok&&eq(k,id);return `<div class="card shr"><div class="shi">${k==='fr'?avh(id,P.av,1):`<span style="font-size:30px">${it[1]}</span>`}</div><div class="shn"><b>${esc(X(it[2],it[3]))}</b>${k==='fx'?`<small>${X('Animated background','רקע מונפש')}</small>`:''}</div>${k==='sn'?`<button class="btn g" data-a="$pv" data-i="${id}">▶</button>`:''}${ok?`<span class="mut">✓ ${X('Owned','בבעלותך')}</span>`:`<button class="btn" data-a="$buy" data-i="${k}_${id}" style="${P.co>=shPrice(k,it)?'':'opacity:.55'}">🪙 ${shPrice(k,it)}${shPrice(k,it)<it[4]?` <s style="opacity:.6;font-weight:400">${it[4]}</s> 🏷️`:''}</button>`}</div>`};
+const row=(k,it)=>{const id=it[0],ok=!it[4]||P.sk[k+'_'+id],on=ok&&eq(k,id);return `<div class="card shr"><div class="shi">${k==='fr'?avh(id,P.av,1):`<span style="font-size:30px">${it[1]}</span>`}</div><div class="shn"><b>${esc(X(it[2],it[3]))}</b>${k==='fx'?`<small>${ok?X('Animated background','רקע מונפש'):X('Animated background · tap 👁 to preview','רקע מונפש · לחצו על 👁 לתצוגה מקדימה')}</small>`:''}</div>${k==='sn'?`<button class="btn g" data-a="$pv" data-i="${id}">▶</button>`:''}${k==='fx'&&!ok?`<button class="btn g" data-a="$pf" data-i="${id}" aria-label="${X('Preview','תצוגה מקדימה')}">👁</button>`:''}${ok?`<span class="mut">✓ ${X('Owned','בבעלותך')}</span>`:`<button class="btn" data-a="$buy" data-i="${k}_${id}" style="${P.co>=shPrice(k,it)?'':'opacity:.55'}">🪙 ${shPrice(k,it)}${shPrice(k,it)<it[4]?` <s style="opacity:.6;font-weight:400">${it[4]}</s> 🏷️`:''}</button>`}</div>`};
 A.innerHTML=`<div class="wrap"><div class="card c" style="margin-bottom:12px"><div style="font-size:44px">${avh()}</div>${tih()}<div class="ch" style="font-size:44px">🪙 ${P.co}</div><p class="mut" style="margin:6px 0 0">${X('Earn coins from bosses, missions and campaign levels','הרוויחו מטבעות מבוסים, משימות ושלבי קמפיין')}</p></div>${gfHtml()}${ddHtml()}<p class="mut c" style="margin:0 0 10px;font-size:13px">🔄 ${X("Today's picks change every day",'הבחירה של היום מתחלפת כל יום')}</p><div class="seg" style="margin-bottom:12px">${T.map(t=>`<button class="${SHT===t[0]?'on':''}" data-a="$t" data-i="${t[0]}">${t[1]} ${t[2]}</button>`).join('')}</div>${shDone(SHT==='fr'?['fr','ti']:[SHT])}${SHT==='fr'?shDay('fr').map(i=>row('fr',i)).join('')+`<h3>${X('Titles','תארים')}</h3>`+shDay('ti').map(i=>row('ti',i)).join('')+(shDone(['fr','ti'])?'':shNext(['fr','ti'])):(SHT==='fx'?fxGrp(shDay('fx'),i=>row('fx',i),shHd):shDay(SHT).map(i=>row(SHT,i)).join(''))+(shDone([SHT])?'':shNext([SHT]))}</div>`}
 V.shop=vShop;
+/* ===== Background preview: shows the real animated background on the real screen, nothing is saved ===== */
+document.head.insertAdjacentHTML('beforeend','<style>#pvb{position:fixed;inset:0;z-index:30}#pvb .pvx{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:48px;height:48px;padding:0;border-radius:50%;font-size:20px;display:grid;place-items:center}#pvb .pvc{position:absolute;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:16px;border:1px solid var(--ac);background:color-mix(in srgb,var(--card) 80%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}#pvb .pvn{flex:1;min-width:0;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#pvb .pvc .btn{padding:10px 14px}body.pvfull>*:not(#fx):not(#pvb){visibility:hidden!important}</style>');
+function pvDeal(id){const dd=ddPick(ddDay(new Date()));return !shIn('fx',id)&&dd[0]==='fx'&&dd[1][0]===id}
+function pvBar(){let b=document.getElementById('pvb');const id=window.PVF;document.body.classList.toggle('pvfull',!!id);if(!id){if(b)b.remove();return}
+const it=SH.fx.find(x=>x[0]===id);if(!it)return;if(!b){b=document.createElement('div');b.id='pvb';document.body.appendChild(b)}
+const pr=pvDeal(id)?ddPr(it):shPrice('fx',it);
+b.innerHTML=`<button class="btn g pvx" data-a="$px" aria-label="${X('Close preview','סגור תצוגה')}">✕</button><div class="pvc"><span class="pvn" dir="auto">👁 ${esc(X(it[2],it[3]))}</span><button class="btn" data-a="$pb">🪙 ${pr}</button></div>`}
+function pvStart(id){const k='fx_'+id;if(!SH.fx.some(x=>x[0]===id)||P.sk[k]||HI.has(k)||(XI.has(k)&&!P.xs))return;window.PVF=id;th();pvBar()}
+function pvStop(){window.PVF='';pvBar();th()}
+function pvBuy(){const id=window.PVF;if(!id)return;const k='fx_'+id,dd=pvDeal(id);window.PVF='';shopClick({a:dd?'$dd':'$buy',i:k});if(P.sk[k]){pvBar();th()}else{window.PVF=id;th();pvBar()}}
 function shopClick(d){const a=d.a;if(!a||a[0]!=='$')return 0;const i=d.i;
 if(a==='$t'){SHT=i;vShop()}
+else if(a==='$pf'){pvStart(i)}
+else if(a==='$pb'){pvBuy()}
+else if(a==='$px'){pvStop()}
 else if(a==='$pv'){const o=P.sn;P.sn=i;play(['.','-','.'],lcb);P.sn=o}
 else if(a==='$buy'||a==='$eq'){const[k,id]=i.split('_'),it=SH[k].find(x=>x[0]===id);
 if(a==='$buy'){if(P.sk[i])return 1;if(!shIn(k,id))return 1;if(HI.has(i))return 1;if(XI.has(i)&&!P.xs)return 1;if(UL[i]&&CLM()<UL[i])return 1;const pr=shPrice(k,it);if(P.co<pr){toast('🪙 '+X('Not enough coins','אין מספיק מטבעות'));return 1}P.co-=pr;P.sk[i]=1;toast('🛍️ '+X(it[2],it[3])+' · '+X('Equip in Rewards','בחרו ב"פרסים"'))}
@@ -1173,7 +1223,8 @@ inferno(x,W,H,f,s){bg(x,W,H,'#0a0405','#1e0c08','#3a1a0c');sf(x,W,H,f,s,60);cons
 eclipse(x,W,H,f,s){x.fillStyle='#030303';x.fillRect(0,0,W,H);sf(x,W,H,f,s,60);const cx=W/2,cy=H*.42,r=H*.13;x.globalCompositeOperation='lighter';gl(x,cx,cy,H*.55,'rgba(252,211,77,.45)',.8+.2*sn(f/40));x.strokeStyle='rgba(252,211,77,.35)';x.lineWidth=1.5;x.beginPath();for(let i=0;i<48;i++){const a=i*TP/48+f*.001,l=r*(1.5+.9*Math.abs(sn(i*1.7+f/70)));x.moveTo(cx+cs(a)*r,cy+sn(a)*r);x.lineTo(cx+cs(a)*l,cy+sn(a)*l)}x.stroke();x.globalCompositeOperation='source-over';x.fillStyle='#000';x.beginPath();x.arc(cx,cy,r,0,TP);x.fill();x.strokeStyle='#fcd34d';x.lineWidth=2;x.stroke();x.fillStyle='#fff7d0';star4(x,cx+r*.7,cy-r*.7,18+8*sn(f/30))},
 nebula(x,W,H,f,s){bg(x,W,H,'#05020a','#0a0418','#12082a');x.globalCompositeOperation='lighter';[['232,121,249',0],['99,102,241',2],['244,114,182',4],['56,189,248',6],['167,139,250',8]].forEach((c,i)=>gl(x,W*(.5+.38*sn(f*.0015+c[1])),H*(.5+.3*cs(f*.0012+c[1]*1.3)),Math.max(W,H)*.4,'rgba('+c[0]+',.4)',.8));x.globalCompositeOperation='source-over';sf(x,W,H,f,s,110)},
 omega(x,W,H,f,s){bg(x,W,H,'#02060a','#041a24','#062a38');const cx=W/2,cy=H*.46,u=Math.min(W,H);x.shadowColor='#22d3ee';x.shadowBlur=8;for(let i=0;i<9;i++){x.strokeStyle='rgba(34,211,238,'+(.7-i*.06)+')';x.lineWidth=1.3;x.beginPath();const n=3+i,rr=u*(.06+i*.04),a0=f*.004*(i%2?1:-1);for(let k=0;k<=n;k++){const a=a0+k*TP/n;k?x.lineTo(cx+cs(a)*rr,cy+sn(a)*rr):x.moveTo(cx+cs(a)*rr,cy+sn(a)*rr)}x.stroke()}x.shadowBlur=0;x.fillStyle='rgba(34,211,238,'+(.14+.08*sn(f/30))+')';x.font='800 '+u*.45+'px Rubik,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('Ω',cx,cy)},
-rainbows(x,W,H,f,s){bg(x,W,H,'#0a0816','#1a1038','#2a1a5a');const cx=W/2+sn(f/300)*W*.08,cy=H*1.05;for(let k=0;k<7;k++){x.strokeStyle=hx(k*50+f*.3,.55);x.lineWidth=16;x.beginPath();x.arc(cx,cy,H*.55+k*16,Math.PI,TP);x.stroke()}drift(x,W,H,f,s,5,.45,.85,40,'rgba(255,255,255,.5)');x.globalCompositeOperation='lighter';spk(x,W,H,f,s,45,(d,f)=>hx((d.x+f*2)%360,.9),-.3)}
+rainbows(x,W,H,f,s){bg(x,W,H,'#0a0816','#1a1038','#2a1a5a');const cx=W/2+sn(f/300)*W*.08,cy=H*1.05;for(let k=0;k<7;k++){x.strokeStyle=hx(k*50+f*.3,.55);x.lineWidth=16;x.beginPath();x.arc(cx,cy,H*.55+k*16,Math.PI,TP);x.stroke()}drift(x,W,H,f,s,5,.45,.85,40,'rgba(255,255,255,.5)');x.globalCompositeOperation='lighter';spk(x,W,H,f,s,45,(d,f)=>hx((d.x+f*2)%360,.9),-.3)},
+xrainbows(x,W,H,f,s){{const cx0=W/2,cy0=H/2,a=f*.008;let g;if(x.createConicGradient){g=x.createConicGradient(a,cx0,cy0);for(let k=0;k<=12;k++)g.addColorStop(k/12,'hsl('+(k*30)+',80%,38%)')}else{const R=Math.hypot(W,H)/2;g=x.createLinearGradient(cx0-Math.cos(a)*R,cy0-Math.sin(a)*R,cx0+Math.cos(a)*R,cy0+Math.sin(a)*R);for(let k=0;k<=8;k++)g.addColorStop(k/8,'hsl('+((k*45+f*.8)%360)+',80%,36%)')}x.fillStyle=g;x.fillRect(0,0,W,H);x.fillStyle='rgba(8,6,24,.28)';x.fillRect(0,0,W,H)}const cx=W/2+sn(f/300)*W*.08,cy=H*1.05;for(let k=0;k<7;k++){x.strokeStyle=hx(k*50+f*.9,.8);x.lineWidth=16;x.beginPath();x.arc(cx,cy,H*.55+k*16+sn(f/35+k*.7)*7,Math.PI,TP);x.stroke()}drift(x,W,H,f,s,5,.45,.85,40,'rgba(255,255,255,.5)');x.globalCompositeOperation='lighter';spk(x,W,H,f,s,45,(d,f)=>hx((d.x+f*2)%360,.9),-.3)}
 };
 /* backgrounds that had no palette of their own */
 [['ice','#8fcfff','#091328','#10203d'],['lava','#ff7a00','#12040a','#2a0a0a'],['ocean','#7dd3fc','#041a38','#08294a'],['matrix','#22ff66','#020b04','#06180a']].forEach(t=>document.head.insertAdjacentHTML('beforeend','<style>[data-theme="'+t[0]+'"]{--bg:'+t[2]+';--card:'+t[3]+';--ink:#f1f5f9;--mut:#94a3b8;--line:color-mix(in srgb,'+t[1]+' 25%,'+t[2]+');--ac:'+t[1]+';--ac2:'+t[1]+'}</style>'));
@@ -1212,7 +1263,7 @@ const TS=[
 ];
 window.regGen=(id,k,h)=>{const T=TS[k%28],v=(k/28|0)%3,d=k%2?1:-1;SC[id]=(x,W,H,f,s)=>{T(x,W,H,f,s,h,d);x.globalCompositeOperation='source-over';x.globalAlpha=1;x.shadowBlur=0;if(v===1){hill(x,W,H,H*.95,8,.011,hl(h,40,2));for(let i=0;i<W/70;i++)pine(x,i*70+i%3*14,H*.97,50+i*31%30,hl(h,40,2))}if(v===2)drift(x,W,H,f,s.z||(s.z={}),7,.55,.95,110,hl(h,35,75,.08))}};
 const fx0=fx;
-fx=function(){const id=P.sk['fx_'+S.theme]?S.theme:'';if(!SC[id])return fx0();const c=$('#fx'),x=c.getContext('2d');cancelAnimationFrame(FX);document.documentElement.toggleAttribute('data-fx',true);const W=c.width=innerWidth,H=c.height=innerHeight,s={},rm=matchMedia('(prefers-reduced-motion:reduce)').matches;let f=0;const fr=()=>{x.setTransform(1,0,0,1,0,0);x.globalCompositeOperation='source-over';x.globalAlpha=1;x.shadowBlur=0;x.textAlign='start';SC[id](x,W,H,f++,s);if(!rm)FX=requestAnimationFrame(fr)};fr()};
+fx=function(){const id=window.PVF||(P.sk['fx_'+S.theme]?S.theme:'');if(!SC[id])return fx0();const c=$('#fx'),x=c.getContext('2d');cancelAnimationFrame(FX);document.documentElement.toggleAttribute('data-fx',true);const W=c.width=innerWidth,H=c.height=innerHeight,s={},rm=matchMedia('(prefers-reduced-motion:reduce)').matches;let f=0;const fr=()=>{x.setTransform(1,0,0,1,0,0);x.globalCompositeOperation='source-over';x.globalAlpha=1;x.shadowBlur=0;x.textAlign='start';SC[id](x,W,H,f++,s);if(!rm)FX=requestAnimationFrame(fr)};fr()};
 /* ===== costume frames ===== */
 const M=s=>s+'<g transform="translate(100 0) scale(-1 1)">'+s+'</g>',
 Z=(s,k)=>'<g transform="translate(50 50) scale('+k+') translate(-50 -50)">'+s+'</g>',
@@ -1422,10 +1473,33 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-dm]');if(!
 const _vs=vSet;
 vSet=function(){_vs();if(P.dm){const w=A.querySelector('.wrap');if(w)w.insertAdjacentHTML('beforeend',`<div class="two"><button class="btn" data-dm="open" style="font-size:26px" aria-label="💎">🚪</button></div>`)}};
 V.set=vSet;
+/* ===== Settings > Letters tab: tap a letter to make it glow (= you know it) ===== */
+document.head.insertAdjacentHTML('beforeend','<style>.k.glow{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 20%,var(--card));box-shadow:0 0 14px 2px var(--ac),inset 0 0 10px color-mix(in srgb,var(--ac) 35%,transparent);transition:box-shadow .15s,background .15s}.k.glow b{text-shadow:0 0 10px var(--ac)}</style>');
+let SLT=0;
+document.head.insertAdjacentHTML('beforeend','<style>:root[data-theme="xrainbows"]{--bg:#0a0816;--card:#141028;--ink:#f6f1ff;--mut:#a79bc9;--line:#2c2350;--ac:#ff5fa2;--ac2:#4dd8ff}@property --ra{syntax:"<angle>";inherits:false;initial-value:0deg}@keyframes rbs{from{--ra:0deg}to{--ra:360deg}}@keyframes rbm1{from{background-position:0 0}to{background-position:400px 0}}@keyframes rbs2{from{background-position:150% 0,0 0}to{background-position:-50% 0,400px 0}}@keyframes rbf{50%{transform:translateY(-3px) scale(1.06)}}@keyframes rbg{0%{box-shadow:0 0 16px 3px #ff5f5f}17%{box-shadow:0 0 16px 3px #ffb347}33%{box-shadow:0 0 16px 3px #fff176}50%{box-shadow:0 0 16px 3px #7bed9f}67%{box-shadow:0 0 16px 3px #4dd8ff}83%{box-shadow:0 0 16px 3px #b388ff}100%{box-shadow:0 0 16px 3px #ff5f5f}}:root[data-theme="xrainbows"]{--rbg:linear-gradient(90deg,#ff5f5f,#ffb347,#fff176,#7bed9f,#4dd8ff,#b388ff,#ff5fa2,#ff5f5f)}:root[data-theme="xrainbows"] .btn:not(.g),:root[data-theme="xrainbows"] .seg .on,:root[data-theme="xrainbows"] .chip.on,:root[data-theme="xrainbows"] .orb,:root[data-theme="xrainbows"] .cn:not(.lk):not(.gold),:root[data-theme="xrainbows"] #toast,:root[data-theme="xrainbows"] .bar i{background-image:linear-gradient(110deg,transparent 42%,rgba(255,255,255,.55) 50%,transparent 58%),var(--rbg)!important;background-size:250% 100%,400px 100%;background-repeat:no-repeat,repeat;background-position:150% 0,0 0;animation:rbs2 2.2s linear infinite;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.55)}:root[data-theme="xrainbows"] .btn.g,:root[data-theme="xrainbows"] .k,:root[data-theme="xrainbows"] .tile,:root[data-theme="xrainbows"] .o,:root[data-theme="xrainbows"] .chip:not(.on),:root[data-theme="xrainbows"] .pad{border:2px solid transparent!important;background-image:linear-gradient(color-mix(in srgb,var(--card) 80%,transparent),color-mix(in srgb,var(--card) 80%,transparent)),conic-gradient(from var(--ra),#ff5f5f,#ffb347,#fff176,#7bed9f,#4dd8ff,#b388ff,#ff5fa2,#ff5f5f)!important;background-origin:padding-box,border-box;background-clip:padding-box,border-box;background-size:100% 100%,100% 100%;background-position:0 0,0 0;background-repeat:no-repeat}:root[data-theme="xrainbows"] .btn.g,:root[data-theme="xrainbows"] .tile,:root[data-theme="xrainbows"] .o,:root[data-theme="xrainbows"] .chip:not(.on),:root[data-theme="xrainbows"] .pad{animation:rbs 3.5s linear infinite}:root[data-theme="xrainbows"] .k.kn{background-image:linear-gradient(color-mix(in srgb,var(--ok) 22%,var(--card)),color-mix(in srgb,var(--ok) 22%,var(--card))),conic-gradient(from var(--ra),#ff5f5f,#ffb347,#fff176,#7bed9f,#4dd8ff,#b388ff,#ff5fa2,#ff5f5f)!important}:root[data-theme="xrainbows"] .k.glow{background-image:linear-gradient(color-mix(in srgb,var(--card) 78%,transparent),color-mix(in srgb,var(--card) 78%,transparent)),conic-gradient(from var(--ra),#ff5f5f,#ffb347,#fff176,#7bed9f,#4dd8ff,#b388ff,#ff5fa2,#ff5f5f)!important;animation:rbs 2s linear infinite,rbg 3s linear infinite,rbf 1.6s ease-in-out infinite}:root[data-theme="xrainbows"] .k.glow b{background:var(--rbg) 0 0/200px 100%;-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 0 6px rgba(255,255,255,.4));animation:rbm1 1.8s linear infinite}:root[data-theme="xrainbows"] .ch,:root[data-theme="xrainbows"] .ttl{background:var(--rbg) 0 0/400px 100%!important;-webkit-background-clip:text!important;background-clip:text!important;animation:rbm1 3s linear infinite}@media(prefers-reduced-motion:reduce){:root[data-theme="xrainbows"] *{animation:none!important}}</style>');
+const slTabs=()=>`<div class="seg" style="margin-bottom:12px"><button class="${SLT?'':'on'}" data-sl="tab" data-i="0">⚙️ ${X('Settings','הגדרות')}</button><button class="${SLT?'on':''}" data-sl="tab" data-i="1">🔤 ${X('Letters','אותיות')}</button></div>`;
+const slList=()=>[...letters()].sort((x,y)=>x.localeCompare(y,S.lang==='he'?'he':'en'));
+function slCount(){const k=new Set(K()),L=slList(),e=document.getElementById('slc');if(e)e.textContent=L.filter(c=>k.has(c)).length+'/'+L.length}
+function vSetLt(){const L=slList(),k=new Set(K()),dr=S.lang==='he'?' dir="rtl"':'';
+A.innerHTML=`<div class="wrap">${slTabs()}<div class="card"><h3 class="h0"${dr}>${X('Letters','אותיות')} · <span id="slc"></span></h3><p class="mut" dir="auto">${X('Tap a letter to make it glow. Glowing letters are the ones you know.','הקש על אות כדי שתזהר. אותיות זוהרות הן אלה שאתה מכיר.')}</p><div class="grid" style="grid-template-columns:repeat(5,1fr)"${dr}>${L.map(c=>`<button class="k${k.has(c)?' glow':''}" data-sl="l" data-i="${esc(c)}"><b style="font-size:24px">${esc(c)}</b></button>`).join('')}</div><div class="two"><button class="btn g" data-sl="all">✨ ${X('Glow all','הדלק הכול')}</button><button class="btn g" data-sl="none">${X('Clear','נקה')}</button></div></div></div>`;slCount()}
+const _vs3=vSet;
+vSet=function(){if(SLT){vSetLt();return}_vs3();const w=A.querySelector('.wrap');if(w)w.insertAdjacentHTML('afterbegin',slTabs())};
+V.set=vSet;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-sl]');if(!b)return;e.stopPropagation();const a=b.dataset.sl,i=b.dataset.i;
+if(a==='tab'){SLT=+i;vSet();return}
+const L=slList(),k=new Set(K());
+if(a==='l'){k.has(i)?k.delete(i):k.add(i);b.classList.toggle('glow',k.has(i))}
+else if(a==='all')L.forEach(c=>k.add(c));
+else if(a==='none')L.forEach(c=>k.delete(c));
+setK(ALL().filter(x=>k.has(x)));
+if(a!=='l')vSetLt();else slCount()},true);
+function xrChk(){if(S.theme!=='rainbows'||!P.sk.fx_rainbows)return;const k=S.k||{},same=(a,w)=>{const A=new Set((a||[]).map(c=>FIN[c]||c)),W=new Set(w.map(c=>FIN[c]||c));return A.size===W.size&&[...W].every(c=>A.has(c))};
+ if(!same(k.en,[...'LUCK'])||!same(k.he,[...'נוסף']))return;
+ P.sk.fx_xrainbows=1;S.theme='xrainbows';save();sp();hdr();th();toast('🌈 '+X('Extra Rainbows unlocked and equipped!','קשתות נוספות נפתחו ומצוידות!'))}
 function dmChk(){const k=S.k||{},same=(a,w)=>{const A=new Set((a||[]).map(c=>FIN[c]||c)),W=new Set(w);return A.size===W.size&&[...W].every(c=>A.has(c))};
  if(!same(k.he,[...'חנות'])||!same(k.en,[...'SHOP']))return;
  if(!P.dm){P.dm=1;save();sp();toast('💎 '+X('Diamond shop unlocked! Look for the door in Settings','חנות היהלומים נפתחה! חפשו את הדלת בהגדרות'))}}
-const _rb=rbChk;rbChk=function(){_rb();dmChk()};
+const _rb=rbChk;rbChk=function(){_rb();dmChk();xrChk()};
 })();
 
 
@@ -1839,6 +1913,25 @@ else if(a==='go'){const x=IB.find(y=>String(y.id)===i);if(!x)return;IB=IB.filter
 function can(){try{const k=dk(new Date());if(P.dd!==k&&LS.get('ml_dn','')!==k){LS.set('ml_dn',k);add('can','📅 '+X('The daily challenge is ready to play!','האתגר היומי מוכן לשחק!'),{k:'daily'})}
 const w=P.w2;if(w&&w.cd&&w.cd<Date.now()&&LS.get('ml_en',0)!==w.cd){LS.set('ml_en',w.cd);add('can','⏩ '+X('The World 2 skip exam is open again','מבחן הדילוג של עולם 2 נפתח שוב'),{k:'w2'})}}catch(e){}}
 upd();setTimeout(can,2500);setInterval(can,60000);
+})();
+</script>
+<script>
+(()=>{
+let kd=0;
+addEventListener('keydown',e=>{
+ if(e.repeat)return;
+ const k=document.getElementById('key');
+ if(!k||(e.code!=='Space'&&e.key!==' '))return;
+ const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+ e.preventDefault();kd=1;try{kdown()}catch(x){}
+},true);
+addEventListener('keyup',e=>{if(kd&&(e.code==='Space'||e.key===' ')){kd=0;e.preventDefault();try{kup()}catch(x){}}},true);
+addEventListener('blur',()=>{if(kd){kd=0;try{kup()}catch(x){}}});
+document.addEventListener('visibilitychange',()=>{try{if(document.hidden&&typeof ac!=='undefined'&&ac&&ac.state==='running')ac.suspend()}catch(x){}});
+const un=()=>{try{if(typeof ac!=='undefined'&&ac&&ac.state==='suspended')ac.resume()}catch(x){}};
+['touchend','pointerdown','click','keydown'].forEach(n=>addEventListener(n,un,{passive:true,capture:true}));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)un()});
+document.addEventListener('gesturestart',e=>{},{passive:true});
 })();
 </script>
 </body></html>
