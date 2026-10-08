@@ -631,13 +631,15 @@ function cItems0(n,gate){const O=cOrd(),pl=O.slice(0,cK(n)),nw=pl.slice(-3),boss
     const len=2+Math.min(3,Math.floor(n/40)),w=[...Array(len)].map(pick),a=w.join(''),o=new Set([a]);let g=0;while(o.size<4&&g++<80){const m=[...w];m[Math.random()*len|0]=rnd(pl);o.add(m.join(''))}return{t:'w',a,o:shuf([...o]),p:w.map(code)}})}
 function cpStart(n,gate){stop();clearTimeout(CT);clearInterval(CI);CP={n,gate,list:cItems(n,gate),i:0,ok:0,lives:3,boss:!gate&&n%5===0,pk:null,t:30,end:0,ts:gate?0:S.silent?Math.max(3,9-Math.floor(n/16)):n<30?0:Math.max(4,14-Math.floor(n/16))};CP.w0=S.wpm;CP.tw=CP.boss?((n/5-1)%12)%3:-1;if(CP.tw===2)CP.ts=7;cpQ();
   if(gate)CI=setInterval(()=>{CP.t-=.2;const e=$('#cpt');e&&(e.textContent=Math.max(0,Math.ceil(CP.t)));if(CP.t<=0)cpEnd()},200)}
+/* time per question = base time + the length of the audio (when you have to listen) + a little for long words */
+function cpTs(c,it){if(!c||!c.ts)return 0;let a=0;try{if(!S.silent&&it&&(it.t==='h'||it.t==='w'||it.t==='B'||it.t==='Z')&&Array.isArray(it.p)){const u=1.2/S.wpm;it.p.forEach(x=>{if(x===' '){a+=4*u;return}[...String(x)].forEach(y=>{a+=((y==='.'?1:3)+1)*u});a+=2*u});a+=.6}}catch(e){a=0}const L=String((it&&(it.t==='r'?it.w:it.a))||'').length;return Math.round((c.ts+a+(L>3?(L-3)*.4:0))*10)/10}
 function cpQ(){const c=CP;S.silent&&c.list.forEach(x=>{if(x.t==='h')x.t='s';else if(x.t==='B'){x.t='T';x.mode='T'}else if(x.t==='Z')x.t='Y'});const it=c.list[c.i],tg=cTg(c.n);
   const hd=c.gate?`<div class="stats"><div class="stat"><b id="cpt">${Math.ceil(c.t)}</b><span>${X('Seconds','שניות')}</span></div><div class="stat"><b>${c.ok}/${tg}</b><span>${X('Target','יעד')}</span></div></div>`:`<div class="row2"><b>${c.boss?'👹 ':''}${X('Level','שלב')} ${c.n}</b><span>${'❤️'.repeat(Math.max(0,c.lives))+'🖤'.repeat(3-Math.max(0,c.lives))}${c.boss?'':' · '+(c.i+1)+'/'+c.list.length}</span></div><div class="bar" style="margin:8px 0"><i style="width:${100*c.i/c.list.length}%"></i></div>`;
   const q=(it.t==='s'||(S.silent&&it.t==='w'))?`<div class="pat" style="margin:18px 0">${S.silent&&it.t==='w'?it.p.map(c=>mh(c,'big')).join(' '):mh(it.p[0],'big')}</div>`:it.t==='r'?`<div class="rq c" style="font-size:44px">${esc(it.w)}</div><p class="mut c">${X('Pick its Morse code','בחר את קוד המורס שלה')}</p>`:`<button class="orb" data-a="cpp">▶</button><p class="mut c">${X(it.t==='w'?'Listen to the word':'Listen, then pick',it.t==='w'?'הקשב למילה':'הקשב ואז בחר')}</p>`;
   const op=it.o.map((o,i)=>{const cl=c.pk!==null?(o===it.a?'ok':i===c.pk?'bad':''):'';return it.t==='r'?`<button class="o ro ${cl}" data-a="cpo" data-i="${i}">${mh(o,'s')}</button>`:`<button class="o ${cl}" data-a="cpo" data-i="${i}" style="font-size:24px" dir="auto">${esc(o)}</button>`}).join('');
-  const tb=c.ts&&c.pk===null&&!WGT(it)?`<div class="bar" style="margin-bottom:10px"><i style="width:100%;animation:cpb ${c.ts}s linear forwards"></i></div>`:'';
+  const tb=c.ts&&c.pk===null&&!WGT(it)?`<div class="bar" style="margin-bottom:10px"><i style="width:100%;animation:cpb ${cpTs(c,it)}s linear forwards"></i></div>`:'';
   A.innerHTML=`<div class="wrap"><button class="btn g" data-a="xcp">← ${X('Map','מפה')}</button><div style="height:12px"></div>${hd}<div class="card">${tb}${WGT(it)?wgH(it,()=>cpQ(),ok=>cpPick(ok?-2:-1)):q+'<div class="opts">'+op+'</div>'}</div></div>`;
-  clearTimeout(CT);if(c.ts&&c.pk===null&&!WGT(it))CT=setTimeout(()=>cpPick(-1),c.ts*1000);
+  clearTimeout(CT);if(c.ts&&c.pk===null&&!WGT(it))CT=setTimeout(()=>cpPick(-1),cpTs(c,it)*1000);
   if(!S.silent&&c.pk===null&&c.pl!==c.i&&(it.t==='h'||it.t==='w'||it.t==='B')){c.pl=c.i;setTimeout(()=>{if(CP===c&&c.pk===null){play(it.p,lcb);c.tw===0&&stNoise()}},250)}}
 function cpPick(i){const c=CP;if(!c||c.pk!==null||c.end)return;clearTimeout(CT);c.pk=i;const it=c.list[c.i],ok=WGT(it)?i===-2:i>=0&&it.o[i]===it.a;stOff();srU(it.t==='r'?it.w:it.a,ok);if(!ok&&c.tw===1)S.wpm=Math.min(40,S.wpm+3);
   if(ok){c.ok++;cc()}else{if(!c.gate)c.lives--;if(!c.gate&&it.t!=='r'&&it.a.length===1){const t=stat();t.miss[it.a]=(t.miss[it.a]||0)+1;save()}}
@@ -1855,7 +1857,7 @@ cpQ=function(){
   const card=A.querySelector('.card');if(!card)return;
   const done=c.pk!==null,ok=done&&c.pk>=0;
   if(c.tyI!==c.i){c.tyI=c.i;c.ty=''}
-  const secs=c.ts?Math.max(6,c.ts*1.2)*(it.t==='Z'?1.3:1):0;
+  const secs=c.ts?Math.max(6,cpTs(c,it)*1.2)*(it.t==='Z'?1.3:1):0;
   const prompt=it.t==='Z'&&!S.silent?`${PBTN}<p class="mut c">${X('Listen and type what you hear','הקשב והקלד את מה ששמעת')}</p>`:`<div class="c" style="font-size:60px;font-weight:800;line-height:1.1" dir="auto">${esc(it.a)}</div><p class="mut c">${X('Type its Morse code','הקלד את קוד המורס שלה')}</p>`;
   const fb=done?`<p class="c" style="font-weight:800">${ok?'✅ '+X('Correct','נכון'):'❌ '+X('Answer:','התשובה:')}</p><div class="c" style="direction:ltr">${mh(it.c,'big')}</div>`:'';
   const tb=!done&&secs?`<div class="bar" style="margin-bottom:6px"><i style="width:100%;animation:cpb ${secs}s linear forwards"></i></div>`:'';
