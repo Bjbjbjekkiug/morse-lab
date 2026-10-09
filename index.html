@@ -455,7 +455,7 @@ function vPlay(){const l=LV(P.xp),lo=LX(l),hi=LX(l+1),q=dqs(),dn=QS.filter(k=>q.
   const tl=(a,i,t)=>`<button class="card tile" data-a="${a}"><span style="font-size:32px">${i}</span><b>${t}</b></button>`;
   A.innerHTML=`<div class="wrap"><div class="card" data-t="rew" style="margin-bottom:12px"><div class="row2"><b>${avh()} ${esc(rk(l))} · ${X('Level','רמה')} ${l}</b><span>🔥 ${P.streak}</span></div><div class="bar" style="margin:10px 0 0"><i style="width:${100*(P.xp-lo)/(hi-lo)}%"></i></div></div>
 <button class="btn" data-a="cpl" data-i="${cur}" style="width:100%;margin-bottom:12px;font-size:18px">🗺️ ${X('Continue campaign','המשך קמפיין')} · ${X('Level','שלב')} ${cur}</button>
-<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">${tl('xcp','🗺️',X('Campaign map','מפת קמפיין'))}${tl('xqd',(P.dd===dk(new Date())?'✅':'📅'),X('Daily','אתגר יומי'))}${tl('xqr','⚡',X('Speed Race','מרוץ'))}${tl('xmv','🕵️',X('Spy Mission','משימה'))}${tl('xco','🧠',X('AI Coach','מאמן'))}${tl('key','📡',X('Redeem codes','לממש קודים'))}${tl('Lhg','🔤',X('Hangman','איש תלוי'))}${tl('Llg','🏅',X('Leagues','ליגות'))}${tl('Lch','🔡',X('Letters','אותיות')).replace('class="card tile"','class="card tile" style="grid-column:1/-1"')}</div>
+<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">${tl('xcp','🗺️',X('Campaign map','מפת קמפיין'))}${tl('xqd',(P.dd===dk(new Date())?'✅':'📅'),X('Daily','אתגר יומי'))}${tl('xqr','⚡',X('Speed Race','מרוץ'))}${tl('xmv','🕵️',X('Spy Mission','משימה'))}${tl('xco','🧠',X('AI Coach','מאמן'))}${tl('key','📡',X('Redeem codes','לממש קודים'))}${tl('Lhg','🔤',X('Hangman','איש תלוי'))}${tl('Llg','🏅',X('Leagues','ליגות'))}${tl('Lch','🔡',X('Letters','אותיות')).replace('class="card tile"','class="card tile" style="grid-column:1/-1"')}<button class="card tile" data-mp="home" style="grid-column:1/-1"><span style="font-size:32px">🌐</span><b>${X('Play with friends','שחק עם חברים')}</b></button></div>
 <details class="card" style="margin-top:12px"><summary><b>📋 ${X('Today: quests and events','היום: משימות ואירועים')}</b> · ${dn}/${QS.length}</summary><div style="margin-top:10px">${evh()}${qh()}</div></details></div>`}
 const lets=()=>{const l=pool().filter(c=>MAP()[c]);return l.length>=4?l:letters().slice(0,6)};
 function qItem(m,i){const L=lets(),hear=!S.silent&&(m==='daily'||(m==='coach'&&i%2===0));let a,o;
@@ -907,7 +907,9 @@ function rbChk(){
 function xsChk(){if(P.xs||KY.c)return;const t=KY.t.slice();while(t.length&&t[t.length-1]===' ')t.pop();const w=[];for(let i=t.length-1;i>=0&&t[i]!==' ';i--)w.unshift(t[i]);const J=w.join(' '),A1=[...'SHOP'].map(c=>EN[c]).join(' '),A2=[...'חנות'].map(c=>HE[c]).join(' ');if(J===A1||J===A2){P.xs=1;sp();toast('🛍️ '+X('Secret shop unlocked! 50 new items are waiting','החנות הסודית נפתחה! 50 פריטים חדשים מחכים לך'))}}
 /* ===== USB code: pixel egg avatar (English only) ===== */
 const EGG='<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjBAMAAADs965qAAAAD1BMVEX/////8gCm5hoAuPAAAAAB84RKAAAAyklEQVR42rWRMY4CMQxF35iUIDF020EKjkC7ETvHpsgJ9gho4ADjQLPNaEyRsDO7EhRIuHFkPed/2/BiVCW7wKE85QkF/X8qBB433ksBwvgHgBsutiqlWU77Lv3Itp00ukH0Orgptf+uPpZ63rXFVwPWnZaor6GPCBAxMVUxiEUxQPKArgg9d8pUVQslmVLAUrabx/7qWsAvYnHfgAkguGaimLz3a/2jaFqmHxUTwGMqKzZ6BNnM47h795mA+jBZYV/V/N7jzXd8OW4d4E3cQFUxsgAAAABJRU5ErkJggg==" style="width:1.5em;height:1.5em;border-radius:50%;background:#fff;image-rendering:pixelated;vertical-align:middle">',EGG_OLD=['<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdBAMAAACkvXo8AAAAD1BMVEX///+m5hr/8gAAuPAAAABrLEnDAAAAlElEQVR42pWQwQ3CQAwEx8Hv4BUNQC/0Tyo4pYPA/3TwsXKXF2DJssYrea21O2PViWMl15rsh7HrfOHHtoz8nst55EWKpXObTW3uRi8rmJ4BTFRYQ4pYqeA4NBM0cHCqEwXgQnUmHCwApQ5oUy7TP7LzfjFJrd+nAJzw1AVg0XXtqUwAtwB03f83E9gQnPgzv5/z/wAIrCQEV8UvxgAAAABJRU5ErkJggg==" style="width:1.5em;height:1.5em;border-radius:50%;image-rendering:pixelated;vertical-align:middle">','<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdBAMAAACkvXo8AAAAD1BMVEX/////8gCm5hoAuPAAAAAB84RKAAAAk0lEQVR42qXQsU4DQQyE4Y89S9ShoT2WF0C8/8OkTIO8SgPFRqa4I0pBEcFIljUa+5ds7lKEv2nZ2mt/HDd+KefPG9+fTy/bwAIPng51+oIG75WZ7Q1CTGM90j/EFCbVOsX8ycEQUzOpgWTuvF6Z2dYr37rXvp+HTo0rX25XTJrYbQ3hlxznFX1sPFxa5+Ifuvv/32eyNf6/ReNOAAAAAElFTkSuQmCC" style="width:1.5em;height:1.5em;border-radius:50%;background:#fff;image-rendering:pixelated;vertical-align:middle">'];
-function avSync(){EGG_OLD.forEach(o=>{if(P.ow&&P.ow.includes(o)){P.ow=P.ow.filter(x=>x!==o);if(!P.ow.includes(EGG))P.ow.push(EGG)}if(P.av===o){P.av=EGG;sp()}});[RBAV,EGG].forEach(a=>{if((P.ow||[]).includes(a)&&!AVL.includes(a))AVL.push(a)})}avSync();
+const LMV='<img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAbCAIAAAACtmMCAAAA/0lEQVR42uVVMQ7DIAzkUF/QrM3W/P9BzdaszRfoYOqeDBgURV3qIQrGdzkbmyClFE61GM62XzHu89JFtmJiN1SW/PRJm1kDUIy889NLIhX2ut05wCyNv4Sj7B5RMWglPPpBpUD2VHs5dr/MFF26EAKaG73cW8B4uF7HZ0a4RPIIL5wgJ3EHFRUMoNW3gm+x7PMi8C8ja2FSpeBpMdQcn8NSSuM18sqnJKb1dJj8DuVI06R1jcYD5APUHK/PhzoNBNoc8ikJNeq4WNO2Vnenbc1U1ZtChHM6QmTOql59cxexUxkNrFyyXapXixGYC/TR5Y+8zZq5TMkG5wd/+b9+A6S8D6MJOJldAAAAAElFTkSuQmCC" style="width:1.5em;height:1.5em;border-radius:50%;background:#fff;image-rendering:pixelated;vertical-align:middle">';
+function avSync(){EGG_OLD.forEach(o=>{if(P.ow&&P.ow.includes(o)){P.ow=P.ow.filter(x=>x!==o);if(!P.ow.includes(EGG))P.ow.push(EGG)}if(P.av===o){P.av=EGG;sp()}});[RBAV,EGG,LMV].forEach(a=>{if((P.ow||[]).includes(a)&&!AVL.includes(a))AVL.push(a)})}avSync();
+function lmDo(){P.ow=P.ow||[];if(!P.ow.includes(LMV))P.ow.push(LMV);avSync();P.av=LMV;sp();hdr();toast('😈 '+X('Code redeemed! Pixel Devil avatar unlocked and equipped','הקוד מומש! אווטאר השד נפתח ומצויד'))}
 function usbDo(){P.ow=P.ow||[];if(!P.ow.includes(EGG))P.ow.push(EGG);avSync();P.av=EGG;sp();hdr();toast('🥚 '+X('Code redeemed! Pixel Egg avatar unlocked and equipped','הקוד מומש! אווטאר ביצת פיקסלים נפתח ומצויד'))}
 /* ===== Background sets ===== */
 const FXS=[['tech','\u{1f4bb}','Tech & Neon','\u05d8\u05db\u05e0\u05d5 \u05d5\u05e0\u05d9\u05d0\u05d5\u05df',['matrix', 'cyber', 'synth', 'holo', 'plasma', 'omega']],['fire','\u{1f525}','Fire & Gold','\u05d0\u05e9 \u05d5\u05d6\u05d4\u05d1',['lava', 'camp', 'mars', 'inferno', 'blood', 'gdust']],['water','\u{1f30a}','Water & Ice','\u05de\u05d9\u05dd \u05d5\u05e7\u05e8\u05d7',['ocean', 'ice', 'rain', 'coral', 'abyss', 'storm', 'crystal']],['nature','\u{1f33f}','Nature','\u05d8\u05d1\u05e2',['mint', 'sakura', 'jungle', 'autumn', 'lav', 'firefly', 'sand']],['space','\u{1f30c}','Sky & Space','\u05e9\u05de\u05d9\u05d9\u05dd \u05d5\u05d7\u05dc\u05dc',['dusk', 'dawn', 'comet', 'nlight', 'void', 'star', 'eclipse', 'nebula']],['rainbow','\u{1f308}','Rainbow','\u05e7\u05e9\u05ea',['rainbows','xrainbows','blackgold']]];
@@ -949,11 +951,11 @@ function lkChk(){const k=S.k||{};LKC.forEach(([id,lg,w])=>{const A=new Set((k[lg
 const RC={morse:{c:100,i:['sn_rad']},code:{c:200,i:['fx_matrix']},free:{c:150,i:['fr_gold','ti_t1']},gold:{c:500,i:['fr_fire','ti_t4','sn_las']},coins:{c:1000,i:[]},e:{c:1000,i:[]},sos:{c:300,i:['ti_t6']},lab:{c:200,i:['fr_neon']},dash:{c:100,i:[],bo:1},lk1:{c:500,i:['ti_t8']},lk2:{c:300,i:['fx_matrix']}},
 RCM={'e':'e','morse':'morse','מורס':'morse','code':'code','קוד':'code','free':'free','חינם':'free','gold':'gold','זהב':'gold','coins':'coins','מטבעות':'coins'};
 function rdDo(k){P.rc=P.rc||{};setTimeout(()=>{try{LS.set('ml_rcd',Object.assign({},LS.get('ml_rcd',{})||{},P.rc))}catch(e){}},0);if(k.slice(0,3)==='mc_'){const q=k.split('_');if(!mcEarned(q[1],+q[2])){toast('🔒 '+X('You have not earned this code yet','עוד לא קיבלת את הקוד הזה'));return}}if(P.rc[k]){toast('⚠️ '+X('Code already redeemed','הקוד כבר מומש'));return}
-if(k==='usb'){P.rc[k]=1;return usbDo()}if(k==='kd'){P.rc[k]=1;return kdDo()}if(k==='lgd'){P.rc[k]=1;return lgdDo()}const r=RC[k],nm=[];P.rc[k]=1;P.co=(P.co||0)+r.c;if(r.bo){P.bo=(P.bo||0)+r.bo;nm.push('⚡ '+X('Booster','בוסטר'))}r.i.forEach(i=>{const t=grantItem(i,1);t&&nm.push(t)});
+if(k==='usb'){P.rc[k]=1;return usbDo()}if(k==='lmk'){P.rc[k]=1;return lmDo()}if(k==='kd'){P.rc[k]=1;return kdDo()}if(k==='lgd'){P.rc[k]=1;return lgdDo()}const r=RC[k],nm=[];P.rc[k]=1;P.co=(P.co||0)+r.c;if(r.bo){P.bo=(P.bo||0)+r.bo;nm.push('⚡ '+X('Booster','בוסטר'))}r.i.forEach(i=>{const t=grantItem(i,1);t&&nm.push(t)});
 sp();hdr();toast('🎁 '+X('Code redeemed! ','הקוד מומש! ')+'+'+r.c+' 🪙'+(nm.length?' · '+nm.join(' · '):''));if(nm.length)toast('🛍️ '+X('Equip in Rewards','בחרו ב"פרסים"'))}
 const RCW={};RCW[[...'USB'].map(c=>EN[c]).join(' ')]='usb';RCW[EN.E]='e';[['sos','SOS'],['lab','LAB'],['dash','DASH']].forEach(([k,w])=>RCW[[...w].map(c=>EN[c]).join(' ')]=k);[['morse','MORSE'],['code','CODE'],['free','FREE'],['gold','GOLD'],['coins','COINS']].forEach(([k,w])=>RCW[[...w].map(c=>EN[c]).join(' ')]=k);[['morse','מורס'],['code','קוד'],['free','חינמ'],['gold','זהב'],['coins','מטבעות']].forEach(([k,w])=>RCW[[...w].map(c=>HE[c]).join(' ')]=k);
-function rdChk(){if(KY.c)return;const t=KY.t.slice();while(t.length&&t[t.length-1]===' ')t.pop();const ws=[[]];t.forEach(x=>{x===' '?ws.push([]):ws[ws.length-1].push(x)});const L=ws.slice(-3).map(x=>x.join(' ')).join(' / ');if(L===KY.last)return;KY.last=L;let k;for(let n=Math.min(3,ws.length);n>=1&&!k;n--)k=RCW[ws.slice(-n).map(x=>x.join(' ')).join(' / ')];if(k&&(k!=='usb'||S.lang==='en'))rdDo(k)}
-RCW[[...'פנטזיה'].map(c=>HE[c]).join(' ')]='kd';
+function rdChk(){if(KY.c)return;const t=KY.t.slice();while(t.length&&t[t.length-1]===' ')t.pop();const ws=[[]];t.forEach(x=>{x===' '?ws.push([]):ws[ws.length-1].push(x)});const L=ws.slice(-3).map(x=>x.join(' ')).join(' / ');if(L===KY.last)return;KY.last=L;let k;for(let n=Math.min(3,ws.length);n>=1&&!k;n--)k=RCW[ws.slice(-n).map(x=>x.join(' ')).join(' / ')];if(k&&(k!=='usb'||S.lang==='en')&&(k!=='lmk'||S.lang==='he'))rdDo(k)}
+RCW[[...'פנטזיה'].map(c=>HE[c]).join(' ')]='kd';RCW[[...'לימרק'].map(c=>HE[c]).join(' ')]='lmk';
 RCW[[...'FANTASY'].map(c=>EN[c]).join(' ')]='kd';
 const KDA=['🛡️','⚔️','🏰','🐲','🏆'];
 function kdDo(){P.ow=P.ow||[];let n=0,c=0;KDA.forEach(a=>{if(P.ow.includes(a))c+=100;else{P.ow.push(a);n++}});if(c)coin(c,X('Duplicate','כפילות'));sp();hdr();toast('🏰 '+X('Fantasy! '+n+' avatars unlocked','פנטזיה! נפתחו '+n+' אווטארים'));if(n)toast('🙂 '+X('Equip in Rewards › Avatars','בחרו ב"פרסים" › אווטארים'));try{if(tab==='rew')vRew()}catch(e){}}
@@ -968,9 +970,9 @@ function mcNote(c,n,win){if(c.gate||!win||n%50||!MCN[S.lang][n/50-1])return'';co
 let MCT='m';
 function mcOther(){const l=S.lang,en=l==='en',R=P.rc||{};
   const O=[['morse','MORSE','מורס'],['code','CODE','קוד'],['free','FREE','חינם'],['gold','GOLD','זהב'],['coins','COINS','מטבעות'],['e','E','E'],['sos','SOS','SOS'],['lab','LAB','LAB'],['dash','DASH','DASH'],['kd','FANTASY','פנטזיה'],['lgd','MYTHIC','מיתי'],['shop','SHOP','חנות']].map(x=>({k:x[0],w:en?x[1]:x[2]}));
-  if(en)O.push({k:'usb',w:'USB'});
+  if(en)O.push({k:'usb',w:'USB'});else O.push({k:'lmk',w:'לימרק'});
   O.push(en?{k:'lk1',w:'MORSE',lk:1}:{k:'lk2',w:'קוד',lk:1});
-  const XR={kd:X('5 avatars','5 אווטארים'),lgd:X('Legendary bundle','חבילת אגדי'),usb:X('Pixel egg avatar','אווטאר ביצת פיקסלים'),shop:X('Secret shop, 50 items','החנות הסודית, 50 פריטים')};
+  const XR={kd:X('5 avatars','5 אווטארים'),lgd:X('Legendary bundle','חבילת אגדי'),usb:X('Pixel egg avatar','אווטאר ביצת פיקסלים'),lmk:X('Pixel devil avatar','אווטאר שד פיקסלים'),shop:X('Secret shop, 50 items','החנות הסודית, 50 פריטים')};
   const owm=w=>`<span class="wm">${[...w].map(c=>mh(EN[c]||code(FIN[c]||c),'')).join('')}</span>`;
   const got=o=>o.k==='shop'?!!P.xs:!!R[o.k],n=O.filter(got).length;
   const rows=O.map(o=>{if(!got(o))return `<div class="card" style="margin-bottom:10px;opacity:.7"><div class="row2"><b>❔ ${X('Hidden code','קוד נסתר')}</b><span>🔒</span></div><p class="mut" dir="auto" style="margin:8px 0">${X('Not found yet','עוד לא נמצא')}</p></div>`;
@@ -1309,7 +1311,7 @@ xrainbows(x,W,H,f,s){{const cx0=W/2,cy0=H/2,a=f*.008;let g;if(x.createConicGradi
 const hl=(h,a,l,al=1)=>'hsla('+(((h%360)+360)%360)+','+a+'%,'+l+'%,'+al+')',dot=(x,r,c)=>{x.fillStyle=c;x.beginPath();x.arc(0,0,r*.35,0,TP);x.fill()};
 window.HUE=[15,195,225,45,220,200,135,35,250,190,55,270,280,20,190,300,175,150,265,25,355,30,215,40,330,150,240,38];
 const TS=[
-/*Fire*/(x,W,H,f,s,h,d)=>{bg(x,W,H,hl(h,70,4),hl(h,70,10),hl(h+10,80,22));x.globalCompositeOperation='lighter';for(let l=0;l<3;l++){x.fillStyle=hl(h+l*14,100,48+l*10,.35);for(let i=0;i<W;i+=6){const t=i*.04+f*.09*(1+l*.3)+l*3,u=H*.16*(1+sn(t)*sn(i*.013+f*.03))*(1.3-l*.25);x.fillRect(i,H-u,6,u)}}spk(x,W,H,f,s,40,()=>hl(h+20,100,65,.8),-.9)},
+/*Fire*/(x,W,H,f,s,h,d)=>{bg(x,W,H,hl(h,70,4),hl(h,70,10),hl(h+10,80,22));x.globalCompositeOperation='lighter';for(let l=0;l<3;l++){const g=x.createLinearGradient(0,H-H*.44,0,H);g.addColorStop(0,hl(h+l*14,100,55+l*10,0));g.addColorStop(.55,hl(h+l*14,100,50+l*10,.28));g.addColorStop(1,hl(h+l*14,100,48+l*10,.55));x.fillStyle=g;x.beginPath();x.moveTo(0,H);for(let i=0;i<=W+2;i+=2){const t=i*.04+f*.09*(1+l*.3)+l*3,u=H*.16*(1+sn(t)*sn(i*.013+f*.03))*(1.3-l*.25);x.lineTo(i,H-u)}x.lineTo(W+2,H);x.closePath();x.fill()}spk(x,W,H,f,s,40,()=>hl(h+20,100,65,.8),-.9)},
 /*Ice*/(x,W,H,f,s,h,d)=>{bg(x,W,H,hl(h,60,6),hl(h,55,14),hl(h,50,30));for(let i=0;i<W+40;i+=38){const L=H*(.08+(i*37%55)/300);x.fillStyle=hl(h,70,75,.55);x.beginPath();x.moveTo(i-14,0);x.lineTo(i+14,0);x.lineTo(i,L);x.fill();x.fillStyle=hl(h,90,95,.4+.4*sn(f/20+i));x.fillRect(i-1,L-2,3,3)}fall(x,W,H,s,60,[hl(h,40,95,.8),hl(h,60,85,.7)],dot,8,.8,.8)},
 /*Moon*/(x,W,H,f,s,h,d)=>{bg(x,W,H,hl(h,50,4),hl(h,45,10),hl(h,40,20));sf(x,W,H,f,s,80);const cx=W*.5,cy=H*.35,r=Math.min(W,H)*.2;gl(x,cx,cy,r*3,hl(h,60,85,.5));x.fillStyle=hl(h,25,90);x.beginPath();x.arc(cx,cy,r,0,TP);x.fill();x.fillStyle=hl(h,20,75,.6);[[.3,-.2,.22],[-.35,.1,.28],[.1,.4,.16],[-.1,-.45,.12]].forEach(a=>{x.beginPath();x.arc(cx+a[0]*r,cy+a[1]*r,a[2]*r,0,TP);x.fill()});drift(x,W,H,f,s,4,.3,.7,60,hl(h,30,30,.35))},
 /*Sun*/(x,W,H,f,s,h,d)=>{bg(x,W,H,hl(h,90,22),hl(h+5,95,36),hl(h-5,95,52));const cx=W*.5,cy=H*.4,r=Math.min(W,H)*.14;gl(x,cx,cy,r*5,hl(h,100,85,.8));x.fillStyle=hl(h,100,85,.28);for(let i=0;i<16;i++){const a=i*TP/16+f*.004*d;x.beginPath();x.moveTo(cx,cy);x.arc(cx,cy,Math.max(W,H),a,a+.07);x.fill()}x.fillStyle=hl(h,100,92);x.beginPath();x.arc(cx,cy,r,0,TP);x.fill()},
@@ -1340,7 +1342,7 @@ const TS=[
 ];
 window.regGen=(id,k,h)=>{const T=TS[k%28],v=(k/28|0)%3,d=k%2?1:-1;SC[id]=(x,W,H,f,s)=>{T(x,W,H,f,s,h,d);x.globalCompositeOperation='source-over';x.globalAlpha=1;x.shadowBlur=0;if(v===1){hill(x,W,H,H*.95,8,.011,hl(h,40,2));for(let i=0;i<W/70;i++)pine(x,i*70+i%3*14,H*.97,50+i*31%30,hl(h,40,2))}if(v===2)drift(x,W,H,f,s.z||(s.z={}),7,.55,.95,110,hl(h,35,75,.08))}};
 const fx0=fx;
-fx=function(){const id=window.PVF||(P.sk['fx_'+S.theme]?S.theme:'');if(!SC[id])return fx0();const c=$('#fx'),x=c.getContext('2d');cancelAnimationFrame(FX);document.documentElement.toggleAttribute('data-fx',true);const W=c.width=innerWidth,H=c.height=innerHeight,s={},rm=matchMedia('(prefers-reduced-motion:reduce)').matches;let f=0;const fr=()=>{x.setTransform(1,0,0,1,0,0);x.globalCompositeOperation='source-over';x.globalAlpha=1;x.shadowBlur=0;x.textAlign='start';SC[id](x,W,H,f++,s);if(!rm)FX=requestAnimationFrame(fr)};fr()};
+fx=function(){const id=window.PVF||(P.sk['fx_'+S.theme]?S.theme:'');if(!SC[id])return fx0();const c=$('#fx'),x=c.getContext('2d');cancelAnimationFrame(FX);document.documentElement.toggleAttribute('data-fx',true);const D=Math.min(window.devicePixelRatio||1,3),W=innerWidth,H=innerHeight;c.width=Math.round(W*D);c.height=Math.round(H*D);c.style.width='100%';c.style.height='100%';const s={},rm=matchMedia('(prefers-reduced-motion:reduce)').matches;let f=0;const fr=()=>{x.setTransform(D,0,0,D,0,0);x.globalCompositeOperation='source-over';x.globalAlpha=1;x.shadowBlur=0;x.textAlign='start';SC[id](x,W,H,f++,s);if(!rm)FX=requestAnimationFrame(fr)};fr()};
 /* ===== costume frames ===== */
 const M=s=>s+'<g transform="translate(100 0) scale(-1 1)">'+s+'</g>',
 Z=(s,k)=>'<g transform="translate(50 50) scale('+k+') translate(-50 -50)">'+s+'</g>',
@@ -2017,5 +2019,235 @@ document.addEventListener('click',function(e){var h=e.target.closest&&e.target.c
 /* two pitches: the play button (circle) and the dots/dashes you press */
 window.addEventListener('click',function(e){var t=e.target;if(t&&t.closest&&t.closest('.pad,[data-sk="k"],[data-w2="d"],[data-w2="l"],[data-a="md"],[data-a="ml"],#mchat [data-k="d"],#mchat [data-k="h"]'))PK=1;setTimeout(function(){PK=0},0)},true);
 document.addEventListener('change',function(e){var t=e.target,k=t&&t.dataset&&t.dataset.s;if(k!=='hp'&&k!=='hk')return;try{PK=k==='hk'?1:0;play(['.-'],null)}catch(x){}PK=0});
+</script>
+<script>
+/* ===== Play with friends: online duel over PeerJS (free, peer-to-peer; the PeerJS cloud only introduces the players) ===== */
+(()=>{
+const PJ='https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js',PRE='mlab-',AL='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',MAXP=6;
+const T={tl:12,grace:1.5,pre:3000,res:3300};
+let M=null,LP=null;
+const clean=s=>String(s==null?'':s).replace(/[<>&"'`]/g,'').trim().slice(0,12);
+const num=(v,a,b)=>{v=+v;return isFinite(v)?Math.min(b,Math.max(a,Math.round(v)))|0:a};
+const sav=a=>{a=String(a||'');const m=/src="(data:image\/(?:png|jpeg|gif|webp);base64,[A-Za-z0-9+\/=]+)"/.exec(a.slice(0,6000));return m?`<img alt="" src="${m[1]}" style="width:1.5em;height:1.5em;border-radius:50%;background:#fff;image-rendering:pixelated;vertical-align:middle">`:esc(a.slice(0,8))};
+const av=a=>`<span class="av"><u>${sav(a)}</u></span>`;
+const mkCode=()=>[...Array(5)].map(()=>AL[Math.random()*AL.length|0]).join('');
+const snd=(c,m)=>{try{c&&c.open&&c.send(m)}catch(e){}};
+const IN='width:100%;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:18px;text-align:center;margin-top:8px';
+const myName=()=>clean(LS.get('ml_mpn',''))||clean(P.nm)||X('Player','שחקן')+(10+Math.random()*89|0);
+const LVL={e:['Easy letters','אותיות קלות'],n:['All letters','כל האותיות'],w:['Words','מילים']};
+
+function loadPeer(){
+  if(window.Peer)return Promise.resolve();if(LP)return LP;
+  LP=new Promise((ok,no)=>{const s=document.createElement('script');s.src=PJ;const tm=setTimeout(()=>{LP=null;no(new Error('timeout'))},12000);
+    s.onload=()=>{clearTimeout(tm);window.Peer?ok():(LP=null,no(new Error('x')))};s.onerror=()=>{clearTimeout(tm);LP=null;no(new Error('net'))};document.head.appendChild(s)});
+  return LP}
+
+/* ---------- screens ---------- */
+const wrap=h=>{A.innerHTML=`<div class="wrap">${h}</div>`;scrollTo(0,0)};
+function vHome(){
+  wrap(`<button class="btn g" data-mp="exit">← ${X('Back','חזרה')}</button><div style="height:12px"></div>
+<div class="card c"><h2>🌐 ${X('Play with friends','שחק עם חברים')}</h2>
+<p class="mut">${X('Everyone hears the same Morse. Pick the right answer fast: the faster, the more points. Needs internet.','כולם שומעים את אותו קוד מורס. בחרו את התשובה הנכונה מהר: ככל שמהר יותר, יותר נקודות. צריך אינטרנט.')}</p>
+<input id="mpn" dir="auto" maxlength="12" value="${esc(LS.get('ml_mpn','')||P.nm||'')}" placeholder="${X('Your name','השם שלך')}" style="${IN}">
+<button class="btn" data-mp="mk" style="width:100%;margin-top:12px">${X('Create a room','צור חדר')}</button>
+<p class="mut" style="margin:16px 0 0">${X('Or join a friend\'s room','או הצטרפו לחדר של חבר')}</p>
+<input id="mpj" dir="ltr" maxlength="5" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCDE" style="${IN};letter-spacing:8px;font-size:28px;text-transform:uppercase">
+<button class="btn g" data-mp="jn" style="width:100%;margin-top:10px">${X('Join','הצטרף')}</button></div>`)}
+function vMsg(t,back){wrap(`<div class="card c" style="margin-top:20px"><h2>${t}</h2>${back?`<button class="btn" data-mp="home" style="margin-top:12px">${X('Back','חזרה')}</button>`:'<div class="bar" style="margin:16px 0 0"><i style="width:60%"></i></div>'}</div>`)}
+const rowP=(p,x='')=>`<div style="display:flex;align-items:center;gap:10px;padding:6px 0">${av(p.a)}<b style="flex:1">${esc(p.n)}${p.id===M.me?` <span class="mut">(${X('you','אתם')})</span>`:''}${p.id==='h'?' 👑':''}</b>${x}</div>`;
+function vLobby(){
+  const h=M.role==='h',cf=M.cfg,seg=(k,list)=>`<div class="seg" style="margin-top:8px">${list.map(v=>`<button class="${cf[k]===v[0]?'on':''}" ${h?`data-mp="cfg" data-k="${k}" data-v="${v[0]}"`:'disabled'}>${v[1]}</button>`).join('')}</div>`;
+  wrap(`<button class="btn g" data-mp="lv">← ${X('Leave','יציאה')}</button><div style="height:12px"></div>
+<div class="card c"><p class="mut">${X('Room code','קוד חדר')}</p><div class="ch" style="font-size:54px;letter-spacing:6px;direction:ltr">${esc(M.code)}</div>
+<div class="two" style="justify-content:center"><button class="btn" data-mp="sh">${X('Share','שתף')}</button><button class="btn g" data-mp="cp">${X('Copy code','העתק קוד')}</button></div></div>
+<div class="card" style="margin-top:12px"><h3>${X('Players','שחקנים')} · ${M.pl.length}/${MAXP}</h3>${M.pl.map(p=>rowP(p)).join('')}</div>
+<div class="card" style="margin-top:12px"><b>${X('Rounds','סבבים')}</b>${seg('r',[[5,'5'],[10,'10'],[15,'15']])}<div style="height:10px"></div><b>${X('Level','רמה')}</b>${seg('l',Object.keys(LVL).map(k=>[k,X(LVL[k][0],LVL[k][1])]))}</div>
+${h?`<button class="btn" data-mp="go" style="width:100%;margin-top:12px;font-size:18px">▶ ${X('Start game','התחל משחק')}</button>`:`<p class="mut c" style="margin-top:14px">${X('Waiting for the host to start…','ממתינים שהמארח יתחיל…')}</p>`}`)}
+function vPre(){
+  wrap(`<div class="card c" style="margin-top:30px"><p class="mut">${X('Get ready…','היכונו…')}</p><div class="ch" id="mpcd">3</div><p class="mut">${X('Listen carefully','הקשיבו היטב')}</p></div>`);
+  let n=3;clearInterval(M.ci);M.ci=setInterval(()=>{n--;const e=$('#mpcd');if(e&&n>0)e.textContent=n;else clearInterval(M&&M.ci)},Math.max(100,T.pre/3))}
+const sorted=()=>[...M.pl].sort((a,b)=>b.s-a.s);
+function vQ(){
+  const q=M.q,r=M.res,pl=sorted();
+  const top=`<div style="display:flex;justify-content:space-between;align-items:center"><b>${X('Question','שאלה')} ${q.i+1}/${q.n}</b><span id="mpp" class="mut"></span></div><div class="bar" style="margin:8px 0 12px"><i id="mpt" style="width:${r?0:100}%"></i></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">${pl.map(p=>`<span class="stat" style="padding:4px 10px;border-radius:12px;font-size:13px;${p.id===M.me?'border-color:var(--ac)':''}${p.on===false?';opacity:.45':''}">${esc(p.n)} <b>${p.s}</b></span>`).join('')}</div>`;
+  const pr=S.silent?`<div class="pat" style="margin:18px 0;text-align:center">${q.codes.map(c=>mh(c,'big')).join(' ')}</div>`:`<button class="orb" data-mp="rp" aria-label="Replay">▶</button><p class="mut c">${X('Listen, then pick','הקשיבו ובחרו')}</p>`;
+  const my=r?r.res.find(x=>x.id===M.me):null;
+  const opts=q.opts.map((o,i)=>{let c='';if(r){if(i===r.ans)c='ok';else if(my&&my.o===i)c='bad'}return`<button class="o ${c}" data-mp="o" data-i="${i}"${r||M.ans!==null?' disabled':''}${M.ans===i&&!r?' style="border-color:var(--ac)"':''}>${esc(o)}</button>`}).join('');
+  let tb='';
+  if(r){const rs=[...r.res].sort((a,b)=>b.s-a.s);tb=`<div class="card" style="margin-top:12px">${rs.map((x,i)=>{const p=M.pl.find(y=>y.id===x.id)||{n:'?',a:''};return`<div style="display:flex;align-items:center;gap:10px;padding:5px 0">${av(p.a)}<b style="flex:1">${esc(p.n)}</b><span>${x.o<0?'⏱':x.ok?'✅ +'+x.pts:'❌'}</span><b style="min-width:52px;text-align:end">${x.s}</b></div>`}).join('')}</div>`}
+  wrap(`${top}<div class="card">${pr}<div class="opts">${opts}</div></div>${tb}`);
+  if(!r){const t=$('#mpt');if(t){setTimeout(()=>{if(M&&M.q===q&&t.isConnected){t.style.transition='width '+q.tl+'s linear';t.style.width='0%'}},40)}
+    if(!S.silent)setTimeout(()=>{if(M&&M.q===q&&M.v==='q')try{play(q.codes,lcb)}catch(e){}},400);
+    cnt()}}
+function cnt(){const e=$('#mpp');if(!e||!M||M.v!=='q')return;e.textContent=M.pc!=null?`${M.pc}/${M.pn}`:''}
+function vEnd(){
+  const f=M.fin,w=f[0],me=f.findIndex(p=>p.id===M.me)+1,md=['🥇','🥈','🥉'];
+  wrap(`<div class="card c"><h2>🏆</h2><p><b>${f.length>1?X('Winner: ','המנצח: ')+esc(w.n):X('Game over','המשחק נגמר')}</b></p><p class="mut">${X('Your place','המקום שלך')}: ${me}/${f.length}</p></div>
+<div class="card" style="margin-top:12px">${f.map((p,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:7px 0;${p.id===M.me?'font-weight:700':''}"><span style="min-width:28px;font-size:20px">${md[i]||(i+1)}</span>${av(p.a)}<span style="flex:1">${esc(p.n)}</span><span class="mut">${p.ok}✅</span><b style="min-width:56px;text-align:end">${p.s}</b></div>`).join('')}</div>
+${M.role==='h'?`<button class="btn" data-mp="again" style="width:100%;margin-top:12px">${X('Play again','שחקו שוב')}</button>`:`<p class="mut c" style="margin-top:12px">${X('The host can start another game…','המארח יכול להתחיל משחק נוסף…')}</p>`}
+<button class="btn g" data-mp="lv" style="width:100%;margin-top:10px">${X('Leave','יציאה')}</button>`)}
+function draw(){if(!M)return;const f=({lobby:vLobby,pre:vPre,q:vQ,r:vQ,end:vEnd})[M.v];f&&f()}
+
+/* ---------- session ---------- */
+function leave(){
+  if(M){clearTimeout(M.tm);clearInterval(M.ci);clearTimeout(M.jt);M.dead=1;
+    try{(M.pl||[]).forEach(p=>{if(p.conn)try{p.conn.close()}catch(e){}})}catch(e){}
+    try{M.conn&&M.conn.close()}catch(e){}
+    try{M.peer&&M.peer.destroy()}catch(e){}}
+  M=null;try{stop()}catch(e){}}
+function fail(t,detail){const wasAlive=!!M;leave();if(wasAlive||t)vMsg('⚠️ '+t,1)}
+const NETERR=()=>X('Could not reach the online service. Check your internet and try again.','אין חיבור לשירות האונליין. בדקו אינטרנט ונסו שוב.');
+function newSession(role){leave();M={role,peer:null,conn:null,code:'',me:role==='h'?'h':'',pl:[],cfg:{r:10,l:'n'},v:'wait',q:null,res:null,ans:null,fin:null,name:myName(),tries:0};return M}
+const meObj=()=>({id:'h',n:M.name,a:P.av||'🙂',s:0,ok:0,on:true,conn:null,ans:null});
+const pub=p=>({id:p.id,n:p.n,a:p.a,s:p.s|0,on:p.on!==false});
+const bc=m=>{M.pl.forEach(p=>{if(p.conn)snd(p.conn,m)})};
+const bcLobby=()=>bc({t:'lobby',code:M.code,pl:M.pl.map(pub),cfg:M.cfg});
+function saveName(){const v=clean(($('#mpn')||{}).value);if(v)LS.set('ml_mpn',v);return v||myName()}
+
+function mk(){
+  const nm=saveName();vMsg(X('Opening a room…','פותחים חדר…'));
+  loadPeer().then(()=>tryHost(nm)).catch(()=>fail(NETERR()))}
+function tryHost(nm,prev){
+  const s=prev||newSession('h');s.name=nm;s.tries++;
+  if(s.tries>6)return fail(NETERR());
+  const code=mkCode();let peer;
+  try{peer=new Peer(PRE+code,{debug:0})}catch(e){return fail(NETERR())}
+  s.peer=peer;s.code=code;s.pl=[meObj()];s.pl[0].n=nm;
+  const ot=setTimeout(()=>{if(M===s&&s.v==='wait'){fail(NETERR())}},13000);
+  peer.on('open',()=>{clearTimeout(ot);if(M!==s)return;s.v='lobby';draw()});
+  peer.on('connection',c=>onConn(s,c));
+  peer.on('disconnected',()=>{try{if(M===s&&!s.dead)peer.reconnect()}catch(e){}});
+  peer.on('error',e=>{if(M!==s)return;const ty=e&&e.type;
+    if(ty==='unavailable-id'){clearTimeout(ot);try{peer.destroy()}catch(x){}s.peer=null;return tryHost(nm,s)}
+    if(s.v==='wait')return fail(NETERR());
+    if(ty==='network'||ty==='server-error'||ty==='socket-error')toast('⚠️ '+X('Connection to the online service is unstable','החיבור לשירות האונליין לא יציב'))})}
+function onConn(s,c){
+  if(M!==s)return;
+  const jt=setTimeout(()=>{if(!s.pl.some(p=>p.conn===c))try{c.close()}catch(e){}},9000);
+  c.on('data',d=>{if(M!==s||!d||typeof d!=='object')return;
+    if(d.t==='hi'){
+      if(s.pl.some(p=>p.conn===c))return;
+      if(s.v!=='lobby'){snd(c,{t:'no',r:'busy'});setTimeout(()=>{try{c.close()}catch(e){}},400);return}
+      if(s.pl.length>=MAXP){snd(c,{t:'no',r:'full'});setTimeout(()=>{try{c.close()}catch(e){}},400);return}
+      clearTimeout(jt);s.pl.push({id:c.peer,n:clean(d.n)||X('Player','שחקן'),a:String(d.a||'🙂').slice(0,6000),s:0,ok:0,on:true,conn:c,ans:null});
+      bcLobby();draw()}
+    else if(d.t==='a')recAns(c.peer,num(d.i,0,999),num(d.o,-1,3))});
+  const gone=()=>drop(s,c);c.on('close',gone);c.on('error',gone)}
+function drop(s,c){
+  if(M!==s)return;const p=s.pl.find(x=>x.conn===c);if(!p)return;
+  toast('👋 '+p.n+' '+X('left','יצא'));
+  if(s.v==='lobby'||s.v==='end'){s.pl=s.pl.filter(x=>x!==p);if(s.v==='lobby')bcLobby();draw()}
+  else{p.on=false;bc({t:'p',c:ansCount(),n:actCount()});if(s.v==='q'){M.pc=ansCount();M.pn=actCount();cnt();allDone()}}}
+const actCount=()=>M.pl.filter(p=>p.on).length,ansCount=()=>M.pl.filter(p=>p.on&&p.ans).length;
+function allDone(){if(M.v==='q'&&ansCount()>=actCount()){clearTimeout(M.tm);M.tm=setTimeout(endRound,350)}}
+
+function join(){
+  const nm=saveName(),code=String(($('#mpj')||{}).value||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(code.length!==5){toast('⚠️ '+X('Enter the 5-character room code','הקלידו את קוד החדר (5 תווים)'));return}
+  const s=newSession('g');s.name=nm;s.code=code;vMsg(X('Connecting…','מתחברים…'));
+  loadPeer().then(()=>{
+    if(M!==s)return;let peer;
+    try{peer=new Peer(undefined,{debug:0})}catch(e){return fail(NETERR())}
+    s.peer=peer;
+    const ot=setTimeout(()=>{if(M===s&&s.v==='wait')fail(NETERR())},13000);
+    peer.on('open',id=>{if(M!==s)return;clearTimeout(ot);s.me=id;
+      const c=peer.connect(PRE+code,{reliable:true});s.conn=c;
+      s.jt=setTimeout(()=>{if(M===s&&s.v==='wait')fail(X('Could not connect to the room. Try again.','לא הצלחנו להתחבר לחדר. נסו שוב.'))},15000);
+      c.on('open',()=>snd(c,{t:'hi',n:nm,a:P.av||'🙂'}));
+      c.on('data',d=>onHost(s,d));
+      const gone=()=>{if(M===s&&s.v!=='left'){fail(X('The host left the game','המארח עזב את המשחק'))}};
+      c.on('close',gone);c.on('error',gone)});
+    peer.on('error',e=>{if(M!==s)return;const ty=e&&e.type;
+      if(ty==='peer-unavailable')return fail(X('Room not found. Check the code.','החדר לא נמצא. בדקו את הקוד.'));
+      if(s.v==='wait')return fail(NETERR());
+      if(ty==='network'||ty==='server-error'||ty==='socket-error')toast('⚠️ '+X('Connection to the online service is unstable','החיבור לשירות האונליין לא יציב'))});
+    peer.on('disconnected',()=>{try{if(M===s&&!s.dead)peer.reconnect()}catch(e){}})
+  }).catch(()=>fail(NETERR()))}
+
+/* messages from the host (guest side); everything coming over the network is treated as untrusted */
+const okCodes=a=>Array.isArray(a)&&a.length>=1&&a.length<=4&&a.every(c=>typeof c==='string'&&/^[.\-]{1,7}$/.test(c));
+const okOpts=a=>Array.isArray(a)&&a.length===4&&a.every(o=>typeof o==='string'&&o.length>=1&&o.length<=6);
+const cleanPl=a=>(Array.isArray(a)?a:[]).slice(0,MAXP).map(p=>({id:String(p&&p.id||'').slice(0,60),n:clean(p&&p.n)||'?',a:String(p&&p.a||'🙂').slice(0,6000),s:num(p&&p.s,0,99999),ok:num(p&&p.ok,0,99),on:!(p&&p.on===false)}));
+function onHost(s,d){
+  if(M!==s||!d||typeof d!=='object')return;
+  switch(d.t){
+    case'no':return fail(d.r==='full'?X('The room is full','החדר מלא'):X('The game already started','המשחק כבר התחיל'));
+    case'lobby':clearTimeout(s.jt);s.pl=cleanPl(d.pl);const cf=d.cfg||{};s.cfg={r:[5,10,15].includes(+cf.r)?+cf.r:10,l:LVL[cf.l]?cf.l:'n'};s.code=String(d.code||s.code).slice(0,5);s.v='lobby';s.q=null;s.res=null;draw();return;
+    case'pre':s.v='pre';draw();return;
+    case'q':{if(!okCodes(d.codes)||!okOpts(d.opts))return;s.q={i:num(d.i,0,99),n:num(d.n,1,99),codes:d.codes.slice(),opts:d.opts.slice(),tl:Math.min(30,Math.max(3,+d.tl||12))};s.ans=null;s.res=null;s.pc=null;s.v='q';draw();return}
+    case'p':s.pc=num(d.c,0,MAXP);s.pn=num(d.n,0,MAXP);cnt();return;
+    case'r':{if(!s.q||num(d.i,0,99)!==s.q.i)return;const rs=(Array.isArray(d.res)?d.res:[]).slice(0,MAXP).map(x=>({id:String(x&&x.id||'').slice(0,60),o:num(x&&x.o,-1,3),ok:!!(x&&x.ok),pts:num(x&&x.pts,0,300),s:num(x&&x.s,0,99999)}));
+      s.res={i:s.q.i,ans:num(d.ans,0,3),res:rs};rs.forEach(x=>{const p=s.pl.find(y=>y.id===x.id);if(p){p.s=x.s;if(x.ok)p.ok=(p.ok||0)+1}});s.v='r';draw();return}
+    case'end':s.fin=cleanPl(d.pl).sort((a,b)=>b.s-a.s);s.v='end';draw();rew();return}}
+
+/* ---------- host game engine ---------- */
+function genQ(){
+  const L=letters(),lv=M.cfg.l,pool=lv==='e'?L.slice(0,10):lv==='w'?L.slice(0,16):L,rp=()=>pool[Math.random()*pool.length|0],mkq=()=>lv==='w'?rp()+rp():rp();
+  let a=mkq(),g=0;while(a===M.last&&g++<30)a=mkq();M.last=a;
+  const o=new Set([a]);g=0;
+  while(o.size<4&&g++<300){if(lv==='w'){const x=[...a];x[Math.random()*2|0]=rp();o.add(x.join(''))}else o.add(rp())}
+  while(o.size<4)o.add(mkq());
+  const opts=shuf([...o]);return{codes:wcodes(a),opts,ans:opts.indexOf(a)}}
+function start(){
+  if(!M||M.role!=='h'||M.v!=='lobby')return;
+  M.pl=M.pl.filter(p=>p.on);M.pl.forEach(p=>{p.s=0;p.ok=0;p.ans=null});M.qi=-1;M.rw=0;M.last='';M.v='pre';
+  bc({t:'pre'});draw();M.tm=setTimeout(nextQ,T.pre)}
+function nextQ(){
+  if(!M||M.role!=='h'||M.dead)return;M.qi++;if(M.qi>=M.cfg.r)return endGame();
+  const q=genQ();M.hq=q;M.q={i:M.qi,n:M.cfg.r,codes:q.codes,opts:q.opts,tl:T.tl};M.ans=null;M.res=null;M.pl.forEach(p=>p.ans=null);
+  M.t0=performance.now();M.v='q';M.pc=0;M.pn=actCount();
+  bc({t:'q',...M.q});draw();M.tm=setTimeout(endRound,(T.tl+T.grace)*1000)}
+function recAns(id,i,o){
+  if(!M||M.role!=='h'||M.v!=='q'||!M.q||i!==M.q.i||o<0||o>3)return;
+  const p=M.pl.find(x=>x.id===id);if(!p||!p.on||p.ans)return;
+  const el=Math.min(T.tl,Math.max(0,(performance.now()-M.t0)/1000)),ok=o===M.hq.ans;
+  p.ans={o,ok,pts:ok?Math.round(100+100*Math.max(0,T.tl-el)/T.tl):0};
+  M.pc=ansCount();M.pn=actCount();bc({t:'p',c:M.pc,n:M.pn});cnt();allDone()}
+function endRound(){
+  if(!M||M.role!=='h'||M.v!=='q')return;clearTimeout(M.tm);
+  M.pl.forEach(p=>{if(p.ans&&p.ans.ok){p.s+=p.ans.pts;p.ok++}});
+  const res=M.pl.map(p=>({id:p.id,o:p.ans?p.ans.o:-1,ok:!!(p.ans&&p.ans.ok),pts:p.ans?p.ans.pts:0,s:p.s}));
+  M.res={i:M.q.i,ans:M.hq.ans,res};M.v='r';bc({t:'r',...M.res});draw();M.tm=setTimeout(nextQ,T.res)}
+function endGame(){
+  M.fin=M.pl.map(p=>({id:p.id,n:p.n,a:p.a,s:p.s,ok:p.ok,on:p.on})).sort((a,b)=>b.s-a.s);
+  M.v='end';bc({t:'end',pl:M.fin});draw();rew()}
+function rew(){
+  if(!M||M.rw||!M.fin)return;M.rw=1;const i=M.fin.findIndex(p=>p.id===M.me);if(i<0)return;
+  const g=10+M.fin[i].ok*3+(i===0&&M.fin.length>1?20:0);try{xp(g);toast('+'+g+' XP')}catch(e){}}
+function again(){
+  if(!M||M.role!=='h'||M.v!=='end')return;M.pl=M.pl.filter(p=>p.on);M.pl.forEach(p=>{p.s=0;p.ok=0;p.ans=null});M.v='lobby';M.q=null;M.res=null;bcLobby();draw()}
+
+/* ---------- actions ---------- */
+function answer(i,b){
+  if(!M||M.v!=='q'||M.ans!==null||!M.q)return;M.ans=i;
+  document.querySelectorAll('[data-mp="o"]').forEach(x=>x.disabled=true);if(b)b.style.borderColor='var(--ac)';
+  if(M.role==='h')recAns('h',M.q.i,i);else snd(M.conn,{t:'a',i:M.q.i,o:i});
+  try{stop()}catch(e){}}
+function share(){
+  const t=X('Join my Morse Lab game! Room code: ','בואו לשחק מולי ב-Morse Lab! קוד חדר: ')+M.code;
+  if(navigator.share)navigator.share({text:t}).catch(()=>{});else copy()}
+function copy(){
+  const ok=()=>toast('📋 '+X('Code copied','הקוד הועתק'));
+  try{navigator.clipboard.writeText(M.code).then(ok,()=>{})}catch(e){}}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-mp]');if(!b)return;const d=b.dataset;
+  switch(d.mp){
+    case'home':leave();return vHome();
+    case'exit':leave();return go('play');
+    case'mk':return mk();
+    case'jn':return join();
+    case'lv':{if(M)M.v='left';leave();return vHome()}
+    case'sh':return M&&share();
+    case'cp':return M&&copy();
+    case'cfg':if(M&&M.role==='h'&&M.v==='lobby'){M.cfg[d.k]=d.k==='r'?+d.v:d.v;bcLobby();draw()}return;
+    case'go':return start();
+    case'o':return answer(+d.i,b);
+    case'rp':if(M&&M.q&&M.v==='q')try{play(M.q.codes,lcb)}catch(x){}return;
+    case'again':return again()}});
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='mpj'){const v=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);if(v!==e.target.value)e.target.value=v}});
+const go0=go;go=function(t){if(M)leave();return go0.apply(this,arguments)};
+window.MLMP={open:vHome,leave,T,_st:()=>M};
+})();
 </script>
 </body></html>
