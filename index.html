@@ -1696,7 +1696,7 @@ au.onAuthStateChanged(u=>{
   db.collection('nudges').where('to','==',u.uid).onSnapshot(s=>{
     s.docChanges().forEach(c=>{
       if(c.type!=='added')return;const d=c.doc.data(),n=String(d.nm||'Friend').slice(0,12);
-      toast('👋 '+n+' '+X('nudged you!','דחף אותך!'));
+      toast('👋 '+n+' '+X('nudged you!','דחף אותך!'));try{const q=LS.get('ml_nud',{})||{},k=String(d.from||'');if(k){q[k]={n:((q[k]&&q[k].n)||0)+1,nm:n,ts:Date.now()};LS.set('ml_nud',q);{const nn=LS.get('ml_names',{})||{};nn[k]=n;LS.set('ml_names',nn)}window.frBd&&frBd()}}catch(e){}
       try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}
       try{Notification.permission==='granted'&&new Notification('Morse Lab',{body:'👋 '+n})}catch(e){}
       c.doc.ref.delete().catch(()=>{});
@@ -1726,7 +1726,8 @@ const pl=m=>{try{play(m.split(' ').filter(Boolean).map(x=>x==='/'?' ':x),lcb)}ca
 const flush=()=>{if(st.c){st.t.push(st.c);st.c=''}};
 const chip=(x,sh,l,lv)=>x==='/'?`<span class="chp sp">␣<small>${X('space','רווח')}</small></span>`:`<span class="chp${lv?' lv':''}">${vis(x)}<small>${lv?'…':sh?esc(rm(l)[x]||'?'):'&nbsp;'}</small></span>`;
 const chips=(m,sh,l)=>String(m).split(' ').filter(Boolean).map(x=>chip(x,sh,l)).join('');
-const nmOf=u=>{if(FZ&&FZ.uid===u)return FZ.nm;let b=null;for(const d of Object.values(st.msgs))if(d.from===u&&d.nm&&(!b||d.ts>b.ts))b=d;return b?b.nm:X('Friend','חבר')+' #'+String(u).slice(0,4)};
+const nmOf=u=>{if(FZ&&FZ.uid===u)return FZ.nm;let b=null;for(const d of Object.values(st.msgs))if(d.from===u&&d.nm&&(!b||d.ts>b.ts))b=d;if(b)return b.nm;try{const k=(LS.get('ml_names',{})||{})[u];if(k)return k}catch(e){}return X('Friend','חבר')+' #'+String(u).slice(0,4)};
+const remN=(u,n)=>{try{n=String(n||'').trim();if(!u||!n)return;const q=LS.get('ml_names',{})||{};if(q[u]!==n){q[u]=n;LS.set('ml_names',q)}}catch(e){}};
 const peers=()=>{const me=window.FBU,m=new Map(),add=(u,t)=>{if(u&&u!==me)m.set(u,Math.max(m.get(u)||0,t))};if(FZ&&FZ.uid)add(FZ.uid,Date.now()+1);for(const d of Object.values(st.msgs)){if(d.from===me)add(d.to,d.ts);else if(d.to===me)add(d.from,d.ts)}return [...m.entries()].sort((a,b)=>b[1]-a[1]).map(x=>x[0])};
 window.mcUnread=()=>{const me=window.FBU;if(!me)return[];const sn=LS.get('ml_seen',{}),m={};for(const d of Object.values(st.msgs))if(d.to===me&&d.ts>(sn[d.from]||0)){(m[d.from]=m[d.from]||{u:d.from,n:0}).n++}return Object.values(m).map(x=>({u:x.u,n:x.n,nm:nmOf(x.u)}))};
 const peer=()=>{const ps=peers(),fu=FZ&&FZ.uid||null;if(fu!==st.fz){st.fz=fu;if(fu)st.peer=fu}return st.peer&&ps.includes(st.peer)?st.peer:(ps[0]||null)};
@@ -1739,7 +1740,7 @@ function draw(){
   const L=Object.entries(st.msgs).map(([id,d])=>Object.assign({id},d)).filter(d=>(d.from===me&&d.to===pe)||(d.from===pe&&d.to===me)).sort((a,b)=>b.ts-a.ts).slice(0,30);
   const prev=dec(st.t.join(' ')+(st.c?' '+st.c:''),st.l);
   const b=(k,x,c)=>`<button class="btn ${c||'g'}" data-k="${k}" style="padding:12px 4px">${x}</button>`;
-  el.innerHTML=`<h3 class="h0">💬 ${X('Morse chat with','צ׳אט מורס עם')} ${esc(nmOf(pe))}</h3>${ps.length>1?`<div class="seg" style="margin:0 0 10px">${ps.map(u=>`<button class="${u===pe?'on':''}" data-k="u:${esc(u)}">${esc(nmOf(u))}</button>`).join('')}</div>`:''}
+  el.innerHTML=`<h3 class="h0">💬 ${X('Morse chat with','צ׳אט מורס עם')} ${esc(nmOf(pe))}${(window.isFriendUid&&!isFriendUid(pe))?` <span class="mut" style="font-size:13px">(${X('not in your friends','לא ברשימת החברים')})</span>`:''}</h3>${ps.length>1?`<div class="seg" style="margin:0 0 10px">${ps.map(u=>`<button class="${u===pe?'on':''}" data-k="u:${esc(u)}">${esc(nmOf(u))}</button>`).join('')}</div>`:''}
   <p class="mut" style="font-size:13px;margin:4px 0 8px">${X('Write with dots and dashes, tap Next letter between letters, then tap Send. To read a message he sent you, tap Decode (costs '+DEC_COST+' coins).','כותבים בנקודות וקווים, לוחצים אות הבאה בין אותיות ואז שלח. כדי לקרוא הודעה שהוא שלח לכם, לוחצים פענוח (עולה '+DEC_COST+' מטבעות).')}</p>
   <p class="mut" style="font-size:13px;margin:4px 0">${X('Language (changes the whole page):','שפה (משנה את כל הדף):')}</p>
   <div class="two">${b('l:en','English 🇬🇧',st.l==='en'?'':'g')}${b('l:he','עברית 🇮🇱',st.l==='he'?'':'g')}</div>
@@ -1775,7 +1776,7 @@ const iv=setInterval(()=>{
   if(!window.FBU||!window.firebase)return;clearInterval(iv);
   const db=firebase.firestore(),first={to:1,from:1};
   ['to','from'].forEach(f=>db.collection('mc').where(f,'==',FBU).onSnapshot(s=>{
-    s.docChanges().forEach(c=>{if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;
+    s.docChanges().forEach(c=>{if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;remN(d.from,d.nm);
       if(f==='to'&&!first.to){window.NM={u:d.from};toast('💬 '+nmOf(d.from)+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
     first[f]=0;draw();try{const e=document.getElementById('frbd');if(e){const n=frCount();e.textContent=n;e.style.display=n?'':'none'}}catch(e){}try{if(tab==='chat'&&CM==='ai'&&!AIB)vChat()}catch(e){}},()=>{}));
 },500);
@@ -2598,7 +2599,12 @@ document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[da
 (()=>{
 const OLD=vFx,box='width:100%;box-sizing:border-box;padding:10px;border-radius:12px;font:inherit';
 let FS='main',CUR=0,DBF=null,INV={},FL=LS.get('ml_frs',null);
-window.frCount=()=>(window.mcUnread?mcUnread().reduce((a,x)=>a+x.n,0):0)+Object.keys(INV).length;
+window.isFriendUid=u=>!!(FL&&FL.some(x=>x.uid===u));
+const NUD=()=>LS.get('ml_nud',{})||{};
+const acts=()=>{const o={};(window.mcUnread?mcUnread():[]).forEach(x=>{o[x.u]={u:x.u,nm:x.nm,m:x.n,nd:0}});const nu=NUD();for(const u in nu){(o[u]=o[u]||{u,nm:nu[u].nm,m:0,nd:0}).nd=nu[u].n}return Object.values(o).map(a=>{const f=FL&&FL.find(x=>x.uid===a.u);if(f)a.nm=f.nm;return a})};
+const clrNud=u=>{try{const q=NUD();if(u&&q[u]){delete q[u];LS.set('ml_nud',q);bd()}}catch(e){}};
+const pill=(n,ic)=>n?`<span style="display:inline-block;background:#ef4444;color:#fff;border-radius:999px;min-width:22px;padding:1px 8px;font-size:13px;font-weight:900;margin-inline-start:6px">${ic||''}${n}</span>`:'';
+window.frCount=()=>acts().reduce((a,x)=>a+x.m+x.nd,0)+Object.keys(INV).length;
 const bd=()=>{const e=document.getElementById('frbd');if(e){const n=frCount();e.textContent=n;e.style.display=n?'':'none'}};
 document.head.insertAdjacentHTML('beforeend','<style>.bdgx{position:absolute;top:8px;inset-inline-end:8px;background:#ef4444;color:#fff;border-radius:999px;min-width:24px;padding:2px 8px;font-size:15px;font-weight:900;animation:bdp 1.3s infinite}@keyframes bdp{50%{transform:scale(1.25)}}</style>');
 if(!Array.isArray(FL)){FL=FZ?[FZ]:[];LS.set('ml_frs',FL)}
@@ -2611,17 +2617,18 @@ const btn=(s,t,c)=>`<button class="btn ${c||''}" data-fs="${s}" style="width:100
 const pend=()=>Object.values(INV);
 function main(){const ps=pend();
  A.innerHTML=`<div class="wrap">${top('')}<div class="card"><h3>👥 ${X('Friends','חברים')}</h3><p class="mut" style="margin:6px 0 10px">👤 ${X('Your name','השם שלך')}: <b dir="auto">${esc(P.nm||'')}</b></p><div class="two" style="margin:0"><button class="btn g" data-nmch="1">✏️ ${X('Change name','שינוי שם')} · 🪙 200</button></div></div>
+${acts().length?`<div class="card" style="margin-top:12px"><h3>🔔 ${X('New','חדש')}</h3>${acts().map(a=>`<button class="btn" data-fs="n:${esc(a.u)}" style="width:100%;margin-top:10px">${a.m?'💬 '+a.m+' '+X('new from','חדשות מ־')+' ':'👋 '}<b dir="auto">${esc(a.nm)}</b>${a.nd?' '+X('nudged you','דחף אותך')+(a.nd>1?' ×'+a.nd:''):''}</button>`).join('')}</div>`:''}
 ${ps.length?`<div class="card" style="margin-top:12px"><h3>📨 ${X('Friend invites','הזמנות חברות')}</h3>${ps.map(v=>`<div style="margin-top:10px"><b dir="auto">${esc(v.nm||'Friend')}</b> ${X('wants to be your friend','רוצה להיות חבר שלך')}<div class="two"><button class="btn" data-fi="a:${v.id}">✅ ${X('Accept','אשר')}</button><button class="btn g" data-fi="d:${v.id}">✖ ${X('Decline','דחה')}</button></div></div>`).join('')}</div>`:''}
-<div class="card" style="margin-top:12px">${btn('list','👥 '+X('My friends','החברים שלי')+' ('+FL.length+')')}${btn('add','➕ '+X('Add a friend','הוסף חבר'),'g')}</div><div style="height:90px"></div></div>`}
+<div class="card" style="margin-top:12px">${btn('list','👥 '+X('My friends','החברים שלי')+' ('+FL.length+')'+pill(acts().reduce((a,x)=>a+x.m+x.nd,0)))}${btn('add','➕ '+X('Add a friend','הוסף חבר'),'g')}</div><div style="height:90px"></div></div>`}
 function list(){
- A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>👥 ${X('My friends','החברים שלי')}</h3>${FL.length?FL.map((f,i)=>btn('f:'+i,fxAv(f.av)+' '+esc(f.nm)+' · '+X('Level','רמה')+' '+LV(f.xp),'g')).join(''):`<p class="mut">${X('You have no friends yet.','עדיין אין לך חברים.')}</p>${btn('add','➕ '+X('Add a friend','הוסף חבר'))}`}</div><div style="height:90px"></div></div>`}
-function friend(){const f=FL[CUR];if(!f)return list();FZ=f;LS.set('ml_fx',FZ);
- A.innerHTML=`<div class="wrap">${top('list')}<div class="card"><h2 style="margin:0">${fxAv(f.av)} ${esc(f.nm)}</h2><p class="mut" style="margin:6px 0">${X('Level','רמה')} ${LV(f.xp)} · ${f.xp} XP · 🔥 ${f.sk}</p><p style="margin:6px 0">👻 <b>${X('Ghost score','ניקוד רוח')}: ${f.gh.length}</b> · ${X('Best race','שיא מרוץ')}: ${f.rb}</p><p class="mut" style="margin:6px 0">${X('Accuracy','דיוק')}: ${f.n?Math.round(100*f.ok/f.n):0}%</p>
+ A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>👥 ${X('My friends','החברים שלי')}</h3>${(FL.length||acts().length)?FL.map((f,i)=>{const a=acts().find(x=>x.u===f.uid)||{m:0,nd:0};return btn('f:'+i,fxAv(f.av)+' '+esc(f.nm)+' · '+X('Level','רמה')+' '+LV(f.xp)+pill(a.m,'💬 ')+pill(a.nd,'👋 '),'g')}).join('')+acts().filter(a=>!FL.some(f=>f.uid===a.u)).map(a=>btn('n:'+esc(a.u),'❓ <b dir="auto">'+esc(a.nm)+'</b> <small>('+X('not in your friends','לא ברשימת החברים')+')</small>'+pill(a.m,'💬 ')+pill(a.nd,'👋 '),'g')).join(''):`<p class="mut">${X('You have no friends yet.','עדיין אין לך חברים.')}</p>${btn('add','➕ '+X('Add a friend','הוסף חבר'))}`}</div><div style="height:90px"></div></div>`}
+function friend(){const f=FL[CUR];if(!f)return list();FZ=f;LS.set('ml_fx',FZ);const nn=(NUD()[f.uid]||{}).n||0;clrNud(f.uid);
+ A.innerHTML=`<div class="wrap">${top('list')}${nn?`<div class="card" style="margin-bottom:12px">👋 <b dir="auto">${esc(f.nm)}</b> ${X('nudged you','דחף אותך')}${nn>1?' ×'+nn:''}</div>`:''}<div class="card"><h2 style="margin:0">${fxAv(f.av)} ${esc(f.nm)}</h2><p class="mut" style="margin:6px 0">${X('Level','רמה')} ${LV(f.xp)} · ${f.xp} XP · 🔥 ${f.sk}</p><p style="margin:6px 0">👻 <b>${X('Ghost score','ניקוד רוח')}: ${f.gh.length}</b> · ${X('Best race','שיא מרוץ')}: ${f.rb}</p><p class="mut" style="margin:6px 0">${X('Accuracy','דיוק')}: ${f.n?Math.round(100*f.ok/f.n):0}%</p>
 <button class="btn" data-a="fxr" style="width:100%;margin-top:10px"${f.gh.length?'':' disabled'}>🏁 ${X('Race his ghost','התחרה ברוח שלו')}</button><button class="btn" data-a="fxnd" style="width:100%;margin-top:10px"${f.uid?'':' disabled'}>👋 ${X('Nudge','דחיפה')}</button>${f.uid?btn('chat','💬 '+X('Text with him','שלח לו הודעה')):''}${f.uid?'':`<p class="mut" style="font-size:13px">${X('Nudge and texts need his ID. Remove him and add him again with a new code from the browser or app version.','דחיפה והודעות צריכות את המזהה שלו. הסירו והוסיפו אותו שוב עם קוד חדש מגרסת הדפדפן או האפליקציה.')}</p>`}</div><div style="height:90px"></div></div>`}
 function add(){
  A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>➕ ${X('Add a friend','הוסף חבר')}</h3><p class="mut" style="font-size:13px;margin:0 0 8px">${window.FBU?'✅ '+X('Connected','מחובר'):'❌ '+X('Not signed in','לא מחובר')+' ['+(window.firebase?(window.AUERR||'waiting'):'firebase-not-loaded')+']'}</p><p style="margin:6px 0 10px;line-height:1.6">1️⃣ ${X('Copy your code and send it to your friend.','העתק את הקוד שלך ושלח לחבר.')}</p><div class="two"><button class="btn g" data-a="fxc">${X('Copy my share code','העתק קוד לשיתוף')}</button></div>${FZC?`<textarea id="fxs" readonly rows="3" style="${box}">${FZC}</textarea><p class="mut" style="font-size:13px">${X('Auto-copy is blocked here. Long-press the code and tap Copy.','ההעתקה האוטומטית חסומה. לחץ לחיצה ארוכה על הקוד ובחר העתק.')}</p>`:''}
 <p style="margin:14px 0 6px;line-height:1.6">2️⃣ ${X('Paste the code your friend sent you, then send him an invite.','הדבק את הקוד ששלח לך החבר ושלח לו הזמנה.')}</p><textarea id="fxi2" rows="3" style="${box}" placeholder="${X('Paste his code here','הדבק כאן את הקוד שלו')}"></textarea>${btn('inv','📨 '+X('Send friend invite','שלח הזמנת חברות'))}</div><div style="height:90px"></div></div>`}
-function chat(){OLD();const w=A.querySelector('.wrap');if(!w)return;[...w.children].forEach(c=>{if(c.id!=='mchat')c.remove()});w.insertAdjacentHTML('afterbegin',top('f:'+CUR)+'');}
+function chat(){clrNud(FZ&&FZ.uid);OLD();const w=A.querySelector('.wrap');if(!w)return;[...w.children].forEach(c=>{if(c.id!=='mchat')c.remove()});w.insertAdjacentHTML('afterbegin',top('f:'+CUR)+'');}
 vFx=function(){({main,list,friend,add,chat}[FS]||main)()};
 const oF=openFriends;openFriends=function(){FS='main';oF()};
 document.addEventListener('click',async e=>{
@@ -2636,7 +2643,10 @@ document.addEventListener('click',async e=>{
   if(FL.some(x=>x.uid===f.uid))return toast(X('Already your friend','כבר חבר שלך'));
   if(!window.FBU||!DBF)return toast('⚠️ '+X('Not ready yet','עוד לא מוכן'));
   try{await DBF.collection('invites').add({from:FBU,to:f.uid,k:'i',nm:me(),c:myCode(),ts:Date.now()});t.value='';toast('📨 '+X('Invite sent to ','ההזמנה נשלחה אל ')+f.nm)}catch(_){toast('⚠️ '+X('Could not send','השליחה נכשלה'))}return}
- if(s[0]==='f'&&s[1]===':'){CUR=+s.slice(2);s='friend'}
+ if(s.slice(0,2)==='n:'){const u=s.slice(2),i=FL.findIndex(x=>x.uid===u),a=acts().find(x=>x.u===u)||{m:0};
+  if(i>=0){CUR=i;FZ=FL[i];LS.set('ml_fx',FZ);s=a.m?'chat':'friend'}
+  else{CUR=-1;FZ={uid:u,nm:a.nm||'Friend',av:'',xp:0,sk:0,rb:0,gh:[],ok:0,n:0};s='chat'}}
+ else if(s[0]==='f'&&s[1]===':'){CUR=+s.slice(2);s='friend'}
  FS=s;vFx();scrollTo(0,0)});
 const iv=setInterval(()=>{if(!window.FBU||!window.firebase||!firebase.firestore)return;clearInterval(iv);DBF=firebase.firestore();
  DBF.collection('invites').where('to','==',FBU).onSnapshot(s=>{s.docChanges().forEach(c=>{const d=c.doc.data();
@@ -2644,6 +2654,8 @@ const iv=setInterval(()=>{if(!window.FBU||!window.firebase||!firebase.firestore)
   if(d.k==='a'){try{const f=parse(d.c,FL.find(x=>x.uid===d.from));f.uid=d.from;addF(f);toast('🎉 '+f.nm+' '+X('accepted your invite','אישר את ההזמנה שלך'))}catch(_){}c.doc.ref.delete().catch(()=>{})}
   else{INV[c.doc.id]=Object.assign({id:c.doc.id},d);toast('📨 '+String(d.nm||'Friend').slice(0,12)+' '+X('sent you a friend invite','שלח לך הזמנת חברות'))}});
   bd();if(FRV&&(FS==='main'||FS==='list'))vFx()},()=>{})},500);
+window.frBd=()=>{bd();if(FRV&&(FS==='main'||FS==='list'))vFx()};
+let sig='';setInterval(()=>{const g=JSON.stringify(acts())+Object.keys(INV).length;if(g!==sig){sig=g;bd();if(FRV&&(FS==='main'||FS==='list'))vFx()}},1500);
 })();
 </script>
 </body></html>
