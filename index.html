@@ -194,7 +194,7 @@ input[type=range],input[type=checkbox]{-webkit-appearance:auto;appearance:auto}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
 </style><style>/* Hebrew fix: keep each letter and its Morse together, never reordered by the bidi algorithm */.m,.wm,.o.ro,.hm b,.hm .ch,.grid b,.cell b,.chp,.czh b{unicode-bidi:isolate}.hm b,.grid b,.cell b{display:inline-block}</style><style>.cpath{padding-top:68px!important}</style></head><body><canvas id="fx"></canvas>
-<header><span style="display:flex;align-items:center;gap:10px"><button id="bell" aria-label="Notifications">🔔<b id="bn"></b></button><span class="logo"><span class="m"><i class="d"></i><i class="l"></i><i class="d"></i></span>Morse<b>Lab</b></span></span><span class="hd"><span id="lg"></span><span id="co" data-t="shop"></span><span id="lv" data-t="rew"></span><span id="lamp"></span></span></header>
+<header><span style="display:flex;align-items:center;gap:10px"><span class="logo"><span class="m"><i class="d"></i><i class="l"></i><i class="d"></i></span>Morse<b>Lab</b></span></span><span class="hd"><span id="lg"></span><span id="co" data-t="shop"></span><span id="lv" data-t="rew"></span><span id="lamp"></span></span></header>
 <main id="app"></main><div id="toast"></div>
 <nav>
 <button data-t="train"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5V21h16"/></svg>Training</button>
@@ -473,10 +473,10 @@ function xp(n){n=Math.round(n*(Date.now()<P.bt?2:1)*(wk()?1.5:1));const a=LV(P.x
   const q=dqs();for(const k of QS)if(!q.x[k[0]]&&(q[k[0]]||0)>=k[1]){q.x[k[0]]=1;P.xp+=k[4];coin(12,X('Quest','משימה'));toast('✅ '+X('Quest done: ','משימה הושלמה: ')+X(k[2],k[3]))}
   sp();hdr()}
 function vPlay(){const l=LV(P.xp),lo=LX(l),hi=LX(l+1),q=dqs(),dn=QS.filter(k=>q.x[k[0]]).length;let cur=1;while(cur<500&&P.cs[cur]>=1)cur++;
-  const tl=(a,i,t)=>`<button class="card tile" data-a="${a}"><span style="font-size:32px">${i}</span><b>${t}</b></button>`;
+  const tl=(a,i,t)=>`<button class="card tile" data-a="${a}" style="position:relative"><span style="font-size:32px">${i}</span><b>${t}</b>${a==='xqd'&&P.dd!==dk(new Date())?'<span class="bdgx">!</span>':''}</button>`;
   A.innerHTML=`<div class="wrap"><div class="card" data-t="rew" style="margin-bottom:12px"><div class="row2"><b>${avh()} ${esc(rk(l))} · ${X('Level','רמה')} ${l}</b><span>🔥 ${P.streak}</span></div><div class="bar" style="margin:10px 0 0"><i style="width:${100*(P.xp-lo)/(hi-lo)}%"></i></div></div>
 <button class="btn" data-a="cpl" data-i="${cur}" style="width:100%;margin-bottom:12px;font-size:18px">🗺️ ${X('Continue campaign','המשך קמפיין')} · ${X('Level','שלב')} ${cur}</button>
-<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">${tl('xcp','🗺️',X('Campaign map','מפת קמפיין'))}${tl('xqd',(P.dd===dk(new Date())?'✅':'📅'),X('Daily','אתגר יומי'))}${tl('xqr','⚡',X('Speed Race','מרוץ'))}${tl('xmv','🕵️',X('Spy Mission','משימה'))}${tl('xco','🧠',X('AI Coach','מאמן'))}${tl('key','📡',X('Redeem codes','לממש קודים'))}${tl('Lch','🔡',X('Letters','אותיות'))}${tl('Llg','🏅',X('Leagues','ליגות'))}<button class="card tile" data-a="xfr" style="position:relative"><span style="font-size:32px">👥</span><b>${X('Friends','חברים')}</b><span id="frbd" style="position:absolute;top:8px;inset-inline-end:8px;background:var(--ac2);color:#000;border-radius:999px;min-width:22px;padding:2px 7px;font-size:13px;font-weight:800;${(window.mcUnread?mcUnread():[]).length?'':'display:none'}">${(window.mcUnread?mcUnread():[]).reduce((a,x)=>a+x.n,0)}</span></button><button class="card tile" data-mp="home"><span style="font-size:32px">🌐</span><b>${X('Play with friends','שחק עם חברים')}</b></button></div>
+<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">${tl('xcp','🗺️',X('Campaign map','מפת קמפיין'))}${tl('xqd',(P.dd===dk(new Date())?'✅':'📅'),X('Daily','אתגר יומי'))}${tl('xqr','⚡',X('Speed Race','מרוץ'))}${tl('xmv','🕵️',X('Spy Mission','משימה'))}${tl('xco','🧠',X('AI Coach','מאמן'))}${tl('key','📡',X('Redeem codes','לממש קודים'))}${tl('Lch','🔡',X('Letters','אותיות'))}${tl('Llg','🏅',X('Leagues','ליגות'))}<button class="card tile" data-a="xfr" style="position:relative"><span style="font-size:32px">👥</span><b>${X('Friends','חברים')}</b><span id="frbd" style="position:absolute;top:8px;inset-inline-end:8px;background:var(--ac2);color:#000;border-radius:999px;min-width:22px;padding:2px 7px;font-size:13px;font-weight:800;${(window.frCount?frCount():0)?'':'display:none'}">${window.frCount?frCount():0}</span></button><button class="card tile" data-mp="home"><span style="font-size:32px">🌐</span><b>${X('Play with friends','שחק עם חברים')}</b></button></div>
 <details class="card" style="margin-top:12px"><summary><b>📋 ${X('Today: quests and events','היום: משימות ואירועים')}</b> · ${dn}/${QS.length}</summary><div style="margin-top:10px">${evh()}${qh()}</div></details></div>`}
 const lets=()=>{const l=pool().filter(c=>MAP()[c]);return l.length>=4?l:letters().slice(0,6)};
 function qItem(m,i){const L=lets(),hear=!S.silent&&(m==='daily'||(m==='coach'&&i%2===0));let a,o;
@@ -1691,7 +1691,7 @@ if(!window.firebase)return;
 firebase.initializeApp({apiKey:"AIzaSyDrIxdyUJ9ITeXt_aMhHE03uEIqT7QHlI0",authDomain:"morse-cose.firebaseapp.com",projectId:"morse-cose",storageBucket:"morse-cose.firebasestorage.app",messagingSenderId:"176074502650",appId:"1:176074502650:web:ab08da6962e40685413443"});
 const au=firebase.auth(),db=firebase.firestore();let last=0;
 au.onAuthStateChanged(u=>{
-  if(!u){au.signInAnonymously().catch(()=>{});return}
+  if(!u){au.signInAnonymously().catch(e=>{window.AUERR=e&&(e.code||e.message)});return}
   window.FBU=u.uid;
   db.collection('nudges').where('to','==',u.uid).onSnapshot(s=>{
     s.docChanges().forEach(c=>{
@@ -1777,7 +1777,7 @@ const iv=setInterval(()=>{
   ['to','from'].forEach(f=>db.collection('mc').where(f,'==',FBU).onSnapshot(s=>{
     s.docChanges().forEach(c=>{if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;
       if(f==='to'&&!first.to){window.NM={u:d.from};toast('💬 '+nmOf(d.from)+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
-    first[f]=0;draw();try{const e=document.getElementById('frbd');if(e){const n=mcUnread().reduce((a,x)=>a+x.n,0);e.textContent=n;e.style.display=n?'':'none'}}catch(e){}try{if(tab==='chat'&&CM==='ai'&&!AIB)vChat()}catch(e){}},()=>{}));
+    first[f]=0;draw();try{const e=document.getElementById('frbd');if(e){const n=frCount();e.textContent=n;e.style.display=n?'':'none'}}catch(e){}try{if(tab==='chat'&&CM==='ai'&&!AIB)vChat()}catch(e){}},()=>{}));
 },500);
 })();
 </script>
@@ -2000,7 +2000,7 @@ if(!view)h=`<div class="nth"><b>🔔 ${X('Notifications','התראות')}</b><sp
 else{const f=FO.find(x=>x[0]===view),L=IB.filter(x=>x.c===view).slice().reverse();h=`<div class="nth"><button class="btn g" data-nt="bk">← ${X('Back','חזרה')}</button><b>${f[1]} ${X(f[2],f[3])}</b><span style="display:flex;gap:6px"><button class="btn g" data-nt="clf">🗑</button><button class="btn g" data-nt="x">✕</button></span></div>`+(L.length?L.map(x=>`<div class="ntm"><button class="ntb" data-nt="go" data-i="${x.id}"><span dir="auto">${esc(x.t)}</span><small>${tm(x.ts)}</small></button><button class="ntd" data-nt="dl" data-i="${x.id}" aria-label="delete">✕</button></div>`).join(''):`<p class="mut c" style="margin:30px 0">${X('Nothing here','אין כאן כלום')}</p>`)}
 o.innerHTML='<div class="ntp">'+h+'</div>'}
 function add(c,m,nv){const l=IB[IB.length-1];if(l&&l.t===m&&Date.now()-l.ts<3000)return;IB.push({id:Date.now()+'_'+((Math.random()*1e4)|0),c,t:m,ts:Date.now(),n:nv});sv();upd();const b=$('#bell');if(b){b.classList.remove('rg');void b.offsetWidth;b.classList.add('rg')}if(ov)draw()}
-const _t=toast;toast=function(m){const s=String(m),c=cls(s);if(!c)return _t(m);const mt=window.NM;window.NM=null;add(c,s,nav(c,s,mt))};
+const _t=toast;toast=function(m){const s=String(m),c=cls(s);return _t(m);const mt=window.NM;window.NM=null;add(c,s,nav(c,s,mt))};
 document.addEventListener('click',e=>{const b=e.target.closest('[data-nt],#bell,#nbox');if(!b)return;
 if(b.id==='bell'){e.stopPropagation();ov=ov?0:1;view='';draw();return}
 if(b.id==='nbox'){if(e.target===b){ov=0;draw()}return}
@@ -2011,7 +2011,7 @@ else if(a==='dl'){IB=IB.filter(x=>String(x.id)!==i);sv();upd();draw()}
 else if(a==='go'){const x=IB.find(y=>String(y.id)===i);if(!x)return;IB=IB.filter(y=>y!==x);sv();upd();ov=0;draw();go2(x.n)}},true);
 function can(){try{const k=dk(new Date());if(P.dd!==k&&LS.get('ml_dn','')!==k){LS.set('ml_dn',k);add('can','📅 '+X('The daily challenge is ready to play!','האתגר היומי מוכן לשחק!'),{k:'daily'})}
 const w=P.w2;if(w&&w.cd&&w.cd<Date.now()&&LS.get('ml_en',0)!==w.cd){LS.set('ml_en',w.cd);add('can','⏩ '+X('The World 2 skip exam is open again','מבחן הדילוג של עולם 2 נפתח שוב'),{k:'w2'})}}catch(e){}}
-upd();setTimeout(can,2500);setInterval(can,60000);
+upd();
 })();
 </script>
 <script>
@@ -2444,6 +2444,9 @@ document.addEventListener('click',e=>{
    The popup locks the whole app (no scrolling or tapping behind it) until the user presses "הבנתי". Write the entry in Hebrew. ===== */
 (()=>{
 const WN_LOG=[
+ {n:21,d:'11.10.2026',t:'בלי פעמון, וסימנים במקומות הנכונים',b:[['מה השתנה?',['הפעמון והתראות הוסרו. כל ההודעות הקטנות (מטבעות, הישגים, דחיפה ועוד) מופיעות שוב ישר על המסך.','על הכפתור ״חברים״ במסך הבית מופיע מספר: הודעות חדשות מחברים והזמנות חברות שמחכות לתשובה.','על ״אתגר יומי״ מופיע סימן קריאה אדום כל עוד לא שיחקתם היום, כדי שתדעו שאפשר לשחק.']]]},
+ {n:20,d:'11.10.2026',t:'מסך חברים חדש והזמנות חברות',b:[['מה חדש?',['מסך החברים נבנה מחדש: כפתור ״החברים שלי״ מציג את כל החברים, ובלחיצה על חבר אפשר לבחור ״התחרה ברוח שלו״, ״דחיפה״ או ״שלח לו הודעה״.','כפתור ״הוסף חבר״: מעתיקים את הקוד שלכם ושולחים לחבר. החבר מדביק אותו ולוחץ ״שלח הזמנת חברות״.','מקבל ההזמנה רואה אותה במסך החברים ובוחר ״אשר״ או ״דחה״. אם אישר, שניכם מופיעים אחד אצל השני. אם דחה, לא נוצרת חברות.','אפשר להוסיף כמה חברים שרוצים. תיבת הצ׳אט הריקה שהופיעה בתחתית המסך הוסרה, והיא מופיעה רק כשבוחרים לשלוח הודעה לחבר.','בדפדפן ובאפליקציה מופיע במסך ״הוסף חבר״ אם החיבור מוכן. מומלץ להעתיק את הקוד רק כשכתוב ״מחובר״.']]]},
+ {n:19,d:'11.10.2026',t:'אפשר לבחור כל שם',b:[['מה השתנה?',['אפשר עכשיו שיהיו כמה שחקנים עם אותו שם. אין יותר בדיקת שם מול השרת, ולכן ההודעה ״השם כבר תפוס״ והשגיאה ״אי אפשר לבדוק את השם״ לא מופיעות.']]]},
  {n:18,d:'11.10.2026',t:'חיבור Firebase חלופי',b:[['מה השתנה?',['אם הטעינה של Firebase מהכתובת הרגילה נחסמת (למשל בתצוגת קבצים בתוך Claude), האפליקציה מנסה עכשיו לטעון אותו משני מקורות חלופיים. זה נועד לאפשר את בדיקת השמות, החברים והדחיפות גם שם.']]]},
  {n:17,d:'11.10.2026',t:'פירוט שגיאה בבדיקת שם',b:[['מה השתנה?',['כשאי אפשר לבדוק שם, מופיע עכשיו בסוף ההודעה קוד קצר בסוגריים שמראה מה בדיוק נכשל. זה יעזור לתקן את הבעיה.']]]},
  {n:16,d:'11.10.2026',t:'שמות ייחודיים באמת',b:[['מה תוקן?',['לא ניתן יותר לשמור שם בלי שהשרת אישר שהוא פנוי. אם השם תפוס תופיע ההודעה "השם כבר תפוס".','אם אי אפשר לבדוק (אין חיבור, או שהאפליקציה נפתחה כקובץ שהורד), תופיע הודעה ברורה והשם לא ישמר. מומלץ לפתוח מהקישור המקורי ב-Claude.','אם יש שני שחקנים עם אותו שם, מי שנרשם שני יתבקש לבחור שם חדש כשהבדיקה תצליח.']]]},
@@ -2588,6 +2591,59 @@ function change(){
  setTimeout(()=>{try{inp.focus();inp.select()}catch(e){}},50);
 }
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-nmch]'))change()});
+})();
+</script>
+<script>
+/* ===== Friends v2: friends list, invites (accept / decline), per-friend actions ===== */
+(()=>{
+const OLD=vFx,box='width:100%;box-sizing:border-box;padding:10px;border-radius:12px;font:inherit';
+let FS='main',CUR=0,DBF=null,INV={},FL=LS.get('ml_frs',null);
+window.frCount=()=>(window.mcUnread?mcUnread().reduce((a,x)=>a+x.n,0):0)+Object.keys(INV).length;
+const bd=()=>{const e=document.getElementById('frbd');if(e){const n=frCount();e.textContent=n;e.style.display=n?'':'none'}};
+document.head.insertAdjacentHTML('beforeend','<style>.bdgx{position:absolute;top:8px;inset-inline-end:8px;background:#ef4444;color:#fff;border-radius:999px;min-width:24px;padding:2px 8px;font-size:15px;font-weight:900;animation:bdp 1.3s infinite}@keyframes bdp{50%{transform:scale(1.25)}}</style>');
+if(!Array.isArray(FL)){FL=FZ?[FZ]:[];LS.set('ml_frs',FL)}
+const sv=()=>LS.set('ml_frs',FL),me=()=>String(P.nm||'Friend').slice(0,12);
+const myCode=()=>{const st=(typeof ST!=='undefined'&&ST&&ST[S.lang])||{},lw=P.lgw||{};return 'ML1:'+btoa(unescape(encodeURIComponent(JSON.stringify({i:window.FBU||'',n:P.nm||'',a:P.av||'',x:P.xp||0,t:lgXP(),s:P.streak||0,r:P.rb||0,g:P.gh||[],k:{ok:st.ok||0,n:st.n||0},w:{w:lw.w,x0:lw.x0}}))))};
+const parse=(v,prev)=>{if(String(v).slice(0,4)!=='ML1:')throw 0;const p=JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));if(!p||typeof p.x!=='number')throw 0;const wy=dk(wkStart()),lw=p.w||{},tot=+p.t||p.x;let b,w;if(lw.w===wy){b=lw.x0||0;w=Math.max(0,tot-b)}else if(prev&&prev.ww===wy&&prev.b!=null){b=prev.b;w=Math.max(0,tot-b)}else{b=tot;w=0}return{uid:String(p.i||''),nm:String(p.n||X('Friend','חבר')).slice(0,12),av:String(p.a||''),xp:p.x,sk:p.s||0,rb:p.r||0,gh:Array.isArray(p.g)?p.g:[],ok:(p.k||{}).ok||0,n:(p.k||{}).n||0,ww:wy,b,wk:w}};
+const addF=f=>{const i=FL.findIndex(x=>f.uid&&x.uid===f.uid);if(i>=0)FL[i]=f;else FL.push(f);sv();if(FZ&&FZ.uid&&FZ.uid===f.uid){FZ=f;LS.set('ml_fx',FZ)}};
+const top=s=>`<button class="btn g" ${s?`data-fs="${s}"`:'data-a="back"'}>← ${X('Back','חזרה')}</button><div style="height:12px"></div>`;
+const btn=(s,t,c)=>`<button class="btn ${c||''}" data-fs="${s}" style="width:100%;margin-top:10px">${t}</button>`;
+const pend=()=>Object.values(INV);
+function main(){const ps=pend();
+ A.innerHTML=`<div class="wrap">${top('')}<div class="card"><h3>👥 ${X('Friends','חברים')}</h3><p class="mut" style="margin:6px 0 10px">👤 ${X('Your name','השם שלך')}: <b dir="auto">${esc(P.nm||'')}</b></p><div class="two" style="margin:0"><button class="btn g" data-nmch="1">✏️ ${X('Change name','שינוי שם')} · 🪙 200</button></div></div>
+${ps.length?`<div class="card" style="margin-top:12px"><h3>📨 ${X('Friend invites','הזמנות חברות')}</h3>${ps.map(v=>`<div style="margin-top:10px"><b dir="auto">${esc(v.nm||'Friend')}</b> ${X('wants to be your friend','רוצה להיות חבר שלך')}<div class="two"><button class="btn" data-fi="a:${v.id}">✅ ${X('Accept','אשר')}</button><button class="btn g" data-fi="d:${v.id}">✖ ${X('Decline','דחה')}</button></div></div>`).join('')}</div>`:''}
+<div class="card" style="margin-top:12px">${btn('list','👥 '+X('My friends','החברים שלי')+' ('+FL.length+')')}${btn('add','➕ '+X('Add a friend','הוסף חבר'),'g')}</div><div style="height:90px"></div></div>`}
+function list(){
+ A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>👥 ${X('My friends','החברים שלי')}</h3>${FL.length?FL.map((f,i)=>btn('f:'+i,fxAv(f.av)+' '+esc(f.nm)+' · '+X('Level','רמה')+' '+LV(f.xp),'g')).join(''):`<p class="mut">${X('You have no friends yet.','עדיין אין לך חברים.')}</p>${btn('add','➕ '+X('Add a friend','הוסף חבר'))}`}</div><div style="height:90px"></div></div>`}
+function friend(){const f=FL[CUR];if(!f)return list();FZ=f;LS.set('ml_fx',FZ);
+ A.innerHTML=`<div class="wrap">${top('list')}<div class="card"><h2 style="margin:0">${fxAv(f.av)} ${esc(f.nm)}</h2><p class="mut" style="margin:6px 0">${X('Level','רמה')} ${LV(f.xp)} · ${f.xp} XP · 🔥 ${f.sk}</p><p style="margin:6px 0">👻 <b>${X('Ghost score','ניקוד רוח')}: ${f.gh.length}</b> · ${X('Best race','שיא מרוץ')}: ${f.rb}</p><p class="mut" style="margin:6px 0">${X('Accuracy','דיוק')}: ${f.n?Math.round(100*f.ok/f.n):0}%</p>
+<button class="btn" data-a="fxr" style="width:100%;margin-top:10px"${f.gh.length?'':' disabled'}>🏁 ${X('Race his ghost','התחרה ברוח שלו')}</button><button class="btn" data-a="fxnd" style="width:100%;margin-top:10px"${f.uid?'':' disabled'}>👋 ${X('Nudge','דחיפה')}</button>${f.uid?btn('chat','💬 '+X('Text with him','שלח לו הודעה')):''}${f.uid?'':`<p class="mut" style="font-size:13px">${X('Nudge and texts need his ID. Remove him and add him again with a new code from the browser or app version.','דחיפה והודעות צריכות את המזהה שלו. הסירו והוסיפו אותו שוב עם קוד חדש מגרסת הדפדפן או האפליקציה.')}</p>`}</div><div style="height:90px"></div></div>`}
+function add(){
+ A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>➕ ${X('Add a friend','הוסף חבר')}</h3><p class="mut" style="font-size:13px;margin:0 0 8px">${window.FBU?'✅ '+X('Connected','מחובר'):'❌ '+X('Not signed in','לא מחובר')+' ['+(window.firebase?(window.AUERR||'waiting'):'firebase-not-loaded')+']'}</p><p style="margin:6px 0 10px;line-height:1.6">1️⃣ ${X('Copy your code and send it to your friend.','העתק את הקוד שלך ושלח לחבר.')}</p><div class="two"><button class="btn g" data-a="fxc">${X('Copy my share code','העתק קוד לשיתוף')}</button></div>${FZC?`<textarea id="fxs" readonly rows="3" style="${box}">${FZC}</textarea><p class="mut" style="font-size:13px">${X('Auto-copy is blocked here. Long-press the code and tap Copy.','ההעתקה האוטומטית חסומה. לחץ לחיצה ארוכה על הקוד ובחר העתק.')}</p>`:''}
+<p style="margin:14px 0 6px;line-height:1.6">2️⃣ ${X('Paste the code your friend sent you, then send him an invite.','הדבק את הקוד ששלח לך החבר ושלח לו הזמנה.')}</p><textarea id="fxi2" rows="3" style="${box}" placeholder="${X('Paste his code here','הדבק כאן את הקוד שלו')}"></textarea>${btn('inv','📨 '+X('Send friend invite','שלח הזמנת חברות'))}</div><div style="height:90px"></div></div>`}
+function chat(){OLD();const w=A.querySelector('.wrap');if(!w)return;[...w.children].forEach(c=>{if(c.id!=='mchat')c.remove()});w.insertAdjacentHTML('afterbegin',top('f:'+CUR)+'');}
+vFx=function(){({main,list,friend,add,chat}[FS]||main)()};
+const oF=openFriends;openFriends=function(){FS='main';oF()};
+document.addEventListener('click',async e=>{
+ const b=e.target.closest('[data-fs],[data-fi]');if(!b||!FRV)return;
+ if(b.dataset.fi){const[a,id]=b.dataset.fi.split(':'),v=INV[id];if(!v||!DBF)return;
+  if(a==='a'){try{const f=parse(v.c,FL.find(x=>x.uid===v.from));f.uid=v.from;addF(f);await DBF.collection('invites').add({from:FBU,to:v.from,k:'a',nm:me(),c:myCode(),ts:Date.now()});toast('✅ '+X('Friend added','החבר נוסף'))}catch(_){return toast('⚠️ '+X('Could not accept','האישור נכשל'))}}
+  try{await DBF.collection('invites').doc(id).delete()}catch(_){}delete INV[id];bd();return vFx()}
+ let s=b.dataset.fs;
+ if(s==='inv'){const t=$('#fxi2');let f;try{f=parse((t.value||'').trim())}catch(_){return toast('⚠️ '+X('Use the share code from his Friends screen','השתמש בקוד השיתוף ממסך החברים שלו'))}
+  if(!f.uid)return toast('⚠️ '+X('His code has no ID. Ask him for a new code from the browser or app.','לקוד שלו אין מזהה. בקש קוד חדש מהדפדפן או מהאפליקציה.'));
+  if(f.uid===window.FBU)return toast('⚠️ '+X('This is your own code','זה הקוד שלך'));
+  if(FL.some(x=>x.uid===f.uid))return toast(X('Already your friend','כבר חבר שלך'));
+  if(!window.FBU||!DBF)return toast('⚠️ '+X('Not ready yet','עוד לא מוכן'));
+  try{await DBF.collection('invites').add({from:FBU,to:f.uid,k:'i',nm:me(),c:myCode(),ts:Date.now()});t.value='';toast('📨 '+X('Invite sent to ','ההזמנה נשלחה אל ')+f.nm)}catch(_){toast('⚠️ '+X('Could not send','השליחה נכשלה'))}return}
+ if(s[0]==='f'&&s[1]===':'){CUR=+s.slice(2);s='friend'}
+ FS=s;vFx();scrollTo(0,0)});
+const iv=setInterval(()=>{if(!window.FBU||!window.firebase||!firebase.firestore)return;clearInterval(iv);DBF=firebase.firestore();
+ DBF.collection('invites').where('to','==',FBU).onSnapshot(s=>{s.docChanges().forEach(c=>{const d=c.doc.data();
+  if(c.type==='removed'){delete INV[c.doc.id];return}if(c.type!=='added')return;
+  if(d.k==='a'){try{const f=parse(d.c,FL.find(x=>x.uid===d.from));f.uid=d.from;addF(f);toast('🎉 '+f.nm+' '+X('accepted your invite','אישר את ההזמנה שלך'))}catch(_){}c.doc.ref.delete().catch(()=>{})}
+  else{INV[c.doc.id]=Object.assign({id:c.doc.id},d);toast('📨 '+String(d.nm||'Friend').slice(0,12)+' '+X('sent you a friend invite','שלח לך הזמנת חברות'))}});
+  bd();if(FRV&&(FS==='main'||FS==='list'))vFx()},()=>{})},500);
 })();
 </script>
 </body></html>
