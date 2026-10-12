@@ -32,7 +32,7 @@ header{display:flex;justify-content:space-between;align-items:center;max-width:5
 .logo{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800}.logo b{color:var(--ac)}
 #lamp{width:16px;height:16px;border-radius:50%;background:var(--line);transition:.06s}
 #lamp.lit{background:var(--ac2);box-shadow:0 0 22px 6px var(--ac2)}
-#lg,#lv,#co{font-size:13px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid var(--line);color:var(--mut)}
+#lg,#lv,#co{font-size:13px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid var(--line);color:var(--mut)}#lv{cursor:pointer}
 .hd{display:flex;gap:12px;align-items:center}
 .wrap{max-width:560px;margin:0 auto;padding:8px 16px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
@@ -94,7 +94,6 @@ nav button.on{color:var(--ac)}nav svg{width:24px;height:24px;fill:none;stroke:cu
 .wm{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 16px}.rq{font-size:20px;font-weight:700;text-align:center;margin:10px 0}
 .o.ro{display:block;width:100%;height:auto;min-height:72px;padding:14px;margin-top:10px;font-size:inherit}
 html[lang=he] h3,html[lang=he] .note,html[lang=he] .row2{direction:rtl}
-#lv{cursor:pointer}
 :root[data-theme="neon"]{--bg:#0a0014;--card:#150028;--ink:#f5e9ff;--mut:#a78bcf;--line:#3b1066;--ac:#ff2bd6;--ac2:#00f0ff}
 :root[data-theme="sunset"]{--bg:#fff4ea;--card:#fff;--ink:#3b1d2a;--mut:#9a6b6b;--line:#f3d3c4;--ac:#ff7a18;--ac2:#e0245e}
 :root[data-theme="matrix"]{--bg:#020b04;--card:#07170a;--ink:#c8ffd4;--mut:#5fae73;--line:#12391b;--ac:#22ff66;--ac2:#00c853}
@@ -409,7 +408,7 @@ let P=Object.assign({xp:0,c:0,streak:0,last:'',dd:'',dn:0,ms:0,cd:0,rb:0,bg:{},o
 let CL=null,cT;const sp=()=>{try{syncRw()}catch(e){}lgStash();try{recSave()}catch(e){}LS.set('ml_prog',P);idbState();if(CL){clearTimeout(cT);cT=setTimeout(()=>CL.set(JSON.parse(JSON.stringify(P))).catch(()=>{}),1500)}},LV=x=>1+Math.floor(Math.sqrt(x/40)),LX=l=>40*(l-1)*(l-1),hdr=()=>{const e=$('#lv');const c=$('#co');c&&(c.textContent='🪙 '+P.co);e&&(e.innerHTML=avh()+' '+LV(P.xp))};
 
 /* ===== Per-language progress (English and Hebrew move separately) + records that never go down ===== */
-const LGS=['en','he'],PF=['xp','c','rb','gh','cbm','mmr','cs','cg','bd','bs','cl','sf','intel','st','ms','cd','mr','mrb'],
+const LGS=['en','he'],PF=['xp','c','rb','gh','cbm','mmr','cs','cg','bd','bs','cl','sf','intel','st','ms','cd','mr','mrb','rh'],
 PBL=()=>({xp:0,c:0,rb:0,cbm:0,mmr:0,cs:{},cg:{},bd:{},bs:0,cl:0,sf:{},intel:{},st:0,ms:0,cd:0,mr:0,mrb:0}),
 jc=o=>JSON.parse(JSON.stringify(o)),
 FRESH=(()=>{try{return localStorage.getItem('ml_set')===null&&localStorage.getItem('ml_prog')===null}catch(e){return true}})(),
@@ -476,7 +475,7 @@ function vPlay(){const l=LV(P.xp),lo=LX(l),hi=LX(l+1),q=dqs(),dn=QS.filter(k=>q.
   const tl=(a,i,t)=>`<button class="card tile" data-a="${a}" style="position:relative"><span style="font-size:32px">${i}</span><b>${t}</b>${a==='xqd'&&P.dd!==dk(new Date())?'<span class="bdgx">!</span>':''}</button>`;
   A.innerHTML=`<div class="wrap"><div class="card" data-t="rew" style="margin-bottom:12px"><div class="row2"><b>${avh()} ${esc(rk(l))} · ${X('Level','רמה')} ${l}</b><span>🔥 ${P.streak}</span></div><div class="bar" style="margin:10px 0 0"><i style="width:${100*(P.xp-lo)/(hi-lo)}%"></i></div></div>
 <button class="btn" data-a="cpl" data-i="${cur}" style="width:100%;margin-bottom:12px;font-size:18px">🗺️ ${X('Continue campaign','המשך קמפיין')} · ${X('Level','שלב')} ${cur}</button>
-<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">${tl('xcp','🗺️',X('Campaign map','מפת קמפיין'))}${tl('xqd',(P.dd===dk(new Date())?'✅':'📅'),X('Daily','אתגר יומי'))}${tl('xqr','⚡',X('Speed Race','מרוץ'))}${tl('xmv','🕵️',X('Spy Mission','משימה'))}${tl('xco','🧠',X('AI Coach','מאמן'))}${tl('key','📡',X('Redeem codes','לממש קודים'))}${tl('Lch','🔡',X('Letters','אותיות'))}${tl('Llg','🏅',X('Leagues','ליגות'))}<button class="card tile" data-a="xfr" style="position:relative"><span style="font-size:32px">👥</span><b>${X('Friends','חברים')}</b><span id="frbd" style="position:absolute;top:8px;inset-inline-end:8px;background:var(--ac2);color:#000;border-radius:999px;min-width:22px;padding:2px 7px;font-size:13px;font-weight:800;${(window.frCount?frCount():0)?'':'display:none'}">${window.frCount?frCount():0}</span></button><button class="card tile" data-mp="home"><span style="font-size:32px">🌐</span><b>${X('Play with friends','שחק עם חברים')}</b></button></div>
+<div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">${tl('xcp','🗺️',X('Campaign map','מפת קמפיין'))}${tl('xqd',(P.dd===dk(new Date())?'✅':'📅'),X('Daily','אתגר יומי'))}${tl('xqr','⚡',X('Speed Race','מרוץ'))}${tl('xmv','🕵️',X('Spy Mission','משימה'))}${tl('xco','🧠',X('AI Coach','מאמן'))}${tl('key','📡',X('Redeem codes','לממש קודים'))}${tl('Lch','🔡',X('Letters','אותיות'))}${tl('Llg','🏅',X('Leagues','ליגות'))}${tl('xpass','🏆',X('Monthly Pass','פאס חודשי'))}<button class="card tile" data-a="xfr" style="position:relative"><span style="font-size:32px">👥</span><b>${X('Friends','חברים')}</b><span id="frbd" style="position:absolute;top:8px;inset-inline-end:8px;background:var(--ac2);color:#000;border-radius:999px;min-width:22px;padding:2px 7px;font-size:13px;font-weight:800;${(window.frCount?frCount():0)?'':'display:none'}">${window.frCount?frCount():0}</span></button><button class="card tile" data-mp="home"><span style="font-size:32px">🌐</span><b>${X('Play with friends','שחק עם חברים')}</b></button></div>
 <details class="card" style="margin-top:12px"><summary><b>📋 ${X('Today: quests and events','היום: משימות ואירועים')}</b> · ${dn}/${QS.length}</summary><div style="margin-top:10px">${evh()}${qh()}</div></details></div>`}
 const lets=()=>{const l=pool().filter(c=>MAP()[c]);return l.length>=4?l:letters().slice(0,6)};
 function qItem(m,i){const L=lets(),hear=!S.silent&&(m==='daily'||(m==='coach'&&i%2===0));let a,o;
@@ -485,7 +484,7 @@ function qItem(m,i){const L=lets(),hear=!S.silent&&(m==='daily'||(m==='coach'&&i
   return{a,m:hear?'hear':'see',opts:shuf([...o])}}
 const weak=()=>Object.entries(stat().miss).filter(e=>e[1]>0&&MAP()[e[0]]).sort((a,b)=>b[1]-a[1]).slice(0,5);
 function qStart(m){stop();clearInterval(QI);let h=+dk(new Date()).replace(/\D/g,'')*(S.lang==='he'?3:1);
-  Qz={m,n:0,ok:0,combo:0,pk:null,t:45,total:m==='daily'?5:8,r:()=>(h=(h*1664525+1013904223)>>>0)/4294967296,w:weak().map(e=>e[0])};Qz.gt=m==='race'?[]:null;Qz.gh=FZG||P.gh||[];Qz.fg=FZG;Qz.fn=FZN;FZG=null;
+  Qz={m,n:0,ok:0,combo:0,pk:null,t:45,total:m==='daily'?5:8,r:()=>(h=(h*1664525+1013904223)>>>0)/4294967296,w:weak().map(e=>e[0])};Qz.gt=m==='race'?[]:null;Qz.gh=FZG||P.gh||[];Qz.fg=FZG;Qz.fn=FZN;Qz.fu=window.FZU||null;window.FZU=null;FZG=null;
   if(m==='coach'&&!Qz.w.length)return vCoach();
   Qz.it=qItem(m,0);vQ();if(m==='race')QI=setInterval(()=>{Qz.t-=.1;const gg=$('#qg');gg&&Qz.gh.length&&(gg.textContent=Qz.gh.filter(x=>x<=45-Qz.t).length);const e=$('#qt');e&&(e.textContent=Math.max(0,Math.ceil(Qz.t)));if(Qz.t<=0)qEnd()},100);
   if(Qz.it.m==='hear')setTimeout(()=>Qz&&play(wcodes(Qz.it.a),lcb),300)}
@@ -495,7 +494,7 @@ function vQ(){const q=Qz,it=q.it,rc=q.m==='race';
   A.innerHTML=`<div class="wrap"><button class="btn g" data-a="back">← ${X('Back','חזרה')}</button><div style="height:12px"></div>${top}<div class="card">${pr}<div class="opts">${it.opts.map((o,i)=>`<button class="o ${q.pk!==null?(o===it.a?'ok':i===q.pk?'bad':''):''}" data-a="qo" data-i="${i}">${o}</button>`).join('')}</div></div></div>`}
 function qNext(){const q=Qz;if(!q||!document.querySelector('[data-a="qo"]')||q.end)return;q.n++;if(q.m!=='race'&&q.n>=q.total)return qEnd();q.it=qItem(q.m,q.n);q.pk=null;vQ();if(q.it.m==='hear')play(wcodes(q.it.a),lcb)}
 function qEnd(){const q=Qz;if(!q||q.end)return;q.end=1;clearInterval(QI);stop();let g=0,nt='';const td=dk(new Date());
-  if(q.m==='daily'){g=q.ok*6;if(P.dd!==td){g+=20;P.dd=td;P.dn++}}else if(q.m==='race'){g=q.ok*2;dqs().r++;if(q.ok>P.rb){P.rb=q.ok;nt=X('🏆 New record!','🏆 שיא חדש!')}const gl=(q.fg||P.gh||[]).length;if(q.fg)nt+=(nt?' ':'')+(q.ok>gl?X('🏆 You beat ','🏆 ניצחת את ')+q.fn:q.ok===gl?X('🤝 Tied with ','🤝 תיקו עם ')+q.fn:'👻 '+q.fn+X(' won ',' ניצח ')+gl+'-'+q.ok);else if(gl)nt+=(nt?' ':'')+(q.ok>gl?X('👻 You beat your ghost!','👻 ניצחת את הרוח!'):q.ok===gl?X('👻 Tied with your ghost','👻 תיקו מול הרוח'):X('👻 Ghost won ','👻 הרוח ניצחה ')+gl+'-'+q.ok);if(!q.fg&&q.ok>gl){P.gh=q.gt;sp()}}else{g=q.ok*4+10;P.cd++}
+  if(q.m==='daily'){g=q.ok*6;if(P.dd!==td){g+=20;P.dd=td;P.dn++}}else if(q.m==='race'){g=q.ok*2;dqs().r++;if(q.ok>P.rb){P.rb=q.ok;nt=X('🏆 New record!','🏆 שיא חדש!')}const gl=(q.fg||P.gh||[]).length;if(q.fg&&q.fu&&q.ok>gl){try{window.sendTaunt&&sendTaunt(q.fu,q.ok,gl)}catch(e){}}if(q.fg)nt+=(nt?' ':'')+(q.ok>gl?X('🏆 You beat ','🏆 ניצחת את ')+q.fn:q.ok===gl?X('🤝 Tied with ','🤝 תיקו עם ')+q.fn:'👻 '+q.fn+X(' won ',' ניצח ')+gl+'-'+q.ok);else if(gl)nt+=(nt?' ':'')+(q.ok>gl?X('👻 You beat your ghost!','👻 ניצחת את הרוח!'):q.ok===gl?X('👻 Tied with your ghost','👻 תיקו מול הרוח'):X('👻 Ghost won ','👻 הרוח ניצחה ')+gl+'-'+q.ok);if(!q.fg&&q.ok>gl){P.gh=q.gt;sp()}if(q.gt){(P.rh=P.rh||[]).push({k:q.ok,g:q.gt});if(P.rh.length>10)P.rh.shift();sp();try{window.pubProf&&pubProf()}catch(e){}}}else{g=q.ok*4+10;P.cd++}
   xp(g);A.innerHTML=`<div class="wrap"><div class="card c"><h2>${q.m==='race'?'⏱️':'✅'}</h2><div class="ch">${q.ok}${q.m==='race'?'':'/'+q.total}</div><p><b>+${g} XP</b></p><p>${nt}</p><div class="two"><button class="btn" data-a="qa">${X('Again','שוב')}</button><button class="btn g" data-a="back">${X('Back','חזרה')}</button></div></div></div>`}
 const msc=['moon base','pirate ship','museum heist','jungle temple','submarine','candy factory','space station','haunted hotel','desert train','snowy mountain'];
 async function msGen(){if(!SM){msLocal();return vMs()}
@@ -521,10 +520,10 @@ function rwOwned(k){const nm={sn:X('Sounds','צלילים'),fx:X('Backgrounds','
 return `<b>${nm}</b> · ${it.length}/${SH[k].filter(x=>(!XI.has(k+'_'+x[0])||P.xs)&&(!HI.has(k+'_'+x[0])||P.sk[k+'_'+x[0]])).length}`+(f=>k==='fx'?fxGrp(it,f,rwHd):it.map(f).join(''))(x=>{const on=eq(x[0]);return `<div class="card shr"><div class="shi">${k==='fr'?avh(x[0],P.av,1):`<span style="font-size:30px">${x[1]}</span>`}</div><div class="shn"><b>${esc(X(x[2],x[3]))}</b></div>${k==='sn'?`<button class="btn g" data-a="$pv" data-i="${x[0]}">▶</button>`:''}<button class="btn${on?' g':''}" data-a="$eq" data-i="${k}_${x[0]}">${on?'✓ '+X('On','פעיל'):X('Equip','בחר')}</button></div>`})+`<p class="c"><button class="btn g" data-t="shop">🪙 ${X('Go to Shop','לחנות')}</button></p>`}
 function vRew(){const ps=$('.seg'),sl=ps?ps.scrollLeft:0,l=LV(P.xp),lo=LX(l),hi=LX(l+1);let body;
   if(RW==='th')body=`<p class="mut c">${TH.filter(t=>ULV()>=t[1]).length}/${TH.length}</p><div class="grid" style="grid-template-columns:repeat(3,1fr)">${TH.map(t=>{const u=ULV()>=t[1];return `<button class="k${S.theme===t[0]?' sel':''}" data-a="sth" data-i="${t[0]}"${u?'':' style="opacity:.5"'}><span style="display:block;width:100%;height:26px;border-radius:10px;background:linear-gradient(135deg,${t[4]},${t[5]})"></span><span>${u?X(t[2],t[3]):'🔒 '+X('Lv ','רמה ')+t[1]}</span></button>`}).join('')}</div>`;
-  else if(RW==='av')body=`<div class="two"><button class="btn" data-a="xbo"${P.bo&&Date.now()>=P.bt?'':' disabled'}>⚡ ${X('Use booster','הפעל בוסטר')} (${P.bo})</button></div><p class="mut c" style="margin-top:12px">${AVL.filter((a,i)=>own(a,i)).length}/${AVL.length}</p><div class="grid" style="grid-template-columns:repeat(4,1fr)">${AVL.map((a,i)=>{const u=own(a,i);return `<button class="k${P.av===a?' sel':''}" data-a="sav" data-i="${i}"${u?'':' style="opacity:.45"'}><b style="font-size:26px">${u?a:'🔒'}</b>${avL(a,i)}</button>`}).join('')}</div>`;
+  else if(RW==='av')body=`<p class="mut c" style="margin-top:12px">${AVL.filter((a,i)=>own(a,i)).length}/${AVL.length}</p><div class="grid" style="grid-template-columns:repeat(4,1fr)">${AVL.map((a,i)=>{const u=own(a,i);return `<button class="k${P.av===a?' sel':''}" data-a="sav" data-i="${i}"${u?'':' style="opacity:.45"'}><b style="font-size:26px">${u?a:'🔒'}</b>${avL(a,i)}</button>`}).join('')}</div>`;
   else if(['sn','fx','fr','ti'].includes(RW))body=rwOwned(RW);
   else body=`<p class="mut c">${BG.filter(g=>!PZA.has(g[0])&&P.bg[g[0]]).length}/${BG.filter(g=>!PZA.has(g[0])).length}</p><div class="grid" style="grid-template-columns:repeat(3,1fr)">${BG.filter(g=>!PZA.has(g[0])).map(g=>{const u=P.bg[g[0]];return `<div class="k" style="${u?'':'opacity:.45;filter:grayscale(1)'}"><b>${u?g[1]:'🔒'}</b><span style="font-size:12px;font-weight:700;text-align:center" dir="auto">${X(g[2],g[3])}</span><span class="mut" style="font-size:11px;text-align:center" dir="auto">${X(g[5],g[6])}</span></div>`}).join('')}</div>`;
-  A.innerHTML=`<div class="wrap"><div class="card c"><div style="font-size:42px;margin-bottom:10px">${avh()}</div><div class="ch" style="font-size:56px">${l}</div><b>${esc(rk(l))}</b>${tih()}<div class="bar" style="margin:12px 0 6px"><i style="width:${100*(P.xp-lo)/(hi-lo)}%"></i></div><span class="mut">${P.xp} XP · 🔥 ${P.streak}</span><div class="two" style="margin-top:12px"><button class="btn g" data-a="xpass">🏆 ${X('Season Pass','פאס עונתי')}</button></div></div><div class="seg" style="margin:12px 0">${[['bd','🏅','Achievements'],['av','🙂',X('Avatars','אווטארים')],['sn','🔊',''],['fx','🖼️',''],['fr','✨',''],['ti','🎖️','']].map(k=>`<button class="${RW===k[0]?'on':''}" data-a="rwt" data-i="${k[0]}">${k[1]} ${k[2]}</button>`).join('')}</div><div class="card">${body}</div></div>`;const sg=$('.seg');if(sg){sg.scrollLeft=sl;const o=sg.querySelector('.on');if(o){if(o.offsetLeft<sg.scrollLeft)sg.scrollLeft=o.offsetLeft-8;else if(o.offsetLeft+o.offsetWidth>sg.scrollLeft+sg.clientWidth)sg.scrollLeft=o.offsetLeft+o.offsetWidth-sg.clientWidth+8}}}
+  A.innerHTML=`<div class="wrap"><div class="card c"><div style="font-size:42px;margin-bottom:10px">${avh()}</div><div class="ch" style="font-size:56px">${l}</div><b>${esc(rk(l))}</b>${tih()}<div class="bar" style="margin:12px 0 6px"><i style="width:${100*(P.xp-lo)/(hi-lo)}%"></i></div><span class="mut">${P.xp} XP · 🔥 ${P.streak}</span><div class="two" style="margin-top:12px"><button class="btn g" data-a="xpass">🏆 ${X('Monthly Pass','פאס חודשי')}</button></div></div><div class="seg" style="margin:12px 0">${[['bd','🏅','Achievements'],['av','🙂',X('Avatars','אווטארים')],['sn','🔊',''],['fx','🖼️',''],['fr','✨',''],['ti','🎖️','']].map(k=>`<button class="${RW===k[0]?'on':''}" data-a="rwt" data-i="${k[0]}">${k[1]} ${k[2]}</button>`).join('')}</div><div class="card">${body}</div></div>`;const sg=$('.seg');if(sg){sg.scrollLeft=sl;const o=sg.querySelector('.on');if(o){if(o.offsetLeft<sg.scrollLeft)sg.scrollLeft=o.offsetLeft-8;else if(o.offsetLeft+o.offsetWidth>sg.scrollLeft+sg.clientWidth)sg.scrollLeft=o.offsetLeft+o.offsetWidth-sg.clientWidth+8}}}
 function vKey(){A.innerHTML=`<div class="wrap"><button class="btn g" data-a="back">← ${X('Back','חזרה')}</button><div class="card c" style="margin-top:12px"><h3 class="h0">${X('Redeem codes','לממש קודים')}</h3><p class="mut">${X('Tap = dot, hold = dash. Pause to end a letter; wait 3 seconds to start a new word.','הקשה = נקודה, החזקה = קו. השהה לסיום אות, המתן 3 שניות למילה חדשה.')}</p><div class="out" id="kout" dir="auto" style="min-height:44px"></div><div class="pat" id="kpat"></div><div class="bar" style="margin:4px 0 8px"><i id="kbi" style="width:0"></i></div><div class="c" id="klab" dir="auto" style="min-height:22px;font-weight:700;margin-bottom:6px"></div><button class="orb" id="key" style="touch-action:none;user-select:none;-webkit-user-select:none">●</button><div class="two"><button class="btn g" data-a="kcl2">${X('Clear','נקה')}</button><button class="btn g" data-a="MCv">🎟️ ${X('My codes','הקודים שלי')}</button></div></div></div>`;KY.t=[];KY.c='';KY.st='idle';clearInterval(KY.iv)}
 function kupd(){const r=rev(),o=$('#kout'),p=$('#kpat');if(!o)return;
   const W=[[]];KY.t.forEach(x=>{if(x===' ')W.push([]);else W[W.length-1].push(r[x]||'?')});
@@ -805,6 +804,7 @@ document.addEventListener('click',e=>{
     case'ca':return coachAsk();
     case'xmv':return vMs();
     case'xms':return msGen();
+    case'Llg':return showLeaderboard();
     case'key':return vKey();
     case'kcl2':clearTimeout(KY.tm);KY.t=[];KY.c='';kst('idle');return kupd();
     case'back':FRV=0;stop();clearInterval(QI);Qz=null;return vPlay();
@@ -813,10 +813,10 @@ document.addEventListener('click',e=>{
     case'qo':{const q=Qz;if(!q||q.pk!==null||q.end)return;q.pk=+b.dataset.i;const ok=q.it.opts[q.pk]===q.it.a;srU(q.it.a,ok);if(ok){q.ok++;q.combo++;cc();q.gt&&q.gt.push(+(45-q.t).toFixed(1))}else{q.combo=0;if(q.it.a.length===1){const t=stat();t.miss[q.it.a]=(t.miss[q.it.a]||0)+1;save()}}vQ();setTimeout(qNext,q.m==='race'?250:800);return}
     case'mp':{const m=MS;return m&&m.st&&play(wcodes(m.st[m.i].a),lcb)}
     case'mo':{const m=MS,sg=m&&m.st&&m.st[m.i];if(!sg||m.pk!==null)return;m.pk=+b.dataset.i;if(sg.o[m.pk]===sg.a){m.ok++;cc()}vMs();setTimeout(()=>{if(MS!==m||!document.querySelector('[data-a="mo"]'))return;m.i++;m.pk=null;if(m.i>=3){dqs().m++;m.g=m.ok*12+(m.ok>=2?10:0);if(m.ok>=2){coin(m.ok===3?25:15,X('Mission','משימה'));P.ms++;P.mt[m.t]=1;P.mr++;P.mrb=Math.max(P.mrb,P.mr);if(m.ok===3)P.pf++}else P.mr=0;xp(m.g)}vMs()},900);return}
-    case'fxc':{const st=(typeof ST!=='undefined'&&ST&&ST[S.lang])||{},lw=P.lgw||{};return fxCopy('ML1:'+btoa(unescape(encodeURIComponent(JSON.stringify({i:window.FBU||'',n:P.nm||'',a:P.av||'',x:P.xp||0,t:lgXP(),s:P.streak||0,r:P.rb||0,g:P.gh||[],k:{ok:st.ok||0,n:st.n||0},w:{w:lw.w,x0:lw.x0}})))))}
-    case'fxg':{const v=($('#fxi').value||'').trim();try{if(v.slice(0,4)!=='ML1:')throw 0;const p=JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));if(!p||typeof p.x!=='number')throw 0;const wy=dk(wkStart()),lw=p.w||{},tot=+p.t||p.x;let b,w;if(lw.w===wy){b=lw.x0||0;w=Math.max(0,tot-b)}else if(FZ&&FZ.ww===wy&&FZ.b!=null){b=FZ.b;w=Math.max(0,tot-b)}else{b=tot;w=0}FZ={uid:String(p.i||''),nm:String(p.n||X('Friend','חבר')).slice(0,12),av:String(p.a||''),xp:p.x,sk:p.s||0,rb:p.r||0,gh:Array.isArray(p.g)?p.g:[],ok:(p.k||{}).ok||0,n:(p.k||{}).n||0,ww:wy,b,wk:w};LS.set('ml_fx',FZ);return vFx()}catch(e){toast('⚠️ '+X('Use the share code from his Friends screen','השתמש בקוד השיתוף ממסך החברים שלו'))}return}
+    case'fxc':{const st=(typeof ST!=='undefined'&&ST&&ST[S.lang])||{},lw=P.lgw||{};return fxCopy('ML1:'+btoa(unescape(encodeURIComponent(JSON.stringify({i:window.FBU||'',n:P.nm||'',a:P.av||'',x:P.xp||0,t:lgXP(),s:P.streak||0,r:P.rb||0,g:P.gh||[],k:{ok:st.ok||0,n:st.n||0},w:{w:lw.w,x0:lw.x0},L:(window.myL?myL():undefined)})))))}
+    case'fxg':{const v=($('#fxi').value||'').trim();try{if(v.slice(0,4)!=='ML1:')throw 0;const p=JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));if(!p||typeof p.x!=='number')throw 0;const wy=dk(wkStart()),lw=p.w||{},tot=+p.t||p.x;let b,w;if(lw.w===wy){b=lw.x0||0;w=Math.max(0,tot-b)}else if(FZ&&FZ.ww===wy&&FZ.b!=null){b=FZ.b;w=Math.max(0,tot-b)}else{b=tot;w=0}FZ={uid:String(p.i||''),nm:String(p.n||X('Friend','חבר')).slice(0,12),av:String(p.a||''),xp:p.x,sk:p.s||0,rb:p.r||0,gh:Array.isArray(p.g)?p.g:[],L:(p.L&&typeof p.L==='object')?p.L:null,ok:(p.k||{}).ok||0,n:(p.k||{}).n||0,ww:wy,b,wk:w};LS.set('ml_fx',FZ);return vFx()}catch(e){toast('⚠️ '+X('Use the share code from his Friends screen','השתמש בקוד השיתוף ממסך החברים שלו'))}return}
     case'fxnd':return window.sendNudge&&sendNudge();
-    case'fxr':{if(!FZ||!FZ.gh.length)return;FZG=FZ.gh;FZN=FZ.nm;return qStart('race')}
+    case'fxr':{if(!FZ||!(window.fGhN?fGhN(FZ):FZ.gh.length))return;FZG=window.fGhV?fGhV(FZ):FZ.gh;FZN=FZ.nm;window.FZU=FZ.uid||null;return qStart('race')}
     case'cm':CM=b.dataset.i;stop();return vChat();
     case'cl':lgSw(b.dataset.i);sel=null;Q.c=null;Z.a=null;save();lg();stop();return vChat();
     case'md':MB.c+='.';playTap(['.'],lcb);return vChat();
@@ -1703,6 +1703,17 @@ au.onAuthStateChanged(u=>{
     })
   },()=>{});
 });
+window.sendTaunt=async function(uid,a,b){
+  try{
+    if(!window.FBU||!uid||!window.firebase)return;
+    const n=String(P.nm||X('Someone','מישהו')).slice(0,12),he=S.lang==='he';
+    const T=he?[n+' ניצח אותך '+a+' מול '+b+', בוא תראה לו שאתה יכול גם',n+' הביס אותך '+a+' מול '+b+', מוכן לנקמה?',n+' עקף את הרוח שלך, אתה נותן לזה לעבור?',n+' ניצח אותך במרוץ, זמן לנקמה']:
+      [n+' beat you '+a+' to '+b+'. Show him you can do it too!',n+' defeated you '+a+' to '+b+'. Ready for revenge?',n+' just passed your ghost. Going to let that slide?',n+' won the race against you. Time for payback!'];
+    const tx=T[Math.random()*T.length|0],m=enc(tx).map(c=>c===' '?'/':c).join(' ').slice(0,400);
+    await firebase.firestore().collection('mc').add({from:window.FBU,to:uid,m,l:S.lang,nm:n.slice(0,12),ts:Date.now(),tx,free:1});
+    toast('😈 '+X('Taunt sent','הודעת התגרות נשלחה'));
+  }catch(e){}
+};
 window.sendNudge=async function(){
   if(!window.FBU||!FZ||!FZ.uid)return toast('⚠️ '+X('Not ready yet','עוד לא מוכן'));
   if(Date.now()-last<20000)return toast(X('Wait a few seconds','המתן כמה שניות'));
@@ -1749,7 +1760,7 @@ function draw(){
   <div class="two">${b('d','·  '+X('dot','נקודה'),'')}${b('h','−  '+X('dash','קו'),'')}</div>
   <div class="two">${b('g',X('Next letter','אות הבאה'))}${b('w',X('Space','רווח'))}${b('b','⌫')}</div>
   <div class="two">${b('p','▶ '+X('Play','נגן'))}${b('s','📨 '+X('Send','שלח'))}</div>
-  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id];return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(nmOf(pe))} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm" dir="ltr">${chips(d.m,sh,d.l)}</div>${sh?`<div class="tx" dir="auto">${esc(dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח')+' 🪙'+DEC_COST)}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
+  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id]||d.free;return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(nmOf(pe))} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm" dir="ltr">${chips(d.m,sh,d.l)}</div>${sh?`<div class="tx" dir="auto">${esc(d.tx||dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח')+' 🪙'+DEC_COST)}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
 }
 document.addEventListener('click',async e=>{
   const b=e.target.closest('#mchat [data-k]');if(!b)return;const k=b.dataset.k;
@@ -2119,10 +2130,11 @@ function vEnd(){
 <div class="card" style="margin-top:12px">${f.map((p,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:7px 0;${p.id===M.me?'font-weight:700':''}"><span style="min-width:28px;font-size:20px">${md[i]||(i+1)}</span>${av(p.a)}<span style="flex:1">${esc(p.n)}</span><span class="mut">${p.ok}✅</span><b style="min-width:56px;text-align:end">${p.s}</b></div>`).join('')}</div>
 ${M.role==='h'?`<button class="btn" data-mp="again" style="width:100%;margin-top:12px">${X('Play again','שחקו שוב')}</button>`:`<p class="mut c" style="margin-top:12px">${X('The host can start another game…','המארח יכול להתחיל משחק נוסף…')}</p>`}
 <button class="btn g" data-mp="lv" style="width:100%;margin-top:10px">${X('Leave','יציאה')}</button>`)}
-function draw(){if(!M)return;const f=({lobby:vLobby,pre:vPre,q:vQ,r:vQ,end:vEnd})[M.v];f&&f()}
+function draw(){if(!M)return;if(typeof tab!=='undefined'&&tab!=='play')return;const f=({lobby:vLobby,pre:vPre,q:vQ,r:vQ,end:vEnd})[M.v];if(!f)return;const keep=M.v==='lobby'&&LDV==='lobby',y=window.scrollY;f();LDV=M.v;if(keep)window.scrollTo(0,y)}
+let LDV=null;
 
 /* ---------- session ---------- */
-function leave(){
+function leave(){LDV=null;
   if(M){clearTimeout(M.tm);clearInterval(M.ci);clearTimeout(M.jt);M.dead=1;
     try{(M.pl||[]).forEach(p=>{if(p.conn)try{p.conn.close()}catch(e){}})}catch(e){}
     try{M.conn&&M.conn.close()}catch(e){}
@@ -2286,7 +2298,7 @@ document.addEventListener('click',e=>{
     case'rp':if(M&&M.q&&M.v==='q')try{play(M.q.codes,lcb)}catch(x){}return;
     case'again':return again()}});
 document.addEventListener('input',e=>{if(e.target&&e.target.id==='mpj'){const v=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);if(v!==e.target.value)e.target.value=v}});
-const go0=go;go=function(t){if(M)leave();return go0.apply(this,arguments)};
+const go0=go;go=function(t){const from=tab;if(M){if(t!=='play')return go0.apply(this,arguments);if(from!=='play'){const r=go0.apply(this,arguments);try{draw()}catch(e){}return r}leave()}return go0.apply(this,arguments)};
 window.MLMP={open:()=>{chg=false;vHome()},leave,T,_st:()=>M};
 })();
 </script>
@@ -2445,6 +2457,10 @@ document.addEventListener('click',e=>{
    The popup locks the whole app (no scrolling or tapping behind it) until the user presses "הבנתי". Write the entry in Hebrew. ===== */
 (()=>{
 const WN_LOG=[
+ {n:25,d:'12.10.2026',t:'הבוסטר עבר לפאס החודשי',b:[['מה השתנה?',['כפתור ״הפעל בוסטר״ הוסר מלשונית האווטארים, ועכשיו הוא נמצא במסך הפאס החודשי, מעל כפתור האיסוף.','כשבוסטר פעיל, הכפתור מציג כמה דקות נותרו.']]]},
+ {n:24,d:'12.10.2026',t:'תיקון: לחיצה על הרמה פותחת פרסים',b:[['מה תוקן?',['לחיצה על תג הרמה בראש המסך פתחה בטעות את מסך המשימות השבועיות הישן. עכשיו היא פותחת שוב את מסך הפרסים, שם בוחרים אווטארים, צלילים, תארים ורקעים.']]]},
+ {n:23,d:'12.10.2026',t:'בונוס XP ומטבעות מפריטים',b:[['מה חדש?',['חלק מהאווטארים, התארים, הצלילים והרקעים של הפאס החודשי נותנים עכשיו בונוס: אווטארים ותארים מוסיפים אחוזים ל-XP, וצלילים ורקעים מוסיפים אחוזים למטבעות.','ככל ששלב הפריט בפאס גבוה יותר, הבונוס גדול יותר (עד 8% לפריט).','הבונוס פעיל רק כשהפריט מצויד, והוא מצטבר בין הפריטים. הבונוס הפעיל מוצג בראש מסך הפאס החודשי.']]]},
+ {n:22,d:'12.10.2026',t:'ליגות חדשות ופאס חודשי',b:[['מה חדש?',['הליגה השבועית שודרגה ל-10 דרגות: מברונזה ועד אלוף אולטרה פרו מקס. שלושת הראשונים בכל שבוע עולים דרגה, שלושת האחרונים יורדים, והיריבים נהיים קשים יותר ככל שעולים.','מסך הליגה מציג סולם דרגות, אזור עלייה ואזור ירידה, כמה XP חסר כדי לעלות ופרסי מטבעות לפי מקום ודרגה.','פאס עונתי חודשי חדש: כל חודש נפתחים 30 שלבים עם אווטארים, צלילים, תארים ורקעים מוגבלים שנעלמים בסוף החודש. אוספים אותם בלחיצה על ״אסוף״.','הפרסים שנאספו נשארים אצלכם לתמיד ומופיעים בלשונית פרסים. גישה לפאס: כפתור ״פאס חודשי״ במסך הבית, במסך הפרסים ובמסך הליגה.']]]},
  {n:21,d:'11.10.2026',t:'בלי פעמון, וסימנים במקומות הנכונים',b:[['מה השתנה?',['הפעמון והתראות הוסרו. כל ההודעות הקטנות (מטבעות, הישגים, דחיפה ועוד) מופיעות שוב ישר על המסך.','על הכפתור ״חברים״ במסך הבית מופיע מספר: הודעות חדשות מחברים והזמנות חברות שמחכות לתשובה.','על ״אתגר יומי״ מופיע סימן קריאה אדום כל עוד לא שיחקתם היום, כדי שתדעו שאפשר לשחק.']]]},
  {n:20,d:'11.10.2026',t:'מסך חברים חדש והזמנות חברות',b:[['מה חדש?',['מסך החברים נבנה מחדש: כפתור ״החברים שלי״ מציג את כל החברים, ובלחיצה על חבר אפשר לבחור ״התחרה ברוח שלו״, ״דחיפה״ או ״שלח לו הודעה״.','כפתור ״הוסף חבר״: מעתיקים את הקוד שלכם ושולחים לחבר. החבר מדביק אותו ולוחץ ״שלח הזמנת חברות״.','מקבל ההזמנה רואה אותה במסך החברים ובוחר ״אשר״ או ״דחה״. אם אישר, שניכם מופיעים אחד אצל השני. אם דחה, לא נוצרת חברות.','אפשר להוסיף כמה חברים שרוצים. תיבת הצ׳אט הריקה שהופיעה בתחתית המסך הוסרה, והיא מופיעה רק כשבוחרים לשלוח הודעה לחבר.','בדפדפן ובאפליקציה מופיע במסך ״הוסף חבר״ אם החיבור מוכן. מומלץ להעתיק את הקוד רק כשכתוב ״מחובר״.']]]},
  {n:19,d:'11.10.2026',t:'אפשר לבחור כל שם',b:[['מה השתנה?',['אפשר עכשיו שיהיו כמה שחקנים עם אותו שם. אין יותר בדיקת שם מול השרת, ולכן ההודעה ״השם כבר תפוס״ והשגיאה ״אי אפשר לבדוק את השם״ לא מופיעות.']]]},
@@ -2609,8 +2625,18 @@ const bd=()=>{const e=document.getElementById('frbd');if(e){const n=frCount();e.
 document.head.insertAdjacentHTML('beforeend','<style>.bdgx{position:absolute;top:8px;inset-inline-end:8px;background:#ef4444;color:#fff;border-radius:999px;min-width:24px;padding:2px 8px;font-size:15px;font-weight:900;animation:bdp 1.3s infinite}@keyframes bdp{50%{transform:scale(1.25)}}</style>');
 if(!Array.isArray(FL)){FL=FZ?[FZ]:[];LS.set('ml_frs',FL)}
 const sv=()=>LS.set('ml_frs',FL),me=()=>String(P.nm||'Friend').slice(0,12);
-const myCode=()=>{const st=(typeof ST!=='undefined'&&ST&&ST[S.lang])||{},lw=P.lgw||{};return 'ML1:'+btoa(unescape(encodeURIComponent(JSON.stringify({i:window.FBU||'',n:P.nm||'',a:P.av||'',x:P.xp||0,t:lgXP(),s:P.streak||0,r:P.rb||0,g:P.gh||[],k:{ok:st.ok||0,n:st.n||0},w:{w:lw.w,x0:lw.x0}}))))};
-const parse=(v,prev)=>{if(String(v).slice(0,4)!=='ML1:')throw 0;const p=JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));if(!p||typeof p.x!=='number')throw 0;const wy=dk(wkStart()),lw=p.w||{},tot=+p.t||p.x;let b,w;if(lw.w===wy){b=lw.x0||0;w=Math.max(0,tot-b)}else if(prev&&prev.ww===wy&&prev.b!=null){b=prev.b;w=Math.max(0,tot-b)}else{b=tot;w=0}return{uid:String(p.i||''),nm:String(p.n||X('Friend','חבר')).slice(0,12),av:String(p.a||''),xp:p.x,sk:p.s||0,rb:p.r||0,gh:Array.isArray(p.g)?p.g:[],ok:(p.k||{}).ok||0,n:(p.k||{}).n||0,ww:wy,b,wk:w}};
+const myCode=()=>{const st=(typeof ST!=='undefined'&&ST&&ST[S.lang])||{},lw=P.lgw||{};return 'ML1:'+btoa(unescape(encodeURIComponent(JSON.stringify({i:window.FBU||'',n:P.nm||'',a:P.av||'',x:P.xp||0,t:lgXP(),s:P.streak||0,r:P.rb||0,g:P.gh||[],k:{ok:st.ok||0,n:st.n||0},w:{w:lw.w,x0:lw.x0},L:(window.myL?myL():undefined)}))))};
+const parse=(v,prev)=>{if(String(v).slice(0,4)!=='ML1:')throw 0;const p=JSON.parse(decodeURIComponent(escape(atob(v.slice(4)))));if(!p||typeof p.x!=='number')throw 0;const wy=dk(wkStart()),lw=p.w||{},tot=+p.t||p.x;let b,w;if(lw.w===wy){b=lw.x0||0;w=Math.max(0,tot-b)}else if(prev&&prev.ww===wy&&prev.b!=null){b=prev.b;w=Math.max(0,tot-b)}else{b=tot;w=0}return{uid:String(p.i||''),nm:String(p.n||X('Friend','חבר')).slice(0,12),av:String(p.a||''),xp:p.x,sk:p.s||0,rb:p.r||0,gh:Array.isArray(p.g)?p.g:[],L:(p.L&&typeof p.L==='object')?p.L:null,ok:(p.k||{}).ok||0,n:(p.k||{}).n||0,ww:wy,b,wk:w}};
+const avgG=rh=>{if(!Array.isArray(rh)||!rh.length)return{a:0,g:[]};const m=rh.reduce((t,r)=>t+(r.k||0),0)/rh.length;let b=null;rh.forEach(r=>{if(!b||Math.abs((r.k||0)-m)<=Math.abs((b.k||0)-m))b=r});return{a:Math.round(m*10)/10,g:(b.g||[]).map(v=>Math.round(v*10)/10)}};
+window.myL=()=>{const o={};['en','he'].forEach(l=>{const src=l===S.lang?P:(((P.LG||{})[l])||{}),v=avgG(src.rh);o[l]={x:src.xp||0,r:src.rb||0,a:v.a,g:v.g}});return o};
+const LD=f=>(f&&f.L&&f.L[S.lang])||null;
+const fLv=f=>{const d=LD(f);return LV(d&&typeof d.x==='number'?d.x:f.xp)},fXp=f=>{const d=LD(f);return d&&typeof d.x==='number'?d.x:f.xp},fRb=f=>{const d=LD(f);return d&&typeof d.r==='number'?d.r:f.rb};
+const pickN=(g,n)=>Array.from({length:n},(_,i)=>g[Math.floor(i*g.length/n)]);
+const thin=(g,k)=>{const n=Math.round(g.length*k);return n>=g.length?g.slice():pickN(g,n)};
+const synth=n=>Array.from({length:n},(_,i)=>+((i+1)*43/(n+1)).toFixed(1));
+const fGh=f=>{const d=LD(f);if(d){if(d.g&&d.g.length)return d.g;if(d.r>0)return synth(Math.max(1,Math.round(d.r*.75)));return[]}return thin(f.gh||[],.8)};
+const vary=g=>{if(!g.length)return[];const n=Math.max(1,Math.round(g.length*(.88+Math.random()*.24)));if(n<=g.length)return pickN(g,n);const ex=n-g.length,r=g.slice();for(let i=0;i<ex;i++){const j=Math.floor(i*g.length/ex),a=g[j],b=g[j+1]!=null?g[j+1]:45;r.push(+((a+b)/2).toFixed(1))}return r.sort((x,y)=>x-y)};
+window.fGhV=f=>vary(fGh(f));window.fGhN=f=>fGh(f).length;
 const addF=f=>{const i=FL.findIndex(x=>f.uid&&x.uid===f.uid);if(i>=0)FL[i]=f;else FL.push(f);sv();if(FZ&&FZ.uid&&FZ.uid===f.uid){FZ=f;LS.set('ml_fx',FZ)}};
 const top=s=>`<button class="btn g" ${s?`data-fs="${s}"`:'data-a="back"'}>← ${X('Back','חזרה')}</button><div style="height:12px"></div>`;
 const btn=(s,t,c)=>`<button class="btn ${c||''}" data-fs="${s}" style="width:100%;margin-top:10px">${t}</button>`;
@@ -2621,17 +2647,20 @@ ${acts().length?`<div class="card" style="margin-top:12px"><h3>🔔 ${X('New','�
 ${ps.length?`<div class="card" style="margin-top:12px"><h3>📨 ${X('Friend invites','הזמנות חברות')}</h3>${ps.map(v=>`<div style="margin-top:10px"><b dir="auto">${esc(v.nm||'Friend')}</b> ${X('wants to be your friend','רוצה להיות חבר שלך')}<div class="two"><button class="btn" data-fi="a:${v.id}">✅ ${X('Accept','אשר')}</button><button class="btn g" data-fi="d:${v.id}">✖ ${X('Decline','דחה')}</button></div></div>`).join('')}</div>`:''}
 <div class="card" style="margin-top:12px">${btn('list','👥 '+X('My friends','החברים שלי')+' ('+FL.length+')'+pill(acts().reduce((a,x)=>a+x.m+x.nd,0)))}${btn('add','➕ '+X('Add a friend','הוסף חבר'),'g')}</div><div style="height:90px"></div></div>`}
 function list(){
- A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>👥 ${X('My friends','החברים שלי')}</h3>${(FL.length||acts().length)?FL.map((f,i)=>{const a=acts().find(x=>x.u===f.uid)||{m:0,nd:0};return btn('f:'+i,fxAv(f.av)+' '+esc(f.nm)+' · '+X('Level','רמה')+' '+LV(f.xp)+pill(a.m,'💬 ')+pill(a.nd,'👋 '),'g')}).join('')+acts().filter(a=>!FL.some(f=>f.uid===a.u)).map(a=>btn('n:'+esc(a.u),'❓ <b dir="auto">'+esc(a.nm)+'</b> <small>('+X('not in your friends','לא ברשימת החברים')+')</small>'+pill(a.m,'💬 ')+pill(a.nd,'👋 '),'g')).join(''):`<p class="mut">${X('You have no friends yet.','עדיין אין לך חברים.')}</p>${btn('add','➕ '+X('Add a friend','הוסף חבר'))}`}</div><div style="height:90px"></div></div>`}
+ A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>👥 ${X('My friends','החברים שלי')}</h3>${(FL.length||acts().length)?FL.map((f,i)=>{const a=acts().find(x=>x.u===f.uid)||{m:0,nd:0};return btn('f:'+i,fxAv(f.av)+' '+esc(f.nm)+' · '+X('Level','רמה')+' '+fLv(f)+pill(a.m,'💬 ')+pill(a.nd,'👋 '),'g')}).join('')+acts().filter(a=>!FL.some(f=>f.uid===a.u)).map(a=>btn('n:'+esc(a.u),'❓ <b dir="auto">'+esc(a.nm)+'</b> <small>('+X('not in your friends','לא ברשימת החברים')+')</small>'+pill(a.m,'💬 ')+pill(a.nd,'👋 '),'g')).join(''):`<p class="mut">${X('You have no friends yet.','עדיין אין לך חברים.')}</p>${btn('add','➕ '+X('Add a friend','הוסף חבר'))}`}</div><div style="height:90px"></div></div>`}
 function friend(){const f=FL[CUR];if(!f)return list();FZ=f;LS.set('ml_fx',FZ);const nn=(NUD()[f.uid]||{}).n||0;clrNud(f.uid);
- A.innerHTML=`<div class="wrap">${top('list')}${nn?`<div class="card" style="margin-bottom:12px">👋 <b dir="auto">${esc(f.nm)}</b> ${X('nudged you','דחף אותך')}${nn>1?' ×'+nn:''}</div>`:''}<div class="card"><h2 style="margin:0">${fxAv(f.av)} ${esc(f.nm)}</h2><p class="mut" style="margin:6px 0">${X('Level','רמה')} ${LV(f.xp)} · ${f.xp} XP · 🔥 ${f.sk}</p><p style="margin:6px 0">👻 <b>${X('Ghost score','ניקוד רוח')}: ${f.gh.length}</b> · ${X('Best race','שיא מרוץ')}: ${f.rb}</p><p class="mut" style="margin:6px 0">${X('Accuracy','דיוק')}: ${f.n?Math.round(100*f.ok/f.n):0}%</p>
-<button class="btn" data-a="fxr" style="width:100%;margin-top:10px"${f.gh.length?'':' disabled'}>🏁 ${X('Race his ghost','התחרה ברוח שלו')}</button><button class="btn" data-a="fxnd" style="width:100%;margin-top:10px"${f.uid?'':' disabled'}>👋 ${X('Nudge','דחיפה')}</button>${f.uid?'':`<p class="mut" style="font-size:13px">${X('Nudge and texts need his ID. Remove him and add him again with a new code from the browser or app version.','דחיפה והודעות צריכות את המזהה שלו. הסירו והוסיפו אותו שוב עם קוד חדש מגרסת הדפדפן או האפליקציה.')}</p>`}</div><div style="height:90px"></div></div>`;
+ A.innerHTML=`<div class="wrap">${top('list')}${nn?`<div class="card" style="margin-bottom:12px">👋 <b dir="auto">${esc(f.nm)}</b> ${X('nudged you','דחף אותך')}${nn>1?' ×'+nn:''}</div>`:''}<div class="card"><h2 style="margin:0">${fxAv(f.av)} ${esc(f.nm)}</h2><p class="mut" style="margin:6px 0">${X('Level','רמה')} ${fLv(f)} · ${fXp(f)} XP · 🔥 ${f.sk} · ${S.lang==='he'?'עברית':'English'}</p><p style="margin:6px 0">👻 <b>${X('Ghost score (his average)','ניקוד רוח (הממוצע שלו)')}: ${fGh(f).length}</b> · ${X('Best race','שיא מרוץ')}: ${fRb(f)}</p><p class="mut" style="margin:6px 0">${X('Accuracy','דיוק')}: ${f.n?Math.round(100*f.ok/f.n):0}%</p>
+<button class="btn" data-a="fxr" style="width:100%;margin-top:10px"${fGh(f).length?'':' disabled'}>🏁 ${X('Race his ghost','התחרה ברוח שלו')}</button><button class="btn" data-a="fxnd" style="width:100%;margin-top:10px"${f.uid?'':' disabled'}>👋 ${X('Nudge','דחיפה')}</button>${f.uid?'':`<p class="mut" style="font-size:13px">${X('Nudge and texts need his ID. Remove him and add him again with a new code from the browser or app version.','דחיפה והודעות צריכות את המזהה שלו. הסירו והוסיפו אותו שוב עם קוד חדש מגרסת הדפדפן או האפליקציה.')}</p>`}</div><div style="height:90px"></div></div>`;
  if(f.uid&&window.mcDraw){const w=A.querySelector('.wrap');if(w&&w.lastElementChild){w.lastElementChild.insertAdjacentHTML('beforebegin','<div class="card" id="mchat" style="margin-top:12px"></div>');try{mcDraw()}catch(e){}}}}
 function add(){
  A.innerHTML=`<div class="wrap">${top('main')}<div class="card"><h3>➕ ${X('Add a friend','הוסף חבר')}</h3><p class="mut" style="font-size:13px;margin:0 0 8px">${window.FBU?'✅ '+X('Connected','מחובר'):'❌ '+X('Not signed in','לא מחובר')+' ['+(window.firebase?(window.AUERR||'waiting'):'firebase-not-loaded')+']'}</p><p style="margin:6px 0 10px;line-height:1.6">1️⃣ ${X('Copy your code and send it to your friend.','העתק את הקוד שלך ושלח לחבר.')}</p><div class="two"><button class="btn g" data-a="fxc">${X('Copy my share code','העתק קוד לשיתוף')}</button></div>${FZC?`<textarea id="fxs" readonly rows="3" style="${box}">${FZC}</textarea><p class="mut" style="font-size:13px">${X('Auto-copy is blocked here. Long-press the code and tap Copy.','ההעתקה האוטומטית חסומה. לחץ לחיצה ארוכה על הקוד ובחר העתק.')}</p>`:''}
 <p style="margin:14px 0 6px;line-height:1.6">2️⃣ ${X('Paste the code your friend sent you, then send him an invite.','הדבק את הקוד ששלח לך החבר ושלח לו הזמנה.')}</p><textarea id="fxi2" rows="3" style="${box}" placeholder="${X('Paste his code here','הדבק כאן את הקוד שלו')}"></textarea>${btn('inv','📨 '+X('Send friend invite','שלח הזמנת חברות'))}</div><div style="height:90px"></div></div>`}
 function chat(){clrNud(FZ&&FZ.uid);OLD();const w=A.querySelector('.wrap');if(!w)return;[...w.children].forEach(c=>{if(c.id!=='mchat')c.remove()});w.insertAdjacentHTML('afterbegin',top('f:'+CUR)+'');}
 vFx=function(){({main,list,friend,add,chat}[FS]||main)()};
-const oF=openFriends;openFriends=function(){FS='main';oF()};
+window.pubProf=()=>{try{if(window.FBU&&window.firebase)firebase.firestore().collection('prof').doc(String(window.FBU)).set({c:myCode(),ts:Date.now()}).catch(()=>{})}catch(e){}};
+let lastPull=0;const pull=async()=>{if(!DBF||!FL||Date.now()-lastPull<60000)return;lastPull=Date.now();let ch=0;for(const f of FL.slice()){if(!f.uid)continue;try{const d=await DBF.collection('prof').doc(f.uid).get(),v=d&&d.exists&&d.data();if(v&&v.c){const n=parse(v.c,f);n.uid=f.uid;addF(n);ch++}}catch(e){}}if(ch&&FRV&&(FS==='main'||FS==='list'))vFx()};
+const pi=setInterval(()=>{if(window.FBU&&window.firebase&&DBF){clearInterval(pi);pubProf();pull()}},1500);
+const oF=openFriends;openFriends=function(){FS='main';oF();try{pull()}catch(e){}};
 document.addEventListener('click',async e=>{
  const b=e.target.closest('[data-fs],[data-fi]');if(!b||!FRV)return;
  if(b.dataset.fi){const[a,id]=b.dataset.fi.split(':'),v=INV[id];if(!v||!DBF)return;
@@ -2657,6 +2686,236 @@ const iv=setInterval(()=>{if(!window.FBU||!window.firebase||!firebase.firestore)
   bd();if(FRV&&(FS==='main'||FS==='list'))vFx()},()=>{})},500);
 window.frBd=()=>{bd();if(FRV&&(FS==='main'||FS==='list'))vFx()};
 let sig='';setInterval(()=>{const g=JSON.stringify(acts())+Object.keys(INV).length;if(g!==sig){sig=g;bd();if(FRV&&(FS==='main'||FS==='list'))vFx()}},1500);
+})();
+</script>
+<script>
+(function(){
+const RS=['xcp','xqd','xmv','xco','key','Lch','Llg','xfr'];let SUB=null;
+document.addEventListener('click',e=>{try{const b=e.target.closest&&e.target.closest('.tile[data-a],[data-mp="home"]');if(!b||b.__fake||tab!=='play')return;
+ if(b.dataset.mp==='home')SUB={mp:1};else if(RS.includes(b.dataset.a))SUB={a:b.dataset.a};else SUB=null}catch(x){}},true);
+const vp0=vPlay;vPlay=function(){SUB=null;return vp0.apply(this,arguments)};
+const g1=go;go=function(t){const from=tab,keep=SUB;
+ if(t==='play'&&from==='play'){SUB=null;return g1.apply(this,arguments)}
+ const r=g1.apply(this,arguments);
+ if(t==='play'&&from!=='play'&&keep&&!(window.MLMP&&MLMP._st&&MLMP._st())){SUB=keep;try{
+  if(keep.a==='xfr'){stop();FRV=1;vFx();scrollTo(0,0)}
+  else{const f=document.createElement('button');f.__fake=1;f.style.display='none';if(keep.a)f.dataset.a=keep.a;else f.dataset.mp='home';document.body.appendChild(f);f.click();f.remove()}
+ }catch(x){}}
+ return r};
+})();
+</script>
+<script>
+/* ===== WEEKLY LEAGUE SYSTEM ===== */
+const LEAGUES=[{name:X('Bronze Agent','סוכן ברונזה'),emoji:'🥉',minXP:0},{name:X('Silver Operative','סוכן כסף'),emoji:'🥈',minXP:500},{name:X('Gold Handler','מנהל זהב'),emoji:'🥇',minXP:1200},{name:X('Platinum Elite','אליט פלטינה'),emoji:'💎',minXP:2000},{name:X('Diamond Master','מלך יהלום'),emoji:'✨',minXP:3000},{name:X('Shadow Sage','חכם הצללים'),emoji:'👻',minXP:4500},{name:X('Phantom Lord','אדון הרוח'),emoji:'🔮',minXP:6000},{name:X('Ultra Pro Max Champion','אלוף סופי'),emoji:'🏆',minXP:8000}];
+const MISSIONS=[{id:1,name:X('Intercept Alpha','יירוט אלפא'),desc:X('Decode 5 signals','פענח 5 אותות'),diff:'e',stages:5,xp:50,coin:5},{id:2,name:X('Silent Protocol','פרוטוקול שקט'),desc:X('6 ear challenges','6 אתגרי אוזן'),diff:'e',stages:6,xp:60,coin:8},{id:3,name:X('Key Master','מנהל מפתחות'),desc:X('Type 5 codes','הקש 5 קודים'),diff:'m',stages:5,xp:70,coin:12},{id:4,name:X('Signal Storm','סערת אותות'),desc:X('8 rapid intercepts','8 יירוטים מהירים'),diff:'m',stages:8,xp:90,coin:18},{id:5,name:X('Ghost Network','רשת רוח'),desc:X('7 ear challenges','7 אתגרי אוזן'),diff:'h',stages:7,xp:120,coin:25},{id:6,name:X('Final Encryption','הצפנה סופית'),desc:X('Crack 10 codes','פצח 10 קודים'),diff:'h',stages:10,xp:140,coin:35},{id:7,name:X('Cipher Mastery','שליטה בצופן'),desc:X('Type 8 sequences','הקש 8 רצפים'),diff:'h',stages:8,xp:130,coin:32},{id:8,name:X('Shadow Operative','סוכן צל'),desc:X('12 mixed challenges','12 אתגרים מעורבים'),diff:'h',stages:12,xp:180,coin:45}];
+let WEEKLY={week:0,xp:0,done:{},grades:{}};
+let CURRM=null;
+const RIVALS=[{name:'TapTapTina',seed:1},{name:'NightOwl173',seed:2},{name:'Marconi_Fan',seed:3},{name:'BeepBoop',seed:4},{name:'DotDashDiva',seed:5},{name:'SigmaNinja',seed:6},{name:'PhantomCoder',seed:7},{name:'EchoHunter',seed:8}];
+function generateRivalXP(seed,week){const base=Math.sin(seed*12.9898+week*78.233)*43758.5453;return Math.floor((base-Math.floor(base))*400)+50}
+function getRivalLeaderboard(){const w=WEEKLY.week;const rivals=RIVALS.map(r=>({name:r.name,xp:generateRivalXP(r.seed,w)})).sort((a,b)=>b.xp-a.xp);return[{name:'You',xp:WEEKLY.xp,isPlayer:true},...rivals].sort((a,b)=>b.xp-a.xp)}
+function getWeekNumber(){const now=new Date();const start=new Date(now.getFullYear(),0,1);const diff=now-start;const oneWeek=1000*60*60*24*7;return Math.floor(diff/oneWeek)}
+function checkWeekReset(){const w=getWeekNumber();if(WEEKLY.week!==w){WEEKLY={week:w,xp:0,done:{},grades:{}}}}
+function getWeeklyLeague(){for(let i=LEAGUES.length-1;i>=0;i--)if(WEEKLY.xp>=LEAGUES[i].minXP)return i;return 0}
+function saveWeekly(){try{localStorage.setItem('morseLab_weekly',JSON.stringify(WEEKLY))}catch(e){}}
+function loadWeekly(){try{const s=localStorage.getItem('morseLab_weekly');if(s){WEEKLY=JSON.parse(s);checkWeekReset()}}catch(e){}}
+function showLeaderboard(){checkWeekReset();const l=getWeeklyLeague(),lb=getRivalLeaderboard();const lbHTML=lb.map((p,i)=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700;font-size:16px">${i+1}. ${p.name}${p.isPlayer?' (You)':''}</div><div style="color:var(--ac);font-weight:800">${p.xp} XP</div></div>`).join('');const html=`<div class="wrap"><button class="btn g" data-a="back">← ${X('Back','חזרה')}</button><div style="height:12px"></div><div class="card" style="text-align:center;margin-bottom:16px"><div style="font-size:48px">📊</div><b style="font-size:18px;display:block;margin:8px 0">${X('Weekly League','ליגה שבועית')}</b><div style="font-size:12px;color:var(--mut);line-height:1.5;margin:8px 0">${X('Simulated rivals (bots), not real players. Resets every Monday. Top 3 win coins.','יריבים מדומים (בוטים), לא שחקנים אמיתיים. מתאפס כל יום שני. המובילים 3 מנצחים מטבעות.')}</div><div style="font-size:14px;font-weight:700;color:var(--ink);margin:10px 0">${X('Last week: place #10','שבוע שעבר: מקום #10')}</div></div>${lbHTML}</div>`;A.innerHTML=html}
+function showWeeklyLeaderboard(){showLeaderboard()}
+function showWeeklyMissions(){checkWeekReset();const l=getWeeklyLeague(),nxt=LEAGUES[l+1]?.minXP??99999,pct=Math.min(100,(WEEKLY.xp/nxt)*100);const missionHTML=MISSIONS.map(m=>`<div class="card" style="cursor:pointer;transition:.1s" onclick="startMission(${m.id})"><b>${m.name}</b> <span style="float:right;font-size:11px;background:${m.diff==='e'?'#d1fae5':m.diff==='m'?'#fef3c7':'#fee2e2'};color:${m.diff==='e'?'#065f46':m.diff==='m'?'#78350f':'#7f1d1d'};padding:2px 6px;border-radius:4px">${m.diff==='e'?'EASY':m.diff==='m'?'MED':'HARD'}</span><br><span class="mut" style="font-size:12px">${m.desc}</span><br><span style="color:var(--ac);font-size:11px;margin-top:6px;display:block">+${m.xp}XP 🪙${m.coin}</span>${WEEKLY.done[m.id]?'<span style="color:var(--ok);font-size:10px">✓ Done</span>':''}</div>`).join('');let grades='';['S','A','B','C','F'].forEach(g=>{if(WEEKLY.grades[g])grades+=`<span style="border:1px solid var(--line);padding:4px 8px;border-radius:6px;font-size:11px;font-weight:700">${g}×${WEEKLY.grades[g]}</span> `});const html=`<div class="wrap"><button class="btn g" onclick="showWeeklyLeaderboard()" style="width:100%;margin-bottom:12px">📊 ${X('View Leaderboard','צפה בדירוג')}</button><div class="card" style="text-align:center;margin-bottom:16px"><div style="font-size:48px">${LEAGUES[l].emoji}</div><b style="font-size:18px;display:block;margin:8px 0">${LEAGUES[l].name}</b><div style="font-size:11px;color:var(--mut);margin:4px 0">Week ${WEEKLY.week}</div><div style="background:var(--line);height:8px;border-radius:4px;margin:10px 0;overflow:hidden"><div style="background:linear-gradient(90deg,var(--ac),var(--ac2));height:100%;width:${pct}%"></div></div><span class="mut" style="font-size:11px">${WEEKLY.xp}/${nxt===99999?'∞':nxt} XP</span></div><h3>📋 ${X('Weekly Missions','משימות שבועיות')}</h3>${missionHTML}<h3>📊 ${X('Grades','ציונים')}</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${grades||'<span class="mut">Complete missions to earn grades</span>'}</div></div>`;A.innerHTML=html;tab='missions'}
+function vLeagues(){checkWeekReset();const l=getWeeklyLeague(),nxt=LEAGUES[l+1]?.minXP??99999,pct=Math.min(100,(WEEKLY.xp/nxt)*100);const html=`<div class="wrap"><div class="card" style="text-align:center;margin-bottom:16px"><div style="font-size:48px">${LEAGUES[l].emoji}</div><b style="font-size:18px;display:block;margin:8px 0">${LEAGUES[l].name}</b><div style="font-size:11px;color:var(--mut);margin:4px 0">Week ${WEEKLY.week}</div><div style="background:var(--line);height:8px;border-radius:4px;margin:10px 0;overflow:hidden"><div style="background:linear-gradient(90deg,var(--ac),var(--ac2));height:100%;width:${pct}%"></div></div><span class="mut" style="font-size:11px">${WEEKLY.xp}/${nxt===99999?'∞':nxt} XP</span></div><div class="card" style="text-align:center;margin-bottom:16px"><div style="font-size:48px">📊</div><b style="font-size:18px;display:block;margin:8px 0">${X('Weekly League','ליגה שבועית')}</b><div style="font-size:12px;color:var(--mut);line-height:1.5;margin:8px 0">${X('Simulated rivals (bots), not real players. Resets every Monday. Top 3 win coins.','יריבים מדומים (בוטים), לא שחקנים אמיתיים. מתאפס כל יום שני. המובילים 3 מנצחים מטבעות.')}</div><div style="font-size:14px;font-weight:700;color:var(--ink);margin:10px 0">${X('Last week: place #10','שבוע שעבר: מקום #10')}</div></div></div>`;A.innerHTML=html}
+function startMission(id){CURRM=MISSIONS.find(x=>x.id===id);if(!CURRM)return;MS={st:[],i:-1,ok:0,lives:3,pk:null,combo:0,t:CURRM.name,grade:null,missionID:CURRM.id};msGen();vMs()}
+loadWeekly();
+</script>
+<script>
+/* ===== League 2.0 (10 ranks, promotion/demotion) + Monthly Season Pass (limited avatars, sounds, titles, backgrounds) ===== */
+(()=>{try{
+const RANKS=[['Bronze','ברונזה','🥉','#cd7f32'],['Silver','כסף','🥈','#cbd5e1'],['Gold','זהב','🥇','#ffd24a'],['Platinum','פלטינה','💠','#5eead4'],['Diamond','יהלום','💎','#67e8f9'],['Master','מאסטר','🔮','#a78bfa'],['Grandmaster','גרנד מאסטר','👑','#f472b6'],['Legend','אגדה','🌠','#fb923c'],['Mythic','מיתי','🐉','#ef4444'],['Ultra Pro Max Champion','אלוף אולטרה פרו מקס','🏆','#fde047']];
+const rkn=i=>X(RANKS[i][0],RANKS[i][1]);
+const LGN=()=>{P.lgw=P.lgw||{w:'',x0:0,cur:0,res:0};const l=P.lgw;if(typeof l.rk!=='number')l.rk=0;if(!Array.isArray(l.hist))l.hist=[];if(typeof l.best!=='number')l.best=l.rk;return l};
+const bots=(w,rk,fr)=>BOTN.map(n=>{const h=hs(n+w+rk);return[n,Math.round((70+rk*45+LV(P.xp)*8)*(.35+(h%100)/70)*Math.pow(fr,.9))]});
+const lft=ms=>{const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5);return d>0?d+X('d ','י׳ ')+h+X('h','ש׳'):h+X('h ','ש׳ ')+Math.floor(ms%36e5/6e4)+X('m','ד׳')};
+function settle(l,w){
+  if(l.w===w)return;
+  if(l.w){
+    const rk=l.rk,rows=bots(l.w,rk,1).concat([['me',l.cur||0]]).sort((a,b)=>b[1]-a[1]),r=rows.findIndex(x=>x[0]==='me')+1,act=(l.cur||0)>=15;
+    let mv=0;if(act&&r<=3&&rk<9)mv=1;else if(r>=8&&rk>0)mv=-1;
+    const c=act?Math.round(([100,60,30,15,10][r-1]||0)*(1+rk*.4)):0;
+    if(c)coin(c,X('League reward','פרס ליגה'));
+    l.res=r;l.mv=mv;l.pr=rk;l.rk=rk+mv;l.best=Math.max(l.best||0,l.rk);
+    l.hist.unshift({r,rk,mv});l.hist.length=Math.min(l.hist.length,6);
+    if(mv>0){coin(25*(rk+2),X('Promotion bonus','בונוס עלייה'));toast(RANKS[l.rk][2]+' '+X('Promoted to ','עליתם ל-')+rkn(l.rk)+'!')}
+    else if(mv<0)toast('⬇ '+X('Moved down to ','ירדתם ל-')+rkn(l.rk));
+  }
+  l.w=w;l.x0=lgXP();l.cur=0;
+}
+vLg=function(){
+  const w=dk(wkStart()),l=LGN();settle(l,w);l.cur=Math.max(0,lgXP()-l.x0);sp();
+  const fr=Math.min(1,(Date.now()-wkStart())/6048e5),R=RANKS[l.rk],col=R[3];
+  const all=bots(w,l.rk,fr).concat([['me',l.cur]]).sort((a,b)=>b[1]-a[1]),place=all.findIndex(x=>x[0]==='me')+1;
+  const fz=(typeof FZ!=='undefined'&&FZ&&FZ.ww===w)?['\u0001'+FZ.nm,FZ.wk]:null,list=fz?all.concat([fz]).sort((a,b)=>b[1]-a[1]):all;
+  const upOK=l.rk<9,dnOK=l.rk>0,inUp=upOK&&place<=3,inDn=dnOK&&place>=8;
+  let msg;
+  if(inUp)msg='🟢 '+X('Promotion zone! Keep it up: ','אזור עלייה! ממשיכים: ')+(all[3]?X((l.cur-all[3][1])+' XP ahead of 4th place',(l.cur-all[3][1])+' XP לפני המקום הרביעי'):'');
+  else if(inDn)msg='🔴 '+X('Danger zone: ','אזור ירידה: ')+X((all[6][1]-l.cur+1)+' XP to get safe',(all[6][1]-l.cur+1)+' XP כדי להיות בטוחים');
+  else if(!upOK&&place<=3)msg='👑 '+X('You rule the top league!','אתם שולטים בליגה העליונה!');
+  else msg='🟡 '+X('Safe. ','בטוח. ')+(place>3&&upOK?X((all[2][1]-l.cur+1)+' XP to reach the promotion zone',(all[2][1]-l.cur+1)+' XP כדי להגיע לאזור העלייה'):'');
+  let pos=0;
+  const rows=list.map(r=>{const f=r[0][0]==='\u0001';if(!f)pos++;const me=r[0]==='me',up=!f&&upOK&&pos<=3,dn=!f&&dnOK&&pos>=8;
+    const nm=me?avh()+' '+X('You','אתה'):f?'👤 '+esc(r[0].slice(1)):esc(r[0]);
+    return `<div class="card row2" style="padding:12px 14px;${me?`border-color:${col};box-shadow:0 0 14px ${col}55`:up?'border-color:var(--ok)':dn?'border-color:var(--bad)':''}"><b>${f?'':pos+'. '}${nm}</b><span>${up?'<span style="color:var(--ok)">⬆</span> ':dn?'<span style="color:var(--bad)">⬇</span> ':''}<b style="color:var(--ac)">${r[1]} XP</b></span></div>`}).join('');
+  const ladder=RANKS.map((x,i)=>`<div style="flex:0 0 auto;text-align:center;opacity:${i<=l.best?1:.35}"><div style="width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-size:23px;border:2px solid ${x[3]};background:${i===l.rk?x[3]+'33':'transparent'};${i===l.rk?`box-shadow:0 0 14px ${x[3]}`:''}">${x[2]}</div><div style="font-size:10px;margin-top:2px" class="mut">${i+1}</div></div>`).join('');
+  const last=l.res?`<p class="mut" style="margin:8px 0 0">${X('Last week','שבוע שעבר')}: #${l.res} ${l.mv>0?'⬆ '+X('promoted','עלייה'):l.mv<0?'⬇ '+X('demoted','ירידה'):'➡ '+X('stayed','נשארתם')}</p>`:'';
+  LW(`<div class="card c" style="border-color:${col};box-shadow:0 0 22px ${col}44"><div style="font-size:56px;line-height:1.1">${R[2]}</div><b style="font-size:20px;color:${col}">${esc(rkn(l.rk))}</b><div class="mut" style="font-size:12px;margin-top:2px">${X('League','ליגה')} ${l.rk+1}/10 · ⏳ ${lft(wkStart().getTime()+6048e5-Date.now())}</div><div id="lgld" style="display:flex;gap:8px;overflow-x:auto;padding:12px 2px 2px;justify-content:flex-start;scrollbar-width:none">${ladder}</div>${last}</div>
+<div class="note" dir="auto">${msg}</div>
+<p class="mut c" style="font-size:12px;margin:0 0 8px" dir="auto">${X('Top 3 move up, bottom 3 move down. Rivals are simulated bots and get tougher in higher leagues. Resets every Monday.','שלושת הראשונים עולים ליגה, שלושת האחרונים יורדים. היריבים הם בוטים מדומים ונהיים קשים יותר בליגות גבוהות. מתאפס כל יום שני.')}</p>
+${rows}
+<button class="btn" data-pa="ps" style="width:100%;margin-top:12px">🏆 ${X('Monthly Season Pass','פאס חודשי')}</button>
+<details class="card" style="margin-top:12px"><summary><b>${X('All 10 ranks','כל 10 הדרגות')}</b></summary>${RANKS.map((x,i)=>`<div class="row" style="${i===l.rk?`color:${x[3]};font-weight:800`:''}"><span style="font-size:22px;width:34px">${x[2]}</span><span style="flex:1">${i+1}. ${esc(X(x[0],x[1]))}</span><span>${i<l.rk||i<=l.best?'✅':'🔒'}</span></div>`).join('')}</details>`);
+  const g=document.getElementById('lgld');if(g)g.scrollLeft=Math.max(0,l.rk*54-g.clientWidth/2+23);
+};
+showLeaderboard=vLg;
+
+/* ---------- Monthly Season Pass ---------- */
+const TXP=60,NT=30,START=[2026,9];
+const MN=[['January','ינואר'],['February','פברואר'],['March','מרץ'],['April','אפריל'],['May','מאי'],['June','יוני'],['July','יולי'],['August','אוגוסט'],['September','ספטמבר'],['October','אוקטובר'],['November','נובמבר'],['December','דצמבר']];
+const THM=[{n:['Frostbite','כפור'],em:['⛄','🧊','🎿','🥶'],ic:'❄️'},{n:['Heartbeat','פעימות לב'],em:['💘','💌','🍫','🧸'],ic:'💘'},{n:['Bloom','פריחה'],em:['🌷','🪴','🐣','🌱'],ic:'🌷'},{n:['Rainfall','גשם'],em:['☔','🌦️','🐛','🦆'],ic:'☔'},{n:['Meadow','אחו'],em:['🌼','🐇','🍓','🪻'],ic:'🌼'},{n:['Sunburst','פרץ שמש'],em:['🏖️','🍉','🕶️','🌊'],ic:'☀️'},{n:['Fireworks','זיקוקים'],em:['🎆','🍦','🏄','🛶'],ic:'🎆'},{n:['Tropic','טרופי'],em:['🥥','🍍','🐠','🪸'],ic:'🌴'},{n:['Harvest','אסיף'],em:['🍂','🍁','🌰','🦃'],ic:'🍂'},{n:['Spooky Static','סטטיקה מפחידה'],em:['🎃','🕸️','🧛','🧟'],ic:'🎃'},{n:['Mist','ערפל'],em:['🌫️','🕯️','🍵','🧣'],ic:'🌫️'},{n:['Snowglobe','גלובוס שלג'],em:['🎄','🎅','🎁','🔔'],ic:'🎄'}];
+const WVS=['sine','triangle','square','sawtooth'];
+const hsx=(h,s,l)=>{s/=100;l/=100;const a=s*Math.min(l,1-l),f=n=>{const k=(n+h/30)%12;return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1)))).toString(16).padStart(2,'0')};return '#'+f(0)+f(8)+f(4)};
+const PM={},BM={};
+const bonT=t=>t>=9?Math.floor(t/3)-2:0;
+const bTag=(b,k)=>b>0?[' +'+b+'% '+(k==='x'?'XP':'coins'),' +'+b+'% '+(k==='x'?'XP':'מטבעות')]:['',''];
+function defs(y,m){
+  const key=y+'-'+String(m+1).padStart(2,'0');if(PM[key])return PM[key];
+  const T=THM[m],yy=String(y).slice(2),pre='ps'+y+String(m+1).padStart(2,'0'),D=PM[key]={key,y,m,T,av:T.em.slice(),sn:[],ti:[],fx:[]};T.em.forEach((e,i)=>{const b=bonT([3,11,20,28][i]);if(b)BM['av_'+e]={x:b}});
+  ['Ping','Pulse','Chime'].forEach((s,i)=>{const he=['פינג','פעימה','צלצול'][i],id=pre+'s'+i,k=m*3+i+100,w=WVS[k%4],r=.5+((k*37)%150)/100,sp={r,w,v:[3+k%6,4+(k*7)%30],g:w==='sine'||w==='triangle'?1:.6};
+    if(k%5===0)sp.e='p';if(w==='sawtooth'||w==='square')sp.f=['lowpass',1200+(k*173)%2400];
+    SP[id]=sp;SX[id]=[w,Math.round(600*r)];const b=bonT([7,16,24][i]),tg=bTag(b,'c'),it=[id,['🔔','🎶','🎵'][i],T.n[0]+' '+s+tg[0],he+' '+T.n[1]+tg[1],999];if(b)BM['sn_'+id]={c:b};SH.sn.push(it);HI.add('sn_'+id);D.sn.push(it)});
+  ['Rookie','Operator','Elite','Legend'].forEach((s,i)=>{const he=['טירון','מפעיל','מובחר','אגדה'][i],id=pre+'t'+i,b=bonT([5,14,22,29][i]),tg=bTag(b,'x'),it=[id,['🎖️','🏅','👑','🏆'][i],T.n[0]+' '+s+" '"+yy+tg[0],he+' '+T.n[1]+' ׳'+yy+tg[1],999];if(b)BM['ti_'+id]={x:b};SH.ti.push(it);HI.add('ti_'+id);D.ti.push(it)});
+  ['Sky','Glow','Dream'].forEach((s,i)=>{const he=['שמיים','זוהר','חלום'][i],id=pre+'f'+i,h=(m*30+(y%7)*11+i*50)%360,c=hsx(h,80,65),bg=hsx(h,45,5);
+    FXX[id]={c,d:i%2?1:-1};window.regGen&&regGen(id,m*3+i+7,h);
+    const b=bonT([9,18,30][i]),tg=bTag(b,'c'),it=[id,[T.ic,'✨','🌌'][i],T.n[0]+' '+s+tg[0],he+' '+T.n[1]+tg[1],999];if(b)BM['fx_'+id]={c:b};SH.fx.push(it);HI.add('fx_'+id);D.fx.push(it);
+    document.head.insertAdjacentHTML('beforeend',`<style>[data-theme="${id}"]{--bg:${bg};--card:${hsx(h,40,10)};--ink:#f1f5f9;--mut:#94a3b8;--line:color-mix(in srgb,${c} 25%,${bg});--ac:${c};--ac2:${hsx((h+40)%360,80,65)}}</style>`)});
+  return D;
+}
+const nowYM=()=>{const d=new Date();return[d.getFullYear(),d.getMonth()]};
+(()=>{let[y,m]=START;const[cy,cm]=nowYM();while(y<cy||(y===cy&&m<=cm)){defs(y,m);if(++m>11){m=0;y++}}})();
+const curKey=()=>{const[y,m]=nowYM();return y+'-'+String(m+1).padStart(2,'0')};
+const curD=()=>{const[y,m]=nowYM();return defs(y,m)};
+function PS(){const k=curKey(),cx=lgXP();let p=P.pass;if(!p||p.m!==k){defs(...nowYM());p=P.pass={m:k,e:0,l:cx,cl:{},nt:0}}else{const d=cx-(p.l||0);if(d>0)p.e=(p.e||0)+d;p.l=cx}return p}
+const MAPT={3:['av',0],11:['av',1],20:['av',2],28:['av',3],7:['sn',0],16:['sn',1],24:['sn',2],5:['ti',0],14:['ti',1],22:['ti',2],29:['ti',3],9:['fx',0],18:['fx',1],30:['fx',2],15:['bo'],27:['bo']};
+const rwOf=n=>MAPT[n]||['coin'],cAmt=n=>10+n*3+(n===30?100:0);
+const rLabel=(D,n)=>{const r=rwOf(n);if(r[0]==='av')return D.av[r[1]]+' '+X('Avatar','אווטאר');if(r[0]==='bo')return '⚡ '+X('XP Booster','בוסטר XP');if(r[0]==='coin')return '🪙 '+cAmt(n);const it=D[r[0]][r[1]];return it[1]+' '+esc(X(it[2],it[3]))+(n===30?' + 🪙 100':'')};
+const own=(D,n)=>{const r=rwOf(n);if(r[0]==='av')return(P.ow||[]).includes(D.av[r[1]]);if(r[0]==='bo'||r[0]==='coin')return false;return !!(P.sk||{})[r[0]+'_'+D[r[0]][r[1]][0]]};
+function claim(n){
+  const p=PS(),D=curD();if(p.cl[n]||p.e<n*TXP)return 0;
+  const r=rwOf(n);let m='';
+  if(r[0]==='av'){const e=D.av[r[1]];P.ow=P.ow||[];if(P.ow.includes(e)||AV.includes(e)){coin(80,X('Duplicate','כפילות'))}else P.ow.push(e);m=e}
+  else if(r[0]==='bo'){P.bo=(P.bo||0)+1;m='⚡'}
+  else if(r[0]==='coin'){coin(cAmt(n),X('Season Pass','פאס חודשי'));m='🪙'}
+  else{const it=D[r[0]][r[1]];P.sk=P.sk||{};P.sk[r[0]+'_'+it[0]]=1;m=it[1]+' '+X(it[2],it[3]);if(n===30)coin(100,X('Season Pass','פאס חודשי'))}
+  p.cl[n]=1;sp();toast('🎁 '+X('Claimed: ','נאסף: ')+m);return 1;
+}
+vPass=function(){
+  const p=PS(),D=curD(),t=Math.min(NT,Math.floor(p.e/TXP)),nx=Math.min(NT,t+1),pct=t>=NT?100:100*(p.e-t*TXP)/TXP,mt=MN[D.m];
+  const end=new Date(D.y,D.m+1,1).getTime()-Date.now(),ready=[...Array(NT)].filter((_,i)=>!p.cl[i+1]&&p.e>=(i+1)*TXP).length;
+  const items=[];for(let n=1;n<=NT;n++){const r=rwOf(n);if(r[0]!=='bo'&&r[0]!=='coin')items.push(n)}
+  const grid=items.map(n=>{const r=rwOf(n),ic=r[0]==='av'?D.av[r[1]]:D[r[0]][r[1]][1],ty={av:'🙂',sn:'🔊',ti:'🎖️',fx:'🖼️'}[r[0]],d=p.cl[n]||own(D,n);return `<div class="k" style="padding:8px 2px;opacity:${d||p.e>=n*TXP?1:.6}"><span style="font-size:26px">${ic}</span><span style="font-size:10px" class="mut">${ty} ${X('Tier','שלב')} ${n}</span>${(()=>{const k=r[0]==='av'?'av_'+ic:r[0]+'_'+D[r[0]][r[1]][0],q=BM[k];return q?`<span style="font-size:10px;color:var(--ok)">+${q.x||q.c}% ${q.x?'XP':X('coins','מטבעות')}</span>`:''})()}${d?'<span style="font-size:11px">✅</span>':''}</div>`}).join('');
+  const lvl=n=>{const o=[],th=TH.find(x=>x[1]===n&&n>1);if(n%2===0&&AV[n/2])o.push(AV[n/2]);if(n%5===0)o.push('⚡ '+X('Booster','בוסטר'));if(window.PIT&&PIT[n-1])o.push(PIT[n-1]);return o.join(' · ')||'+XP ✨'};
+  const L=LV(P.xp);
+  A.innerHTML=`<div class="wrap"><button class="btn g" data-a="back">← ${X('Back','חזרה')}</button><div style="height:12px"></div>
+<div class="card c"><div style="font-size:48px">${D.T.ic}</div><b style="font-size:18px">${esc(X(mt[0],mt[1]))} ${D.y} · ${esc(X(D.T.n[0],D.T.n[1]))}</b><div class="mut" style="font-size:12px;margin-top:4px" dir="auto">⏳ ${lft(end)} · ${X('Limited rewards: gone when the month ends!','פרסים מוגבלים: נעלמים בסוף החודש!')}</div>
+<div class="note" style="margin:12px 0 0" dir="auto">✨ ${X('Active bonus (equipped items): ','בונוס פעיל (פריטים מצוידים): ')}<b>+${bonus().x}% XP · +${bonus().c}% ${X('coins','מטבעות')}</b></div><div style="margin:12px 0 4px"><b>${X('Tier','שלב')} ${t}/${NT}</b></div><div class="bar"><i style="width:${pct}%"></i></div><span class="mut" style="font-size:12px">${t>=NT?X('Pass complete!','הפאס הושלם!'):p.e+' / '+(nx*TXP)+' XP'}</span>
+<div style="margin-top:12px"><button class="btn" data-pa="bo" style="width:100%"${(P.bo||0)>0&&Date.now()>=(P.bt||0)?'':' disabled'}>⚡ ${Date.now()<(P.bt||0)?X('Booster active: ','בוסטר פעיל: ')+Math.ceil((P.bt-Date.now())/6e4)+X(' min left',' דק׳ נותרו'):X('Use booster','הפעל בוסטר')+' ('+(P.bo||0)+')'}</button></div><div class="two" style="margin-top:12px"><button class="btn"${ready?'':' disabled'} data-pa="all">🎁 ${X('Claim all','אסוף הכל')} (${ready})</button><button class="btn g" data-pa="lg">🏅 ${X('Leagues','ליגות')}</button></div></div>
+<h3 style="margin:14px 0 6px">${X('This month only','רק החודש')}</h3><div class="grid" style="grid-template-columns:repeat(4,1fr);gap:6px">${grid}</div>
+<h3 style="margin:14px 0 6px">${X('All tiers','כל השלבים')}</h3><div class="card">${[...Array(NT)].map((_,i)=>{const n=i+1,u=p.e>=n*TXP,c=p.cl[n],r=rwOf(n),it=r[0]!=='bo'&&r[0]!=='coin';return `<div class="row" style="opacity:${u?1:.55}"><b style="width:34px">${n}</b><span style="flex:1;${it?'font-weight:700':''}" dir="auto">${rLabel(D,n)}</span>${c?'✅':u?`<button class="btn" data-pa="c" data-n="${n}" style="padding:6px 12px">${X('Claim','אסוף')}</button>`:'🔒'}</div>`}).join('')}</div>
+<details class="card" style="margin-top:12px"><summary><b>🎖️ ${X('Level rewards (permanent)','פרסי רמה (קבועים)')}</b></summary>${[...Array(30)].map((_,i)=>{const n=i+1,u=L>=n;return `<div class="row" style="opacity:${u?1:.5}"><b style="width:34px">${n}</b><span style="flex:1" dir="auto">${lvl(n)}</span><span>${u?'✅':'🔒'}</span></div>`}).join('')}</details></div>`;
+};
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pa]');if(!b||b.disabled)return;const a=b.dataset.pa,y=window.scrollY;
+  if(a==='c'){claim(+b.dataset.n);vPass();scrollTo(0,y)}
+  else if(a==='all'){for(let n=1;n<=NT;n++)claim(n);vPass();scrollTo(0,y)}
+  else if(a==='bo'){if((P.bo||0)>0&&Date.now()>=(P.bt||0)){P.bo--;P.bt=Date.now()+12e5;sp();toast('⚡ '+X('2x XP for 20 minutes!','פי 2 XP ל-20 דקות!'));vPass();scrollTo(0,y)}}
+  else if(a==='lg'){vLg();scrollTo(0,0)}
+  else if(a==='ps'){vPass();scrollTo(0,0)}});
+/* toast when a new season tier unlocks */
+function bonus(){let x=0,c=0;const a=BM['av_'+P.av];if(a&&(P.ow||[]).includes(P.av))x+=a.x||0;[['ti',P.ti],['sn',P.sn],['fx',S.theme]].forEach(([k,id])=>{const b=BM[k+'_'+id];if(b&&P.sk&&P.sk[k+'_'+id]){x+=b.x||0;c+=b.c||0}});return{x,c}}
+const _coin=coin;coin=function(n,m){try{const B=bonus();if(n>0&&B.c)n=n*(1+B.c/100)}catch(e){}return _coin.call(this,n,m)};
+const _xp=xp;xp=function(){try{const B=bonus();if(B.x&&arguments[0]>0)arguments[0]=Math.round(arguments[0]*(1+B.x/100))}catch(e){}const r=_xp.apply(this,arguments);try{const p=PS(),t=Math.min(NT,Math.floor(p.e/TXP));if(t>(p.nt||0)){p.nt=t;toast('🏆 '+X('Season tier ','שלב פאס ')+t+X(' unlocked! Claim it in Monthly Pass',' נפתח! אספו בפאס החודשי'))}}catch(e){}return r};
+window.MLpass={bonus,BM,PS,claim,defs,curD,RANKS};
+}catch(err){console.error('League2/Pass init failed',err)}})();
+</script>
+
+
+<script>
+/* ===== Spy Mission 3.0: mixed stages (listen, key it in, ears only), power-ups, story ===== */
+(()=>{
+const L2=()=>S.lang==='he'?'he':'en';
+const NM={en:['Falcon','Shadow','Viper','Ghost','Raven','Cobra','Lynx','Phantom'],he:['נץ','צל','צפע','רוח','עורב','קוברה','שועל','רפאים']};
+const HQ={en:['HQ: A coded signal near {t}. Decode it before they trace you.','HQ: Good work. A guard is gossiping on an open channel. Copy what he says.','HQ: The door keypad is live. Tap the passcode in yourself, dot by dash.','HQ: Jammers are on and your screen is dead. Use your ears, agent.','HQ: The vault keypad. One slip and the alarm sounds. Tap it in!','HQ: FINAL TRANSMISSION. The double agent is confessing. Ears only. Make it count.'],
+he:['מפקדה: נקלט אות מוצפן ליד {t}. פענח אותו לפני שמאתרים אותך.','מפקדה: יפה. שומר מקשקש בערוץ פתוח. תעתיק מה שהוא אומר.','מפקדה: לוח המקשים של הדלת פעיל. הקש את הסיסמה בעצמך, נקודה אחרי קו.','מפקדה: מפריעים הופעלו והמסך מת. תשתמש באוזניים, סוכן.','מפקדה: לוח הכספת. טעות אחת והאזעקה תופעל. הקש את הקוד!','מפקדה: שידור אחרון. הסוכן הכפול מתוודה. רק אוזניים. תן הכול.']};
+const END={en:{w:'The double agent is exposed and {t} is safe. HQ salutes you, agent {n}.',l:'The double agent slipped away from {t}. HQ will send another agent...'},he:{w:'הסוכן הכפול נחשף ו{t} בטוח. המפקדה מצדיעה לך, סוכן {n}.',l:'הסוכן הכפול ברח מ{t}. המפקדה תשלח סוכן אחר...'}};
+const TY=['int','int','key','ear','key','boss'],LEN=[4,4,3,5,4,6];
+document.head.insertAdjacentHTML('beforeend','<style>.sp{background:#06100b;border:1px solid #1fa35c;border-radius:20px;padding:16px;color:#7dffb0;font-family:ui-monospace,Menlo,monospace;box-shadow:0 0 28px rgba(31,163,92,.28) inset,0 0 18px rgba(31,163,92,.18);position:relative;overflow:hidden}.sp:after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}.sp .spt,.sp .sps{display:flex;justify-content:space-between;align-items:center;font-weight:800;letter-spacing:1px}.sp .spb{height:10px;border-radius:6px;background:#0d2a1a;overflow:hidden;margin:10px 0 6px}.sp .spb i{display:block;height:100%;background:#3dff8f;border-radius:6px}.sp .spp{margin:12px 0;line-height:1.5;color:#c8ffe0;min-height:3em}.sp .hm{filter:drop-shadow(0 0 6px rgba(61,255,143,.6))}.sp .o{background:#0b1f14;border:1px solid #1fa35c;color:#c8ffe0}.sp .o.ok{background:#1fa35c;color:#02130a}.sp .o.bad{background:#7a1f1f;border-color:#ff4d4d;color:#fff}.sp .o.gone{opacity:.18;pointer-events:none}.sp .fb2{text-align:center;font-weight:900;margin:8px 0;letter-spacing:1px}.sp .jam{text-align:center;letter-spacing:4px;color:#ffd24a;font-weight:900;margin:14px 0;animation:jm 1s infinite}@keyframes jm{50%{opacity:.35}}.sp .pw{display:flex;gap:8px;margin:6px 0}.sp .pwb{flex:1;padding:8px 6px;border-radius:12px;border:1px dashed #1fa35c;background:transparent;color:#7dffb0;font:inherit;font-weight:800}.sp .pwb[disabled]{opacity:.3}.sp .kw{text-align:center;margin:8px 0}.sp .kl{display:inline-block;min-width:34px;margin:3px;padding:6px;border:1px solid #1fa35c;border-radius:10px;font-size:26px;font-weight:900;color:#c8ffe0}.sp .kl.cu{background:#1fa35c;color:#02130a}.sp .kl.dn{opacity:.35;text-decoration:line-through}.sp .kb{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.sp .kb button{font-size:38px;padding:20px 0;border-radius:18px;border:2px solid #1fa35c;background:#0b1f14;color:#7dffb0;font-weight:900}.sp .kb button:active{background:#1fa35c;color:#02130a}.shk{animation:shk .35s}@keyframes shk{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}.dos{background:#0b0f1a;border:1px solid #4f6bff;border-radius:20px;padding:18px;color:#d7e0ff;text-align:center}.dos b.big{display:block;font-size:26px;letter-spacing:2px;margin:6px 0}.dos .stamp{display:inline-block;border:3px solid #ff4d4d;color:#ff4d4d;padding:2px 12px;border-radius:8px;font-weight:900;letter-spacing:3px;transform:rotate(-6deg);margin-bottom:8px}</style>');
+const units=w=>wcodes(w).reduce((a,c)=>a+[...c].reduce((b,x)=>b+(x==='.'?1:3)+1,0)+2,0);
+const normW=(w,l)=>{w=String(w||'').trim();return l==='he'?w:w.toUpperCase()};
+const poolFor=(len,a,l)=>{const set=new Set();[...(()=>{const w=typeof WB!=='undefined'?WB[l]:null;return Array.isArray(w)?w:String(w||'').split(/\s+/)})(),...WLD[l].flatMap(x=>x[1].split(' '))].forEach(w=>{w=normW(w,l);if(w.length===len&&w!==a&&cw(w))set.add(w)});return shuf([...set])};
+function pickWord(l,theme,target,used){for(const d of [0,1,-1,2,-2]){const len=target+d;if(len<2)continue;let c=theme.filter(w=>w.length===len&&!used.has(w));if(!c.length)c=poolFor(len,'',l).filter(w=>!used.has(w));for(const a of shuf(c)){const dec=poolFor(len,a,l);if(dec.length>=3){used.add(a);return{a,d:dec.slice(0,3)}}}}return null}
+function build(){const l=L2();let t,words;for(let k=0;k<30;k++){t=WLD[l][Math.random()*WLD[l].length|0];words=t[1].split(' ').map(w=>normW(w,l)).filter(w=>cw(w));if(words.length>=4)break}
+ const used=new Set(),st=[];TY.forEach((ty,i)=>{const p=pickWord(l,words,LEN[i],used);if(p)st.push({ty,s:HQ[l][i].replace('{t}',t[0]),a:p.a,o:shuf([p.a,...p.d])})});
+ return{t:t[0],name:NM[l][Math.random()*NM[l].length|0]+'-'+String(Math.random()*90+10|0),st,i:-1,ok:0,lives:3,pk:null,combo:0,pw:{f:1,t:1},hid:[]}}
+msGen=function(){MS=build();vMs()};
+const keyTime=w=>wcodes(w).reduce((a,c)=>a+c.length*.8+1.2,5);
+function stage(){const m=MS;if(!m)return;clearInterval(m.tm);m.pk=null;m.shk=0;m.hid=[];m.twd=0;m.twc=0;const s=m.st[m.i];
+ m.ki=s.ty==='key'?{pos:0,cur:'',sh:0}:null;
+ m.tot=s.ty==='key'?keyTime(s.a):units(s.a)*1.2/S.wpm+(s.ty==='boss'?7:s.ty==='ear'?9:Math.max(6,9-m.i));m.left=m.tot;vMs();
+ if(s.ty!=='key'&&!S.silent)try{play(wcodes(s.a),lcb)}catch(e){}
+ m.tm=setInterval(()=>tick(m),100)}
+function tick(m){if(MS!==m||m.pk!==null||tab!=='play'){if(MS!==m||tab!=='play')clearInterval(m.tm);return}
+ const bar=document.getElementById('msb');if(!bar){clearInterval(m.tm);return}
+ m.left-=.1;const p=Math.max(0,m.left/m.tot);bar.style.width=Math.min(100,p*100)+'%';bar.style.background=p>.5?'#3dff8f':p>.25?'#ffd24a':'#ff4d4d';
+ const e=document.getElementById('mst');if(e)e.textContent=Math.max(0,Math.ceil(m.left))+'s';
+ if(m.left<=0)fail(m,-2)}
+function nxt(m,ms){setTimeout(()=>{if(MS!==m)return;if(m.lives<=0||m.i>=m.st.length-1)finish(m);else{m.i++;stage()}},ms)}
+function good(m,pk){clearInterval(m.tm);m.ok++;m.combo++;if(pk!==undefined)m.pk=pk;try{cc()}catch(e){}vMs();nxt(m,850)}
+function hit(m){m.lives--;m.combo=0;m.shk=1;try{navigator.vibrate&&navigator.vibrate(150)}catch(e){}}
+function fail(m,code){if(MS!==m||m.pk!==null)return;clearInterval(m.tm);hit(m);m.pk=code;vMs();m.shk=0;nxt(m,1500)}
+function answer(m,i){if(MS!==m||m.pk!==null)return;const s=m.st[m.i];if(s.o[i]===s.a){m.pk=i;good(m)}else{clearInterval(m.tm);hit(m);m.pk=i;vMs();m.shk=0;nxt(m,1500)}}
+function keyTap(m,sym){if(MS!==m||m.pk!==null||!m.ki)return;const s=m.st[m.i],ki=m.ki,ch=[...s.a][ki.pos],tg=code(FIN[ch]||ch)||'';
+ ki.cur+=sym;if(!S.silent)try{playTap([sym],lcb)}catch(e){}
+ if(!tg.startsWith(ki.cur)){hit(m);ki.cur='';ki.sh=1;if(m.lives<=0){clearInterval(m.tm);m.pk=-3;vMs();m.shk=0;nxt(m,1400);return}vMs();m.shk=0;return}
+ if(ki.cur===tg){ki.pos++;ki.cur='';ki.sh=0;if(ki.pos>=[...s.a].length)return good(m,1)}
+ vMs()}
+function finish(m){m.done=1;const n=m.st.length,win=m.lives>0,perfect=m.ok===n;m.win=win;m.grade=perfect&&m.lives===3?'S':perfect?'A':win&&m.ok>=n-1?'B':win?'C':'F';
+ m.g=m.ok*15+(win?25:0)+(perfect?20:0);m.c=win?12+5*m.lives+(perfect?15:0):0;
+ try{dqs().m++}catch(e){}
+ if(win){P.ms++;P.mt[m.t]=1;P.mr++;P.mrb=Math.max(P.mrb,P.mr);if(perfect)P.pf++;coin(m.c,X('Mission','משימה'))}else P.mr=0;
+ if(CURRM&&m.missionID){checkWeekReset();WEEKLY.xp+=CURRM.xp;WEEKLY.done[CURRM.id]=true;WEEKLY.grades[m.grade]=(WEEKLY.grades[m.grade]||0)+1;saveWeekly()}
+ xp(m.g);vMs()}
+function tw(m,txt){const idx=m.i;let k=0;const iv=setInterval(()=>{const e=document.getElementById('hq');if(!e||MS!==m||m.i!==idx||m.twc){clearInterval(iv);return}k+=2;e.textContent=txt.slice(0,k)+(k<txt.length?'▌':'');if(k>=txt.length)clearInterval(iv)},22)}
+vMs=function(){const m=MS;let h,startTw=null;
+ if(!m)h=`<div class="dos"><div class="stamp">${X('CLASSIFIED','סודי ביותר')}</div><p>${X('Ready for a mission, agent?','מוכן למשימה, סוכן?')}</p><p class="mut" style="font-size:14px">${X('Listen, tap and crack codes against the clock. 3 alerts and you are busted.','האזן, הקש ופצח קודים מול השעון. שלוש התראות ואתה נתפס.')}</p><button class="btn" data-a="xms" style="width:100%">${X('Get a mission','קבל משימה')}</button></div>`;
+ else if(m.i<0)h=`<div class="dos"><div class="stamp">${X('TOP SECRET','סודי ביותר')}</div><span class="mut">${X('Your code name','שם הקוד שלך')}</span><b class="big" dir="auto">🕵️ ${esc(m.name)}</b><p class="mut" style="margin:4px 0">${X('Operation','מבצע')}</p><b class="big" dir="auto" style="font-size:22px">${esc(m.t)}</b><p style="line-height:1.8;margin:12px 0">📡 ${X('Intercept live transmissions','יירוט שידורים חיים')}<br>⌨️ ${X('Tap codes in yourself','הקש קודים בעצמך')}<br>🎧 ${X('Go ears-only when they jam you','עבוד רק באוזניים כשמשבשים אותך')}<br>🚨 ${X('3 alerts and you are busted','3 התראות ואתה נתפס')}</p><button class="btn" data-ms="go" style="width:100%">${X('Begin infiltration','התחל חדירה')}</button></div>`;
+ else if(m.done){const G={S:'🏆',A:'🥇',B:'🥈',C:'🥉',F:'💥'}[m.grade],E=END[L2()][m.win?'w':'l'].replace('{t}',m.t).replace('{n}',m.name);const missionBonus=CURRM?`<p style="color:var(--ac);font-weight:700">🎯 Weekly League: +${CURRM.xp}XP 🪙+${CURRM.coin}</p>`:'';h=`<div class="dos"><div class="stamp" style="${m.win?'color:#3dff8f;border-color:#3dff8f':''}">${m.win?X('MISSION COMPLETE','המשימה הושלמה'):X('BUSTED','נתפסת')}</div><div style="font-size:54px">${G}</div><b class="big">${X('Grade','ציון')} ${m.grade}</b><p dir="auto" style="line-height:1.6">${esc(E)}</p><p>✅ ${m.ok}/${m.st.length} · 🚨 ${3-m.lives}/3 · +${m.g} XP${m.c?' · 🪙 +'+m.c:''}</p>${missionBonus}${CURRM?'<button class="btn" onclick="showWeeklyMissions()" style="width:100%">🏠 '+X('Back to Missions','חזרה למשימות')+'</button>':'<button class="btn" data-a="xms" style="width:100%">'+X('New mission','משימה חדשה')+'</button>'}</div>`}
+ else{const s=m.st[m.i],r=m.pk!==null,ty=s.ty,ear=ty==='ear'||ty==='boss',ki=m.ki,okR=r&&(ty==='key'?m.pk===1:m.pk>=0&&s.o[m.pk]===s.a);
+  if(m.twd)m.twc=1;else startTw=s.s;
+  const fb=r?(okR?`<div class="fb2" style="color:#3dff8f">✅ ${X('ACCESS GRANTED','גישה אושרה')}</div>`:`<div class="fb2" style="color:#ff4d4d">${m.pk===-2?'⏱️ '+X('TRACED! Out of time','אותרת! נגמר הזמן'):m.pk===-3?'🚨 '+X('ALARM! Busted','אזעקה! נתפסת'):'🚨 '+X('ALARM! Wrong code','אזעקה! קוד שגוי')}</div>${m.pk===-2||m.pk===-3||ty==='key'?`<div class="fb2" dir="auto" style="color:#ffd24a">${esc(s.a)}</div>`:''}`):'';
+  const tag={int:X('INTERCEPT','יירוט'),ear:X('EARS ONLY','רק אוזניים'),boss:X('FINAL BOSS','בוס אחרון'),key:X('KEY IT IN','הקש פנימה')}[ty];
+  const pw=r?'':`<div class="pw">${ty!=='key'?`<button class="pwb" data-ms="fifty"${m.pw.f?'':' disabled'}>🔍 ${X('50/50','50/50')}</button>`:`<button class="pwb" data-ms="kh">💡 ${X('Show pattern −3s','הצג קוד −3ש')}</button>`}<button class="pwb" data-ms="plus"${m.pw.t?'':' disabled'}>⏳ +5s</button></div>`;
+  let body;
+  if(ty==='key'){const w=[...s.a],tg=code(FIN[w[ki.pos]]||w[ki.pos])||'';body=`<div class="kw" dir="auto">${w.map((ch,i)=>`<span class="kl ${i<ki.pos?'dn':i===ki.pos&&!r?'cu':''}">${esc(ch)}</span>`).join('')}</div><div class="hm c" dir="ltr" style="min-height:44px">${ki.cur?mh(ki.cur,''):'<span style="opacity:.4">· · ·</span>'}</div>${ki.sh&&!r?`<div class="c" style="opacity:.8" dir="ltr">${mh(tg,'s')}</div>`:''}${r?'':`<div class="kb"><button data-ms="dot">●</button><button data-ms="dash">▬</button></div><div class="two" style="margin-top:8px"><button class="pwb" data-ms="del" style="padding:10px">⌫</button></div>`}`}
+  else{body=`${ear?`<div class="jam">▒▒▒ ${X('SIGNAL JAMMED','האות משובש')} ▒▒▒</div>`:`<div class="hm c" dir="ltr">${wm(s.a,'')}</div>`}${S.silent?'':`<div class="c" style="margin:6px 0"><button class="orb" data-ms="hear" aria-label="Replay"></button>${ear?`<div style="opacity:.7;font-size:12px">${X('replay costs 2s','השמעה חוזרת עולה 2ש')}</div>`:''}</div>`}${fb}<div class="opts">${s.o.map((o,i)=>`<button class="o ${r?(o===s.a?'ok':i===m.pk?'bad':''):(m.hid.includes(i)?'gone':'')}" data-ms="ans" data-i="${i}" style="font-size:22px" dir="auto">${esc(o)}</button>`).join('')}</div>`}
+  h=`<div class="sp ${m.shk?'shk':''}"><div class="spt"><span>📡 ${m.i+1}/${m.st.length} · ${tag}</span><span>${[0,1,2].map(k=>`<span style="opacity:${k<m.lives?1:.22}">🚨</span>`).join('')}</span></div><div class="spb"><i id="msb" style="width:${Math.max(0,Math.min(100,m.left/m.tot*100))}%"></i></div><div class="sps"><span id="mst">${Math.max(0,Math.ceil(m.left))}s</span>${m.combo>1?`<span>🔥 x${m.combo}</span>`:'<span></span>'}</div><p class="spp" id="hq" dir="auto">${m.twd?esc(s.s):''}</p>${pw}${body}${ty==='key'?fb:''}</div>`}
+ A.innerHTML=`<div class="wrap"><button class="btn g" data-a="back">← ${X('Back','חזרה')}</button><div style="height:12px"></div>${h}</div>`;
+ if(startTw){m.twd=1;tw(m,startTw)}};
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-ms]');if(!b)return;const m=MS;if(!m)return;const k=b.dataset.ms;
+ if(k==='go'&&m.i<0){m.i=0;stage();return}
+ if(m.i<0||m.done)return;const s=m.st[m.i];
+ if(k==='ans')answer(m,+b.dataset.i);
+ else if(k==='dot')keyTap(m,'.');
+ else if(k==='dash')keyTap(m,'-');
+ else if(k==='del'&&m.ki&&m.pk===null){m.ki.cur=m.ki.cur.slice(0,-1);vMs()}
+ else if(k==='kh'&&m.ki&&m.pk===null){m.ki.sh=1;m.left=Math.max(1,m.left-3);vMs()}
+ else if(k==='fifty'&&m.pw.f&&m.pk===null&&s.ty!=='key'){m.pw.f=0;const w=s.o.map((o,i)=>i).filter(i=>s.o[i]!==s.a);m.hid=shuf(w).slice(0,2);vMs()}
+ else if(k==='plus'&&m.pw.t&&m.pk===null){m.pw.t=0;m.tot+=5;m.left+=5;vMs()}
+ else if(k==='hear'&&s.ty!=='key'&&m.pk===null){try{play(wcodes(s.a),lcb)}catch(x){}if(s.ty==='ear'||s.ty==='boss')m.left=Math.max(1,m.left-2)}});
 })();
 </script>
 </body></html>
