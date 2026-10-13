@@ -1748,7 +1748,7 @@ function draw(){
   if(!pe){el.innerHTML=`<h3 class="h0">💬 ${X('Morse chat','צ׳אט מורס')}</h3><p class="mut c">${X("Add a friend above (step 3) and you can write him Morse messages here. When a friend writes to you, his message shows up here too, and you can answer without his code.",'הוסיפו חבר למעלה (שלב 3) ואז אפשר לכתוב לו כאן הודעות במורס. כשחבר כותב לכם, ההודעה שלו תופיע גם כאן, ואפשר לענות לו בלי הקוד שלו.')}</p>`;return}
   const ps=peers();
   {const sn=LS.get('ml_seen',{});let mx=sn[pe]||0;for(const d of Object.values(st.msgs))if(d.from===pe&&d.to===me&&d.ts>mx)mx=d.ts;if(mx!==(sn[pe]||0)){sn[pe]=mx;LS.set('ml_seen',sn)}}
-  const L=Object.entries(st.msgs).map(([id,d])=>Object.assign({id},d)).filter(d=>(d.from===me&&d.to===pe)||(d.from===pe&&d.to===me)).sort((a,b)=>b.ts-a.ts).slice(0,30);
+  const HD=LS.get('ml_del',{})||{};const L=Object.entries(st.msgs).map(([id,d])=>Object.assign({id},d)).filter(d=>!HD[d.id]&&((d.from===me&&d.to===pe)||(d.from===pe&&d.to===me))).sort((a,b)=>b.ts-a.ts).slice(0,30);
   const prev=dec(st.t.join(' ')+(st.c?' '+st.c:''),st.l);
   const b=(k,x,c)=>`<button class="btn ${c||'g'}" data-k="${k}" style="padding:12px 4px">${x}</button>`;
   el.innerHTML=`<h3 class="h0">💬 ${X('Morse chat with','צ׳אט מורס עם')} ${esc(nmOf(pe))}${(window.isFriendUid&&!isFriendUid(pe))?` <span class="mut" style="font-size:13px">(${X('not in your friends','לא ברשימת החברים')})</span>`:''}</h3>${ps.length>1?`<div class="seg" style="margin:0 0 10px">${ps.map(u=>`<button class="${u===pe?'on':''}" data-k="u:${esc(u)}">${esc(nmOf(u))}</button>`).join('')}</div>`:''}
@@ -1760,10 +1760,10 @@ function draw(){
   <div class="two">${b('d','·  '+X('dot','נקודה'),'')}${b('h','−  '+X('dash','קו'),'')}</div>
   <div class="two">${b('g',X('Next letter','אות הבאה'))}${b('w',X('Space','רווח'))}${b('b','⌫')}</div>
   <div class="two">${b('p','▶ '+X('Play','נגן'))}${b('s','📨 '+X('Send','שלח'))}</div>
-  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id]||d.free;return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(nmOf(pe))} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm" dir="ltr">${chips(d.m,sh,d.l)}</div>${sh?`<div class="tx" dir="auto">${esc(d.tx||dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח')+' 🪙'+DEC_COST)}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
+  <div style="margin-top:12px">${L.length?L.map(d=>{const mine=d.from===me,sh=mine||st.ok[d.id]||d.free;return `<div class="msg${mine?' me':''}"><div class="who">${mine?X('You','אתה'):esc(nmOf(pe))} · <b>${LN(d.l)}</b><span class="mut"> ${esc(new Date(d.ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}))}</span></div><div class="mm" dir="ltr">${chips(d.m,sh,d.l)}</div>${sh?`<div class="tx" dir="auto">${esc(d.tx||dec(d.m,d.l))}</div>`:''}<div class="two">${b('m:'+d.id,'▶ '+X('Play','נגן'))}${sh?'':b('c:'+d.id,X('Decode','פענוח')+' 🪙'+DEC_COST)}${b('x:'+d.id,st.dq===d.id?'❗ '+X('Tap again to delete','לחץ שוב למחיקה'):'🗑 '+X('Delete','מחק'))}</div></div>`}).join(''):`<p class="mut c">${X('No messages yet.','אין הודעות עדיין.')}</p>`}</div>`;
 }
 document.addEventListener('click',async e=>{
-  const b=e.target.closest('#mchat [data-k]');if(!b)return;const k=b.dataset.k;
+  const b=e.target.closest('#mchat [data-k]');if(!b)return;const k=b.dataset.k;if(k[0]!=='x')st.dq=null;
   if(k==='d'){st.c+='.';pl(st.c)}else if(k==='h'){st.c+='-';pl(st.c)}
   else if(k==='g'){flush();try{navigator.vibrate(25)}catch(e){}}
   else if(k==='w'){flush();try{navigator.vibrate([20,40,20])}catch(e){}if(st.t.length&&st.t[st.t.length-1]!=='/')st.t.push('/')}
@@ -1773,6 +1773,7 @@ document.addEventListener('click',async e=>{
   else if(k[0]==='u'&&k[1]===':'){st.peer=k.slice(2);st.t=[];st.c=''}
   else if(k[0]==='c'&&k[1]===':'){const id=k.slice(2);if(st.ok[id]||payDec())st.ok[id]=1}
   else if(k[0]==='m'&&k[1]===':'){const d=st.msgs[k.slice(2)];if(d)pl(d.m)}
+  else if(k[0]==='x'&&k[1]===':'){const id=k.slice(2),d=st.msgs[id];if(st.dq!==id){st.dq=id}else{st.dq=null;try{const hd=LS.get('ml_del',{})||{};hd[id]=1;LS.set('ml_del',hd)}catch(e){}if(d&&d.from===FBU){try{await firebase.firestore().collection('mc').doc(id).delete()}catch(err){}}toast('🗑 '+X('Message deleted','ההודעה נמחקה'))}}
   else if(k==='s'){
     flush();while(st.t.length&&st.t[st.t.length-1]==='/')st.t.pop();
     const pe=peer();if(!st.t.length||!window.FBU||!pe)return;
@@ -1787,7 +1788,7 @@ const iv=setInterval(()=>{
   if(!window.FBU||!window.firebase)return;clearInterval(iv);
   const db=firebase.firestore(),first={to:1,from:1};
   ['to','from'].forEach(f=>db.collection('mc').where(f,'==',FBU).onSnapshot(s=>{
-    s.docChanges().forEach(c=>{if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;remN(d.from,d.nm);
+    s.docChanges().forEach(c=>{if(c.type==='removed'){delete st.msgs[c.doc.id];return}if(c.type!=='added')return;const d=c.doc.data();st.msgs[c.doc.id]=d;remN(d.from,d.nm);
       if(f==='to'&&!first.to){window.NM={u:d.from};toast('💬 '+nmOf(d.from)+' · '+LN(d.l));try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}}});
     first[f]=0;draw();try{const e=document.getElementById('frbd');if(e){const n=frCount();e.textContent=n;e.style.display=n?'':'none'}}catch(e){}try{if(tab==='chat'&&CM==='ai'&&!AIB)vChat()}catch(e){}},()=>{}));
 },500);
